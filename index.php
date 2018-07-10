@@ -10,6 +10,14 @@
   </head>
   <body>
     <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1">Events</span>
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </nav>
       <br>
       <header>
         <h1 class="text-center">Events</h1>
