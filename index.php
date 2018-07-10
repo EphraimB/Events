@@ -10,7 +10,10 @@
   </head>
   <body>
     <div class="container">
-      
+      <br>
+      <header>
+        <h1 class="text-center">Events</h1>
+      </header>
     </div>
   </body>
 </html>
