@@ -22,6 +22,9 @@
       <header>
         <h1 class="text-center">Events</h1>
       </header>
+      <main>
+        
+      </main>
     </div>
   </body>
 </html>
