@@ -95,7 +95,7 @@ function login(){
   if(empty($username_err) && empty($password_err)){
     $encrypt_password = md5($password);
 
-    $loginQuery = "SELECT username, password FROM users WHERE username=$username";
+    $loginQuery = "SELECT username, password FROM users WHERE username=$username AND password=$encrypt_password LIMIT 1";
     $resultLoginQuery = mysqli_query($link, $loginQuery);
   }
 
