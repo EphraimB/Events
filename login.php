@@ -1,11 +1,3 @@
-<?php
-// Include config file
-require_once 'config.php';
-
-
-
-?>
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -27,20 +19,20 @@ require_once 'config.php';
       <br>
       <br>
       <main>
-        <form>
+        <form action="server.php" method="post">
           <div class="form-group text-center">
             <label class="font-weight-bold">Username:</label>
             <input type="text" class="form-control" name="username">
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Password:</label>
-            <input type="password" class="form-control" name="confirmPassword">
+            <input type="password" class="form-control" name="password">
           </div>
           <br>
           <p>If you didn't make an account yet: <a href="register.php">Register</a></p>
           <br>
           <div class="text-center">
-            <button type="register" class="btn btn-primary">Submit</button>
+            <button type="register" class="btn btn-primary" name="login_btn">Submit</button>
           </div>
         </form>
       </main>

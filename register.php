@@ -1,13 +1,3 @@
-<?php
-
-session_start();
-
-require_once 'config.php';
-
-
-
-?>
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -28,18 +18,18 @@ require_once 'config.php';
       </header>
       <br>
       <main>
-        <form>
+        <form action="server.php" method="post">
           <div class="form-group text-center">
             <label class="font-weight-bold">Username:</label>
             <input type="text" class="form-control" name="username">
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Password:</label>
-            <input type="password" class="form-control" name="confirmPassword">
+            <input type="password" class="form-control" name="password">
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Confirm Password:</label>
-            <input type="password" class="form-control" name="password">
+            <input type="password" class="form-control" name="confirm_password">
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Email:</label>
@@ -47,7 +37,7 @@ require_once 'config.php';
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Confirm Email:</label>
-            <input type="email" class="form-control" name="confirmEmail">
+            <input type="email" class="form-control" name="confirm_email">
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Birthday:</label>
@@ -57,7 +47,7 @@ require_once 'config.php';
           <p>If you already made an account: <a href="login.php">Login</a></p>
           <br>
           <div class="text-center">
-            <button type="register" class="btn btn-primary">Submit</button>
+            <button type="register" class="btn btn-primary" name="register_btn">Submit</button>
           </div>
         </form>
       </main>
