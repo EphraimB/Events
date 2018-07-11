@@ -23,8 +23,25 @@ require_once 'config.php';
       <header>
         <h1 class="text-center">Login</h1>
       </header>
+      <br>
+      <br>
       <main>
-
+        <form>
+          <div class="form-group text-center">
+            <label class="font-weight-bold">Username:</label>
+            <input type="text" class="form-control" name="username">
+          </div>
+          <div class="form-group text-center">
+            <label class="font-weight-bold">Password:</label>
+            <input type="password" class="form-control" name="confirmPassword">
+          </div>
+          <br>
+          <p>If you didn't make an account yet: <a href="register.php">Register</a></p>
+          <br>
+          <div class="text-center">
+            <button type="register" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
       </main>
     </div>
   </body>
