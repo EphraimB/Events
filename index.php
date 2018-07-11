@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+
+if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
+  header("location: login.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -24,7 +34,7 @@
             </li>
           </ul>
           <ul class="mr-right">
-            
+
           </ul>
         </div>
       </nav>
