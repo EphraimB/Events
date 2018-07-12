@@ -51,7 +51,7 @@
             <input type="date" class="form-control text-center" name="birthday">
           </div>
           <br>
-          <p>If you already made an account: <a href="login.php">Login</a></p>
+          <p>If you already have an account: <a href="login.php">Login</a></p>
           <br>
           <div class="text-center">
             <button type="register" class="btn btn-primary" name="register_btn">Submit</button>
