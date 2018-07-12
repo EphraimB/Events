@@ -127,7 +127,7 @@ function register(){
   }
 
   if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err) && empty($confirm_email_err) && empty($birthday_err)){
-    $encrypt_password = md5($password);
+    $encrypt_password = password_hash($password, PASSWORD_DEFAULT);
 
     $registerQuery = "INSERT INTO users(username, password, email, birthday)
               VALUES ('$username', '$encrypt_password', '$email', '$birthday')";
@@ -170,20 +170,22 @@ function login(){
   }
 
   if(empty($username_err) && empty($password_err)){
-    $encrypt_password = md5($password);
+    $verify_encrypt_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $loginQuery = "SELECT * FROM users WHERE username='$username' AND password='$encrypt_password'";
+    $loginQuery = "SELECT * FROM users WHERE username='$username'";
     $resultLoginQuery = mysqli_query($link, $loginQuery);
 
     if($resultLoginQuery){
       if(mysqli_num_rows($resultLoginQuery) == 1){
-        $_SESSION['username'] = $username;
-        unset($_SESSION['login_error']);
-        header("location: index.php");
-      }
-      else{
-        $_SESSION['login_error'] = "Wrong Username/Password combination.";
-        header("location: login.php");
+        if(password_verify($password, mysqli_fetch_array($resultLoginQuery)[2])){
+          $_SESSION['username'] = $username;
+          unset($_SESSION['login_error']);
+          header("location: index.php");
+        }
+        else{
+          $_SESSION['login_error'] = "Wrong Username/Password combination.";
+          header("location: login.php");
+        }
       }
       mysqli_close($link);
     }
