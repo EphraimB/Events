@@ -20,7 +20,7 @@ function register(){
 
   if(empty(trim($_POST["username"]))){
     $username_err = "Please enter a username.";
-    $_SESSION['error'] = $username_err;
+    $_SESSION['reg_error'] = $username_err;
     header("location: register.php");
   }
   else{
@@ -29,7 +29,7 @@ function register(){
 
   if(empty(trim($_POST['password']))){
     $password_err = "Please enter a password.";
-    $_SESSION['error'] = $password_err;
+    $_SESSION['reg_error'] = $password_err;
     header("location: register.php");
   }
   else{
@@ -38,7 +38,7 @@ function register(){
 
   if(empty(trim($_POST["confirm_password"]))){
     $confirm_password_err = 'Please confirm password.';
-    $_SESSION['error'] = $confirm_password_err;
+    $_SESSION['reg_error'] = $confirm_password_err;
     header("location: register.php");
   }
   else{
@@ -47,7 +47,7 @@ function register(){
 
   if(empty(trim($_POST['email']))){
     $email_err = "Please enter your email.";
-    $_SESSION['error'] = $email_err;
+    $_SESSION['reg_error'] = $email_err;
     header("location: register.php");
   }
   else{
@@ -56,7 +56,7 @@ function register(){
 
   if(empty(trim($_POST["confirm_email"]))){
     $confirm_email_err = 'Please confirm your email.';
-    $_SESSION['error'] = $confirm_email_err;
+    $_SESSION['reg_error'] = $confirm_email_err;
     header("location: register.php");
   }
   else{
@@ -65,11 +65,65 @@ function register(){
 
   if(empty(trim($_POST['birthday']))){
     $birthday_err = "Please enter your birthday.";
-    $_SESSION['error'] = $birthday_err;
+    $_SESSION['reg_error'] = $birthday_err;
     header("location: register.php");
   }
   else{
     $birthday = trim($_POST['birthday']);
+  }
+
+  if(empty(trim($_POST['confirm_password'])) && empty(trim($_POST['confirm_email']))){
+    $confirm_password_email_err = "Please confirm your password, and email.";
+    $_SESSION['reg_error'] = $confirm_password_email_err;
+    header("location: register.php");
+  }
+
+  if(empty(trim($_POST["username"])) && empty(trim($_POST['confirm_password']))){
+    $username_confirm_password_err = "Please enter your username and confirm your password.";
+    $_SESSION['reg_error'] = $username_confirm_password_err;
+    header("location: register.php");
+  }
+
+  if(empty(trim($_POST["username"])) && empty(trim($_POST['confirm_email']))){
+    $username_confirm_email_err = "Please enter your username and confirm your email.";
+    $_SESSION['reg_error'] = $username_confirm_email_err;
+    header("location: register.php");
+  }
+
+  if(empty(trim($_POST["username"])) && empty(trim($_POST['confirm_password'])) && empty(trim($_POST['confirm_email']))){
+    $username_confirm_password_email_err = "Please enter your username and confirm your password, and email.";
+    $_SESSION['reg_error'] = $username_confirm_password_email_err;
+    header("location: register.php");
+  }
+
+  if(empty(trim($_POST['email'])) && empty(trim($_POST['birthday']))){
+    $email_birthday_err = "Please enter your email, and birthday.";
+    $_SESSION['reg_error'] = $email_birthday_err;
+    header("location: register.php");
+  }
+
+  if(empty(trim($_POST['password'])) && empty(trim($_POST['email'])) && empty(trim($_POST['birthday']))){
+    $password_email_birthday_err = "Please enter your password, email, and birthday.";
+    $_SESSION['reg_error'] = $password_email_birthday_err;
+    header("location: register.php");
+  }
+
+  if(empty(trim($_POST["username"])) && empty(trim($_POST['password']))){
+    $username_password_err = "Please enter your username, and password.";
+    $_SESSION['reg_error'] = $username_password_err;
+    header("location: register.php");
+  }
+
+  if(empty(trim($_POST["username"])) && empty(trim($_POST['password'])) && empty(trim($_POST['email']))){
+    $username_password_email_err = "Please enter your username, password, and email.";
+    $_SESSION['reg_error'] = $username_password_email_err;
+    header("location: register.php");
+  }
+
+  if(empty(trim($_POST["username"])) && empty(trim($_POST['password'])) && empty(trim($_POST['email'])) && empty(trim($_POST['birthday']))){
+    $username_password_email_birthday_err = "Please enter your username, password, email, and birthday.";
+    $_SESSION['reg_error'] = $username_password_email_birthday_err;
+    header("location: register.php");
   }
 
   if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err) && empty($confirm_email_err) && empty($birthday_err)){
@@ -81,7 +135,7 @@ function register(){
   }
 
   if($resultRegisterQuery){
-    unset($_SESSION['error']);
+    unset($_SESSION['reg_error']);
     header("location: login.php");
 
     mysqli_close($link);
@@ -93,7 +147,7 @@ function login(){
 
   if(empty(trim($_POST["username"]))){
     $username_err = "Please enter a username.";
-    $_SESSION['error'] = $username_err;
+    $_SESSION['login_error'] = $username_err;
     header("location: login.php");
   }
   else{
@@ -102,7 +156,7 @@ function login(){
 
   if(empty(trim($_POST['password']))){
     $password_err = "Please enter a password.";
-    $_SESSION['error'] = $password_err;
+    $_SESSION['login_error'] = $password_err;
     header("location: login.php");
   }
   else{
@@ -111,7 +165,7 @@ function login(){
 
   if(empty(trim($_POST["username"])) && empty(trim($_POST['password']))){
     $username_password_err = "Please enter a username and password.";
-    $_SESSION['error'] = $username_password_err;
+    $_SESSION['login_error'] = $username_password_err;
     header("location: login.php");
   }
 
@@ -124,11 +178,11 @@ function login(){
     if($resultLoginQuery){
       if(mysqli_num_rows($resultLoginQuery) == 1){
         $_SESSION['username'] = $username;
-        unset($_SESSION['error']);
+        unset($_SESSION['login_error']);
         header("location: index.php");
       }
       else{
-        $_SESSION['error'] = "Wrong Username/Password combination.";
+        $_SESSION['login_error'] = "Wrong Username/Password combination.";
         header("location: login.php");
       }
       mysqli_close($link);

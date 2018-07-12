@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -20,9 +24,9 @@
       <main>
         <form action="server.php" method="post">
           <?php
-            if(isset($_SESSION['error'])){
+            if(isset($_SESSION['reg_error'])){
               echo '<div class="alert alert-danger" role="alert">';
-                echo $_SESSION['error'];
+                echo $_SESSION['reg_error'];
               echo '</div>';
             }
           ?>
