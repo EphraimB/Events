@@ -19,6 +19,13 @@
       <br>
       <main>
         <form action="server.php" method="post">
+          <?php
+            if(isset($_SESSION['error'])){
+              echo '<div class="alert alert-danger" role="alert">';
+                echo $_SESSION['error'];
+              echo '</div>';
+            }
+          ?>
           <div class="form-group text-center">
             <label class="font-weight-bold">Username:</label>
             <input type="text" class="form-control" name="username">

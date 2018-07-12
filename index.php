@@ -34,7 +34,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
             </li>
           </ul>
           <ul class="mr-right">
-
+            
           </ul>
         </div>
       </nav>

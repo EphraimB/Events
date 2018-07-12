@@ -20,6 +20,8 @@ function register(){
 
   if(empty(trim($_POST["username"]))){
     $username_err = "Please enter a username.";
+    $_SESSION['error'] = $username_err;
+    header("location: register.php");
   }
   else{
     $username = trim($_POST["username"]);
@@ -69,6 +71,7 @@ function register(){
   }
 
   if($resultRegisterQuery){
+    unset($_SESSION['error']);
     header("location: login.php");
 
     mysqli_close($link);
@@ -80,6 +83,8 @@ function login(){
 
   if(empty(trim($_POST["username"]))){
     $username_err = "Please enter a username.";
+    $_SESSION['error'] = $username_err;
+    header("location: login.php");
   }
   else{
     $username = trim($_POST["username"]);
@@ -87,26 +92,40 @@ function login(){
 
   if(empty(trim($_POST['password']))){
     $password_err = "Please enter a password.";
+    $_SESSION['error'] = $password_err;
+    header("location: login.php");
   }
   else{
     $password = trim($_POST['password']);
   }
 
+  if(empty(trim($_POST["username"])) && empty(trim($_POST['password']))){
+    $username_password_err = "Please enter a username and password.";
+    $_SESSION['error'] = $username_password_err;
+    header("location: login.php");
+  }
+
   if(empty($username_err) && empty($password_err)){
     $encrypt_password = md5($password);
 
-    $loginQuery = "SELECT username, password FROM users WHERE username=$username AND password=$encrypt_password LIMIT 1";
+    $loginQuery = "SELECT * FROM users WHERE username='$username' AND password='$encrypt_password'";
     $resultLoginQuery = mysqli_query($link, $loginQuery);
-  }
 
-  if($resultLoginQuery){
-    $_SESSION['username'] = $username;
-    header("location: index.php");
-
-    mysqli_close($link);
-  }
-  else{
-    echo "Problem";
+    if($resultLoginQuery){
+      if(mysqli_num_rows($resultLoginQuery) == 1){
+        $_SESSION['username'] = $username;
+        unset($_SESSION['error']);
+        header("location: index.php");
+      }
+      else{
+        $_SESSION['error'] = "Wrong Username/Password combination.";
+        header("location: login.php");
+      }
+      mysqli_close($link);
+    }
+    else{
+      echo "Problem";
+    }
   }
 }
 
