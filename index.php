@@ -2,6 +2,12 @@
 
 session_start();
 
+if (isset($_GET['logout'])) {
+	session_destroy();
+	unset($_SESSION['username']);
+	header("location: login.php");
+}
+
 if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
   header("location: login.php");
 }
@@ -33,8 +39,14 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
           </ul>
-          <ul class="mr-right">
-            
+          <ul class="navbar-nav mr-right">
+            <span class="nav-item material-icons">account_circle</span>
+            <div class="dropdown">
+              <a class="dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&nbsp;<?php echo $_SESSION['username']; ?></a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="index.php?logout=1">Logout</a>
+              </div>
+            </div>
           </ul>
         </div>
       </nav>

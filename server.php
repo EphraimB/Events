@@ -29,6 +29,8 @@ function register(){
 
   if(empty(trim($_POST['password']))){
     $password_err = "Please enter a password.";
+    $_SESSION['error'] = $password_err;
+    header("location: register.php");
   }
   else{
     $password = trim($_POST['password']);
@@ -36,6 +38,8 @@ function register(){
 
   if(empty(trim($_POST["confirm_password"]))){
     $confirm_password_err = 'Please confirm password.';
+    $_SESSION['error'] = $confirm_password_err;
+    header("location: register.php");
   }
   else{
     $confirm_password = trim($_POST['confirm_password']);
@@ -43,6 +47,8 @@ function register(){
 
   if(empty(trim($_POST['email']))){
     $email_err = "Please enter your email.";
+    $_SESSION['error'] = $email_err;
+    header("location: register.php");
   }
   else{
     $email = trim($_POST['email']);
@@ -50,6 +56,8 @@ function register(){
 
   if(empty(trim($_POST["confirm_email"]))){
     $confirm_email_err = 'Please confirm your email.';
+    $_SESSION['error'] = $confirm_email_err;
+    header("location: register.php");
   }
   else{
     $confirm_email = trim($_POST['confirm_email']);
@@ -57,6 +65,8 @@ function register(){
 
   if(empty(trim($_POST['birthday']))){
     $birthday_err = "Please enter your birthday.";
+    $_SESSION['error'] = $birthday_err;
+    header("location: register.php");
   }
   else{
     $birthday = trim($_POST['birthday']);
