@@ -27,7 +27,7 @@ session_start();
           <?php
             if(isset($_SESSION['login_error'])){
               echo '<div class="alert alert-danger" role="alert">';
-                echo $_SESSION['error'];
+                echo $_SESSION['login_error'];
               echo '</div>';
             }
           ?>
