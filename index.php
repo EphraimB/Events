@@ -24,6 +24,9 @@ $email = mysqli_fetch_array($emailResult)[0];
 
 $email_hash = md5(strtolower(trim($email)));
 
+$query = "SELECT * FROM events, userEvents, users WHERE username='$session_username'";
+$result = mysqli_query($link, $query);
+
 ?>
 
 <!DOCTYPE html>
@@ -68,9 +71,43 @@ $email_hash = md5(strtolower(trim($email)));
         <h1 class="text-center">Events</h1>
       </header>
       <main>
+        <?php
+          while($row = mysqli_fetch_array($result)){
+            $title = $row['title'];
+            $description = $row['description'];
+            $date = $row['date'];
+          }
 
+          if(mysqli_num_rows($result) == 1){
+        ?>
+        <div class="row">
+          <div class="col">Title</div>
+          <div class="col">Description</div>
+          <div class="col">Date</div>
+        </div>
+
+        <div class="row">
+          <div class="col"><? echo $title ?></div>
+          <div class="col"><? echo $description ?></div>
+          <div class="col"><? echo $date ?></div>
+        </div>
+        <?php
+          }
+          else{
+            echo "
+            <br>
+            <br>
+            <p class='text-lead text-center'>No events</p>";
+          }
+        ?>
+        <br>
+        <br>
+        <div class="text-center text-white">
+          <a class="btn btn-primary">Add event</a>
+        </div>
       </main>
     </div>
+
     <script src="js/script.js"></script>
   </body>
 </html>
