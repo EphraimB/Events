@@ -68,55 +68,11 @@ $result = mysqli_query($link, $query);
       </nav>
       <br>
       <header>
-        <h1 class="text-center">Events</h1>
+        <h1 class="text-center">Add event</h1>
       </header>
       <main>
-        <?php
-          while($row = mysqli_fetch_array($result)){
-            $title = $row['title'];
-            $description = $row['description'];
-            $date = $row['date'];
-            $location = $row['location'];
-            $startDate = $row['startDate'];
-            $endDate = $row['endDate'];
-          }
-
-          if(mysqli_num_rows($result) == 1){
-        ?>
-        <div class="row">
-          <div class="col">Title</div>
-          <div class="col">Description</div>
-          <div class="col">Date</div>
-          <div class="col">Location</div>
-          <div class="col">Start date</div>
-          <div class="col">End date</div>
-        </div>
-
-        <div class="row">
-          <div class="col"><? echo $title ?></div>
-          <div class="col"><? echo $description ?></div>
-          <div class="col"><? echo $date ?></div>
-          <div class="col"><? echo $location ?></div>
-          <div class="col"><? echo $startDate ?></div>
-          <div class="col"><? echo $endDate ?></div>
-        </div>
-        <?php
-          }
-          else{
-            echo "
-            <br>
-            <br>
-            <p class='text-lead text-center'>No events</p>";
-          }
-        ?>
-        <br>
-        <br>
-        <div class="text-center text-white">
-          <a class="btn btn-primary" href="addEvent.php">Add event</a>
-        </div>
+        
       </main>
     </div>
-
-    <script src="js/script.js"></script>
   </body>
 </html>
