@@ -180,12 +180,21 @@ function login(){
         $_SESSION['login_error'] = "Wrong Username/Password combination.";
         header("location: login.php");
       }
-      
+
       if(mysqli_num_rows($resultLoginQuery) == 1){
         if(password_verify($password, mysqli_fetch_array($resultLoginQuery)[2])){
-          $_SESSION['username'] = $username;
-          unset($_SESSION['login_error']);
-          header("location: index.php");
+          $updateQuery = "UPDATE users SET lastLogin=now() WHERE username='$username'";
+          $resultUpdateQuery = mysqli_query($link, $updateQuery);
+
+          if($resultUpdateQuery){
+            $_SESSION['username'] = $username;
+            unset($_SESSION['login_error']);
+            header("location: index.php");
+          }
+          else{
+            $_SESSION['login_error'] = "An error occured.";
+            header("location: login.php");
+          }
         }
         else{
           $_SESSION['login_error'] = "Wrong Username/Password combination.";
