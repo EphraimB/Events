@@ -129,8 +129,8 @@ function register(){
   if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err) && empty($confirm_email_err) && empty($birthday_err)){
     $encrypt_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $registerQuery = "INSERT INTO users(username, password, email, birthday)
-              VALUES ('$username', '$encrypt_password', '$email', '$birthday')";
+    $registerQuery = "INSERT INTO users(username, password, email, birthday, createdAt)
+              VALUES ('$username', '$encrypt_password', '$email', '$birthday', now())";
     $resultRegisterQuery = mysqli_query($link, $registerQuery);
   }
 
@@ -176,6 +176,11 @@ function login(){
     $resultLoginQuery = mysqli_query($link, $loginQuery);
 
     if($resultLoginQuery){
+      if(mysqli_num_rows($resultLoginQuery) == 0){
+        $_SESSION['login_error'] = "Wrong Username/Password combination.";
+        header("location: login.php");
+      }
+      
       if(mysqli_num_rows($resultLoginQuery) == 1){
         if(password_verify($password, mysqli_fetch_array($resultLoginQuery)[2])){
           $_SESSION['username'] = $username;
@@ -190,7 +195,8 @@ function login(){
       mysqli_close($link);
     }
     else{
-      echo "Problem";
+      $_SESSION['login_error'] = "An error occured.";
+      header("location: login.php");
     }
   }
 }
