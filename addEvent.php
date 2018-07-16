@@ -70,8 +70,35 @@ $result = mysqli_query($link, $query);
       <header>
         <h1 class="text-center">Add event</h1>
       </header>
+      <br>
+      <br>
       <main>
-        
+        <form action="createEvent.php" method="post">
+          <div class="form-group text-center">
+            <label class="font-weight-bold">Title</label>
+            <input type="text" class="form-control">
+          </div>
+          <div class="form-group text-center">
+            <label class="font-weight-bold">Description</label>
+            <input type="text" class="form-control">
+          </div>
+          <div class="form-group text-center">
+            <label class="font-weight-bold">Location</label>
+            <input type="text" class="form-control">
+          </div>
+          <div class="form-group text-center">
+            <label class="font-weight-bold">Start date</label>
+            <input type="date" class="form-control text-center">
+          </div>
+          <div class="form-group text-center">
+            <label class="font-weight-bold">End date</label>
+            <input type="date" class="form-control text-center">
+          </div>
+          <br>
+          <div class="text-center">
+            <button type="register" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
       </main>
     </div>
   </body>
