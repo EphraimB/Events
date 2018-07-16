@@ -2,15 +2,27 @@
 
 session_start();
 
+require_once 'config.php';
+
+
+$session_username = $_SESSION['username'];
+
 if (isset($_GET['logout'])) {
 	session_destroy();
-	unset($_SESSION['username']);
+	unset($session_username);
 	header("location: login.php");
 }
 
-if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
+if(!isset($session_username) || empty($session_username)){
   header("location: login.php");
 }
+
+$emailQuery = "SELECT email FROM users WHERE username='$session_username'";
+$emailResult = mysqli_query($link, $emailQuery);
+
+$email = mysqli_fetch_array($emailResult)[0];
+
+$email_hash = md5(strtolower(trim($email)));
 
 ?>
 
@@ -25,6 +37,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <div class="container">
@@ -42,7 +55,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
           </ul>
           <ul class="navbar-nav mr-right">
             <div class="dropdown">
-              <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="material-icons align-middle">account_circle</span>&nbsp;<?php echo $_SESSION['username']; ?></a>
+              <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<? echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
@@ -58,5 +71,6 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 
       </main>
     </div>
+    <script src="js/script.js"></script>
   </body>
 </html>
