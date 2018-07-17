@@ -7,8 +7,8 @@ require_once 'config.php';
 $username = $password = $confirm_password = $email = $confirm_email = $birthday = "";
 $username_err = $password_err = $confirm_password_err = $email_err = $confirm_email_err = $birthday_err = "";
 
-$title = $description = $location = $startDate = $endDate = "";
-$title_err = $description_err = $location_err = $startDate_err = $endDate_err = "";
+$title = $description = $location = $startDate = $startTime = $endDate = $endTime = "";
+$title_err = $description_err = $location_err = $startDate_err = $startTime_err = $endDate_err = $endTime_err = "";
 
 if(isset($_POST['register_btn'])){
   register();
@@ -256,6 +256,15 @@ function addEvent(){
     $startDate = trim($_POST["startDate"]);
   }
 
+  if(empty(trim($_POST["startTime"]))){
+    $startTime_err = "Enter a start time.";
+    $_SESSION['addEvent_error'] = $startTime_err;
+    header("location: addEvent.php");
+  }
+  else{
+    $startTime = trim($_POST["startTime"]);
+  }
+
   if(empty(trim($_POST["endDate"]))){
     $endDate_err = "Enter a end date.";
     $_SESSION['addEvent_error'] = $endDate_err;
@@ -263,6 +272,15 @@ function addEvent(){
   }
   else{
     $endDate = trim($_POST["endDate"]);
+  }
+
+  if(empty(trim($_POST["endTime"]))){
+    $endTime_err = "Enter a end time.";
+    $_SESSION['addEvent_error'] = $endTime_err;
+    header("location: addEvent.php");
+  }
+  else{
+    $endTime = trim($_POST["endTime"]);
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["description"]))){
@@ -391,8 +409,20 @@ function addEvent(){
     header("location: addEvent.php");
   }
 
-  if(empty($title_err) && empty($description_err) && empty($location_err) && empty($startDate_err) && empty($endDate_err)){
-    echo "Successful";
+  if(empty($title_err) && empty($description_err) && empty($location_err) && empty($startDate_err) && empty($startTime_err) && empty($endDate_err) && empty($endTime_err)){
+    $startDateTime = $startDate.' '.$startTime;
+    $endDateTime = $endDate.' '.$endTime;
+
+    $addEvent_query = "INSERT INTO events(title, description, location, startDate, endDate)
+                    VALUES ('$title', '$description', '$location', '$startDateTime', '$endDateTime')";
+    $addEvent_result = mysqli_query($link, $addEvent_query);
+  }
+
+  if($addEvent_result){
+    unset($_SESSION['addEvent_error']);
+    header("location: index.php");
+
+    mysqli_close($link);
   }
 }
 

@@ -94,12 +94,18 @@ $result = mysqli_query($link, $query);
             <input type="text" class="form-control" name="location">
           </div>
           <div class="form-group text-center">
-            <label class="font-weight-bold">Start date</label>
-            <input type="date" class="form-control text-center" name="startDate">
+            <label class="font-weight-bold">Start date &amp; time</label>
+            <div class="form-row">
+              <input type="date" class="form-control text-center col-6" name="startDate">
+              <input type="time" class="form-control text-center col-6" name="startTime">
+            </div>
           </div>
           <div class="form-group text-center">
-            <label class="font-weight-bold">End date</label>
-            <input type="date" class="form-control text-center" name="endDate">
+            <label class="font-weight-bold">End date &amp; time</label>
+            <div class="form-row">
+              <input type="date" class="form-control text-center col-6" name="endDate">
+              <input type="time" class="form-control text-center col-6" name="endTime">
+            </div>
           </div>
           <br>
           <div class="text-center">
