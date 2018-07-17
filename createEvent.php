@@ -182,4 +182,8 @@ if(empty(trim($_POST["title"])) && empty(trim($_POST["description"])) && empty(t
   header("location: addEvent.php");
 }
 
+if(empty($title_err) && empty($description_err) && empty($location_err) && empty($startDate_err) && empty($endDate_err)){
+  echo "Successful";
+}
+
 ?>
