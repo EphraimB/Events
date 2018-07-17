@@ -73,7 +73,7 @@ $result = mysqli_query($link, $query);
       <br>
       <br>
       <main>
-        <form action="createEvent.php" method="post">
+        <form action="server.php" method="post">
           <?php
             if(isset($_SESSION['addEvent_error'])){
               echo '<div class="alert alert-danger" role="alert">';
@@ -103,7 +103,7 @@ $result = mysqli_query($link, $query);
           </div>
           <br>
           <div class="text-center">
-            <button type="register" class="btn btn-primary" name="submit_button">Submit</button>
+            <button type="register" class="btn btn-primary" name="addEvent_button">Submit</button>
           </div>
         </form>
       </main>
