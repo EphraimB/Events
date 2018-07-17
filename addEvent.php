@@ -74,29 +74,36 @@ $result = mysqli_query($link, $query);
       <br>
       <main>
         <form action="createEvent.php" method="post">
+          <?php
+            if(isset($_SESSION['addEvent_error'])){
+              echo '<div class="alert alert-danger" role="alert">';
+                echo $_SESSION['addEvent_error'];
+              echo '</div>';
+            }
+          ?>
           <div class="form-group text-center">
             <label class="font-weight-bold">Title</label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" name="title">
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Description</label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" name="description">
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Location</label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" name="location">
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Start date</label>
-            <input type="date" class="form-control text-center">
+            <input type="date" class="form-control text-center" name="startDate">
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">End date</label>
-            <input type="date" class="form-control text-center">
+            <input type="date" class="form-control text-center" name="endDate">
           </div>
           <br>
           <div class="text-center">
-            <button type="register" class="btn btn-primary">Submit</button>
+            <button type="register" class="btn btn-primary" name="submit_button">Submit</button>
           </div>
         </form>
       </main>
