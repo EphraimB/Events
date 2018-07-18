@@ -574,13 +574,14 @@ function addEvent(){
     ini_set("allow_url_fopen", 1);
 
     $json = file_get_contents('http://www.mapquestapi.com/geocoding/v1/address?key=yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT&location=115+Broadway+New+York,NY,10006');
-    $obj = json_decode($json['displayLatLng']);
-    echo var_dump($obj);
+    $obj = json_decode($json, true);
 
+    $latitude = $obj["results"][0]["locations"][0]["latLng"]["lat"];
+    $longitude = $obj["results"][0]["locations"][0]["latLng"]["lng"];
 
-    //$locationCoordinates = json_decode($result, true);
+    echo $latitude.', '.$longitude;
 
-    //echo var_dump($locationCoordinates);
+    //$locationCoordinates = $latitude.', '.$longitude;
 
     /*$addEvent_query = "INSERT INTO events(title, description, location, startDate, endDate)
                     VALUES ('$title', '$description', '$locationCoordinates', '$startDateTime', '$endDateTime')";
