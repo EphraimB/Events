@@ -579,13 +579,11 @@ function addEvent(){
     $latitude = $obj["results"][0]["locations"][0]["latLng"]["lat"];
     $longitude = $obj["results"][0]["locations"][0]["latLng"]["lng"];
 
-    echo $latitude.', '.$longitude;
+    $locationCoordinates = $latitude.', '.$longitude;
 
-    //$locationCoordinates = $latitude.', '.$longitude;
-
-    /*$addEvent_query = "INSERT INTO events(title, description, location, startDate, endDate)
-                    VALUES ('$title', '$description', '$locationCoordinates', '$startDateTime', '$endDateTime')";
-    $addEvent_result = mysqli_query($link, $addEvent_query);*/
+    $addEvent_query = "INSERT INTO events(title, description, location, startDate, endDate)
+                    VALUES ('$title', '$description', POINT('$latitude', '$longitude'), '$startDateTime', '$endDateTime')";
+    $addEvent_result = mysqli_query($link, $addEvent_query);
   }
 
   if($addEvent_result){
