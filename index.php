@@ -82,22 +82,8 @@ $result = mysqli_query($link, $query);
       <main>
         <?php
         if(mysqli_num_rows($result) > 0){
-          while($row = mysqli_fetch_array($result)){
-            $title = $row['title'];
-            $description = $row['description'];
-            $location = $row['location'];
-            $startDate = $row['startDate'];
-            $endDate = $row['endDate'];
 
-            ini_set("allow_url_fopen", 1);
-
-            $json = file_get_contents('http://www.mapquestapi.com/geocoding/v1/address?key=yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT&location='.urlencode($location));
-            $obj = json_decode($json, true);
-
-            $mapUrl = $obj["results"][0]["locations"][0]["mapUrl"];
-          }
         ?>
-
         <br>
         <br>
         <div class="row font-weight-bold mb-4">
@@ -108,6 +94,23 @@ $result = mysqli_query($link, $query);
           <div class="col">End date</div>
         </div>
 
+        <?php
+        while($row = mysqli_fetch_array($result)){
+          $title = $row['title'];
+          $description = $row['description'];
+          $location = $row['location'];
+          $startDate = $row['startDate'];
+          $endDate = $row['endDate'];
+
+          ini_set("allow_url_fopen", 1);
+
+          $json = file_get_contents('http://www.mapquestapi.com/geocoding/v1/address?key=yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT&location='.urlencode($location));
+          $obj = json_decode($json, true);
+
+          $mapUrl = $obj["results"][0]["locations"][0]["mapUrl"];
+
+          ?>
+
         <div class="row mb-4">
           <div class="col"><? echo $title ?></div>
           <div class="col"><? echo $description ?></div>
@@ -116,6 +119,7 @@ $result = mysqli_query($link, $query);
           <div class="col"><? echo $endDate ?></div>
         </div>
         <?php
+          }
           }
           else{
             echo "
