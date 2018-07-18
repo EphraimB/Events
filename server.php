@@ -554,7 +554,7 @@ function addEvent(){
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["description"])) && empty(trim($_POST["location"])) && empty(trim($_POST["startDate"])) && empty(trim($_POST["endTime"]))){
-    $title_description_location_startDate_endTime_err = "Enter a title, description, location, start date, and end time.";
+    $title_description_location_startDate_endTime_err = "Enter a title, description, location, start date, start time, end date, and end time.";
     $_SESSION['addEvent_error'] = $title_description_location_startDate_endTime_err;
     header("location: addEvent.php");
   }
@@ -563,9 +563,28 @@ function addEvent(){
     $startDateTime = $startDate.' '.$startTime;
     $endDateTime = $endDate.' '.$endTime;
 
-    $addEvent_query = "INSERT INTO events(title, description, location, startDate, endDate)
-                    VALUES ('$title', '$description', '$location', '$startDateTime', '$endDateTime')";
-    $addEvent_result = mysqli_query($link, $addEvent_query);
+    //$json_url = "http://www.mapquestapi.com/geocoding/v1/address?key=yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT&location=".urlencode($location);
+    /*$ch = curl_init();
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_URL, 'http://www.mapquestapi.com/geocoding/v1/address?key=yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT&location=115+Broadway+New+York,NY,10006');
+    $result = curl_exec($ch);
+    curl_close($ch);*/
+
+    ini_set("allow_url_fopen", 1);
+
+    $json = file_get_contents('http://www.mapquestapi.com/geocoding/v1/address?key=yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT&location=115+Broadway+New+York,NY,10006');
+    $obj = json_decode($json['displayLatLng']);
+    echo var_dump($obj);
+
+
+    //$locationCoordinates = json_decode($result, true);
+
+    //echo var_dump($locationCoordinates);
+
+    /*$addEvent_query = "INSERT INTO events(title, description, location, startDate, endDate)
+                    VALUES ('$title', '$description', '$locationCoordinates', '$startDateTime', '$endDateTime')";
+    $addEvent_result = mysqli_query($link, $addEvent_query);*/
   }
 
   if($addEvent_result){
