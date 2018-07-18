@@ -563,23 +563,13 @@ function addEvent(){
     $startDateTime = $startDate.' '.$startTime;
     $endDateTime = $endDate.' '.$endTime;
 
-    //$json_url = "http://www.mapquestapi.com/geocoding/v1/address?key=yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT&location=".urlencode($location);
-    /*$ch = curl_init();
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_URL, 'http://www.mapquestapi.com/geocoding/v1/address?key=yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT&location=115+Broadway+New+York,NY,10006');
-    $result = curl_exec($ch);
-    curl_close($ch);*/
-
     ini_set("allow_url_fopen", 1);
 
-    $json = file_get_contents('http://www.mapquestapi.com/geocoding/v1/address?key=yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT&location=115+Broadway+New+York,NY,10006');
+    $json = file_get_contents('http://www.mapquestapi.com/geocoding/v1/address?key=yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT&location='.urlencode($location));
     $obj = json_decode($json, true);
 
     $latitude = $obj["results"][0]["locations"][0]["latLng"]["lat"];
     $longitude = $obj["results"][0]["locations"][0]["latLng"]["lng"];
-
-    $locationCoordinates = $latitude.', '.$longitude;
 
     $addEvent_query = "INSERT INTO events(title, description, location, startDate, endDate)
                     VALUES ('$title', '$description', POINT('$latitude', '$longitude'), '$startDateTime', '$endDateTime')";
