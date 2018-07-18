@@ -220,6 +220,10 @@ function login(){
 function addEvent(){
   global $link;
 
+
+  $session_user_id = $_SESSION['user_id'];
+
+
   if(empty(trim($_POST["title"]))){
     $title_err = "Enter a title.";
     $_SESSION['addEvent_error'] = $title_err;
@@ -572,15 +576,24 @@ function addEvent(){
     $longitude = $obj["results"][0]["locations"][0]["latLng"]["lng"];
 
     $addEvent_query = "INSERT INTO events(title, description, location, startDate, endDate)
-                    VALUES ('$title', '$description', POINT('$latitude', '$longitude'), '$startDateTime', '$endDateTime')";
+                    VALUES ('$title', '$description', '$location', '$startDateTime', '$endDateTime')";
     $addEvent_result = mysqli_query($link, $addEvent_query);
   }
 
   if($addEvent_result){
-    unset($_SESSION['addEvent_error']);
-    header("location: index.php");
+    $userEvents_query = "INSERT INTO userEvents(user_id, event_id)
+                    VALUES ('$session_user_id', LAST_INSERT_ID())";
+    $userEvents_result = mysqli_query($link, $userEvents_query);
 
-    mysqli_close($link);
+    if($userEvents_result){
+      unset($_SESSION['addEvent_error']);
+      header("location: index.php");
+
+      mysqli_close($link);
+    }
+    else{
+      echo "Problem";
+    }
   }
 }
 

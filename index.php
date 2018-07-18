@@ -4,6 +4,8 @@ session_start();
 
 require_once 'config.php';
 
+global $link;
+
 
 $session_username = $_SESSION['username'];
 
@@ -24,7 +26,13 @@ $email = mysqli_fetch_array($emailResult)[0];
 
 $email_hash = md5(strtolower(trim($email)));
 
-$query = "SELECT * FROM events, userEvents, users WHERE username='$session_username'";
+$user_id_query = "SELECT * FROM users WHERE username='$session_username'";
+$user_id_result = mysqli_query($link, $user_id_query);
+
+$_SESSION['user_id'] = mysqli_fetch_array($user_id_result)[0];
+$session_user_id = $_SESSION['user_id'];
+
+$query = "SELECT * FROM events LEFT OUTER JOIN userEvents ON events.event_id=userEvents.event_id LEFT OUTER JOIN users ON userEvents.user_id=users.user_id WHERE userEvents.user_id='$session_user_id'";
 $result = mysqli_query($link, $query);
 
 ?>
@@ -72,30 +80,29 @@ $result = mysqli_query($link, $query);
       </header>
       <main>
         <?php
+        if(mysqli_num_rows($result) > 0){
           while($row = mysqli_fetch_array($result)){
             $title = $row['title'];
             $description = $row['description'];
-            $date = $row['date'];
             $location = $row['location'];
             $startDate = $row['startDate'];
             $endDate = $row['endDate'];
           }
-
-          if(mysqli_num_rows($result) == 1){
         ?>
-        <div class="row">
+
+        <br>
+        <br>
+        <div class="row font-weight-bold mb-4">
           <div class="col">Title</div>
           <div class="col">Description</div>
-          <div class="col">Date</div>
           <div class="col">Location</div>
           <div class="col">Start date</div>
           <div class="col">End date</div>
         </div>
 
-        <div class="row">
+        <div class="row mb-4">
           <div class="col"><? echo $title ?></div>
           <div class="col"><? echo $description ?></div>
-          <div class="col"><? echo $date ?></div>
           <div class="col"><? echo $location ?></div>
           <div class="col"><? echo $startDate ?></div>
           <div class="col"><? echo $endDate ?></div>
