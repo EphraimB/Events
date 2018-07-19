@@ -55,6 +55,10 @@ session_start();
             <label class="font-weight-bold">Birthday:</label>
             <input type="date" class="form-control text-center" name="birthday">
           </div>
+          <div class="form-group text-center">
+            <label class="font-weight-bold">Address:</label>
+            <input type="text" class="form-control" name="address">
+          </div>
           <br>
           <p>If you already have an account: <a href="login.php">Login</a></p>
           <br>

@@ -4,8 +4,8 @@ session_start();
 
 require_once 'config.php';
 
-$username = $password = $confirm_password = $email = $confirm_email = $birthday = "";
-$username_err = $password_err = $confirm_password_err = $email_err = $confirm_email_err = $birthday_err = "";
+$username = $password = $confirm_password = $email = $confirm_email = $birthday = $address = "";
+$username_err = $password_err = $confirm_password_err = $email_err = $confirm_email_err = $birthday_err = $address_err = "";
 
 $title = $description = $location = $startDate = $startTime = $endDate = $endTime = "";
 $title_err = $description_err = $location_err = $startDate_err = $startTime_err = $endDate_err = $endTime_err = "";
@@ -79,6 +79,15 @@ function register(){
     $birthday = trim($_POST['birthday']);
   }
 
+  if(empty(trim($_POST['address']))){
+    $address_err = "Please enter your address.";
+    $_SESSION['reg_error'] = $address_err;
+    header("location: register.php");
+  }
+  else{
+    $address = trim($_POST['address']);
+  }
+
   if(empty(trim($_POST['confirm_password'])) && empty(trim($_POST['confirm_email']))){
     $confirm_password_email_err = "Please confirm your password, and email.";
     $_SESSION['reg_error'] = $confirm_password_email_err;
@@ -94,6 +103,12 @@ function register(){
   if(empty(trim($_POST["username"])) && empty(trim($_POST['confirm_email']))){
     $username_confirm_email_err = "Please enter your username and confirm your email.";
     $_SESSION['reg_error'] = $username_confirm_email_err;
+    header("location: register.php");
+  }
+
+  if(empty(trim($_POST["username"])) && empty(trim($_POST['address']))){
+    $username_address_err = "Please enter your username and address.";
+    $_SESSION['reg_error'] = $username_address_err;
     header("location: register.php");
   }
 
@@ -127,17 +142,41 @@ function register(){
     header("location: register.php");
   }
 
+  if(empty(trim($_POST["username"])) && empty(trim($_POST['password'])) && empty(trim($_POST['address']))){
+    $username_password_address_err = "Please enter your username, password, and address.";
+    $_SESSION['reg_error'] = $username_password_address_err;
+    header("location: register.php");
+  }
+
   if(empty(trim($_POST["username"])) && empty(trim($_POST['password'])) && empty(trim($_POST['email'])) && empty(trim($_POST['birthday']))){
     $username_password_email_birthday_err = "Please enter your username, password, email, and birthday.";
     $_SESSION['reg_error'] = $username_password_email_birthday_err;
     header("location: register.php");
   }
 
-  if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err) && empty($confirm_email_err) && empty($birthday_err)){
+  if(empty(trim($_POST["username"])) && empty(trim($_POST['password'])) && empty(trim($_POST['email'])) && empty(trim($_POST['address']))){
+    $username_password_email_address_err = "Please enter your username, password, email, and address.";
+    $_SESSION['reg_error'] = $username_password_email_address_err;
+    header("location: register.php");
+  }
+
+  if(empty(trim($_POST['password'])) && empty(trim($_POST['email'])) && empty(trim($_POST['birthday'])) && empty(trim($_POST['address']))){
+    $password_email_birthday_address_err = "Please enter your password, email, birthday, and address.";
+    $_SESSION['reg_error'] = $password_email_birthday_address_err;
+    header("location: register.php");
+  }
+
+  if(empty(trim($_POST["username"])) && empty(trim($_POST['password'])) && empty(trim($_POST['email'])) && empty(trim($_POST['birthday'])) && empty(trim($_POST['address']))){
+    $username_password_email_birthday_address_err = "Please enter your username, password, email, birthday, and address.";
+    $_SESSION['reg_error'] = $username_password_email_birthday_address_err;
+    header("location: register.php");
+  }
+
+  if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err) && empty($confirm_email_err) && empty($birthday_err) && empty($address_err)){
     $encrypt_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $registerQuery = "INSERT INTO users(username, password, email, birthday, createdAt)
-              VALUES ('$username', '$encrypt_password', '$email', '$birthday', now())";
+    $registerQuery = "INSERT INTO users(username, password, email, birthday, address, createdAt)
+              VALUES ('$username', '$encrypt_password', '$email', '$birthday', '$address', now())";
     $resultRegisterQuery = mysqli_query($link, $registerQuery);
   }
 
