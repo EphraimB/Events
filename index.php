@@ -92,6 +92,8 @@ $result = mysqli_query($link, $query);
           <div class="col">Location</div>
           <div class="col">Start date</div>
           <div class="col">End date</div>
+          <div class="col">Edit</div>
+          <div class="col">Delete</div>
         </div>
 
         <?php
@@ -117,6 +119,8 @@ $result = mysqli_query($link, $query);
           <div class="col"><? echo $location ?></div>
           <div class="col"><? echo $startDate ?></div>
           <div class="col"><? echo $endDate ?></div>
+          <div class="col"><a href="updateEvent.php" class="btn btn-warning material-icons">edit</a></div>
+          <div class="col"><a href="deleteEvent.php" class="btn btn-danger material-icons">delete</a></div>
         </div>
         <?php
           }
