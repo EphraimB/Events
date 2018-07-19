@@ -77,15 +77,15 @@ while($row = mysqli_fetch_array($result)){
         <form action="server.php" method="post">
           <div class="form-group text-center">
             <label class="font-weight-bold">Title</label>
-            <? echo '<input type="text" class="form-control text-center" name="title" value='.$title.'>'; ?>
+            <? echo '<input type="text" class="form-control text-center" name="title" value="'.$title.'">'; ?>
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Description</label>
-            <? echo '<input type="text" class="form-control text-center" name="description" value='."$description".'>'; ?>
+            <? echo '<input type="text" class="form-control text-center" name="description" value="'.$description.'">'; ?>
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Location</label>
-            <input type="text" class="form-control text-center" name="location" value=<? echo $location ?>>
+            <? echo '<input type="text" class="form-control text-center" name="location" value="'.$location.'">'; ?>
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Start date &amp; time</label>
