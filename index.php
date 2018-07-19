@@ -98,6 +98,8 @@ $result = mysqli_query($link, $query);
 
         <?php
         while($row = mysqli_fetch_array($result)){
+          $event_id = $row['event_id'];
+          $userEvents_id = $row['id'];
           $title = $row['title'];
           $description = $row['description'];
           $location = $row['location'];
@@ -119,8 +121,8 @@ $result = mysqli_query($link, $query);
           <div class="col"><? echo $location ?></div>
           <div class="col"><? echo $startDate ?></div>
           <div class="col"><? echo $endDate ?></div>
-          <div class="col"><a href="updateEvent.php" class="btn btn-warning material-icons">edit</a></div>
-          <div class="col"><a href="deleteEvent.php" class="btn btn-danger material-icons">delete</a></div>
+          <div class="col"><a href="updateEvent.php?event_id=<? echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
+          <div class="col"><a href="deleteEvent.php?event_id=<? echo $event_id ?>&userEvents_id=<? echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
         </div>
         <?php
           }
