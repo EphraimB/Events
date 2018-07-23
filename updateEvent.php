@@ -26,8 +26,10 @@ while($row = mysqli_fetch_array($result)){
   $description = $row['description'];
   $location = $row['location'];
   $startDate = $row['startDate'];
+  $endDate = $row['endDate'];
   $startDateFormatted = date("Y-m-d", strtotime($startDate));
   $startTimeFormatted = date("H:i", strtotime($startDate));
+  $endDateFormatted = date("Y-m-d", strtotime($endDate));
 }
 
 ?>
@@ -103,8 +105,11 @@ while($row = mysqli_fetch_array($result)){
           <div class="form-group text-center">
             <label class="font-weight-bold">End date &amp; time</label>
             <div class="form-row">
-              <input type="date" class="form-control text-center col-6" name="endDate">
-              <input type="time" class="form-control text-center col-6" name="endTime">
+              <?php
+              echo '
+              <input type="date" class="form-control text-center col-6" name="endDate" value="'.$endDateFormatted.'">
+              <input type="time" class="form-control text-center col-6" name="endTime">';
+              ?>
             </div>
           </div>
           <br>
