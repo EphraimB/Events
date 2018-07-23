@@ -27,6 +27,7 @@ while($row = mysqli_fetch_array($result)){
   $location = $row['location'];
   $startDate = $row['startDate'];
   $startDateFormatted = date("Y-m-d", strtotime($startDate));
+  $startTimeFormatted = date("H:i", strtotime($startDate));
 }
 
 ?>
@@ -95,7 +96,7 @@ while($row = mysqli_fetch_array($result)){
               <?php
               echo '
               <input type="date" class="form-control text-center col-6" name="startDate" value="'.$startDateFormatted.'">
-              <input type="time" class="form-control text-center col-6" name="startTime">';
+              <input type="time" class="form-control text-center col-6" name="startTime" value="'.$startTimeFormatted.'">';
               ?>
             </div>
           </div>
