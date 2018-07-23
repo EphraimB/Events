@@ -127,6 +127,7 @@ $result = mysqli_query($link, $query);
           <div class="col-lg d-none d-lg-block"><? echo $endDateFormatted."<br>".$endTimeFormatted ?></div>
           <div class="col-lg d-none d-lg-block"><a href="updateEvent.php?event_id=<? echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
           <div class="col-lg d-none d-lg-block"><a href="deleteEvent.php?event_id=<? echo $event_id ?>&userEvents_id=<? echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
+          <div class="col-4 d-block d-lg-none"><a href="moreInfo.php?event_id=<? echo $event_id ?>&userEvents_id=<? echo $userEvents_id ?>" class="material-icons">info</a></div>
         </div>
         <?php
           }
