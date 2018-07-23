@@ -642,7 +642,7 @@ function editEvent(){
   if(empty(trim($_POST["title"]))){
     $title_err = "Enter a title.";
     $_SESSION['updateEvent_error'] = $title_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
   else{
     $title = trim($_POST["title"]);
@@ -651,7 +651,7 @@ function editEvent(){
   if(empty(trim($_POST["description"]))){
     $description_err = "Enter a description.";
     $_SESSION['updateEvent_error'] = $description_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
   else{
     $description = trim($_POST["description"]);
@@ -660,7 +660,7 @@ function editEvent(){
   if(empty(trim($_POST["location"]))){
     $location_err = "Enter a location.";
     $_SESSION['updateEvent_error'] = $location_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
   else{
     $location = trim($_POST["location"]);
@@ -669,7 +669,7 @@ function editEvent(){
   if(empty(trim($_POST["startDate"]))){
     $startDate_err = "Enter a start date.";
     $_SESSION['updateEvent_error'] = $startDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
   else{
     $startDate = trim($_POST["startDate"]);
@@ -678,7 +678,7 @@ function editEvent(){
   if(empty(trim($_POST["startTime"]))){
     $startTime_err = "Enter a start time.";
     $_SESSION['updateEvent_error'] = $startTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
   else{
     $startTime = trim($_POST["startTime"]);
@@ -687,7 +687,7 @@ function editEvent(){
   if(empty(trim($_POST["endDate"]))){
     $endDate_err = "Enter a end date.";
     $_SESSION['updateEvent_error'] = $endDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
   else{
     $endDate = trim($_POST["endDate"]);
@@ -696,7 +696,7 @@ function editEvent(){
   if(empty(trim($_POST["endTime"]))){
     $endTime_err = "Enter a end time.";
     $_SESSION['updateEvent_error'] = $endTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
   else{
     $endTime = trim($_POST["endTime"]);
@@ -705,277 +705,277 @@ function editEvent(){
   if(empty(trim($_POST["title"])) && empty(trim($_POST["description"]))){
     $title_description_err = "Enter a title and description.";
     $_SESSION['updateEvent_error'] = $title_description_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["location"]))){
     $title_location_err = "Enter a title and location.";
     $_SESSION['updateEvent_error'] = $title_location_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["startDate"]))){
     $title_startDate_err = "Enter a title and start date.";
     $_SESSION['updateEvent_error'] = $title_startDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["startTime"]))){
     $title_startTime_err = "Enter a title and start time.";
     $_SESSION['updateEvent_error'] = $title_startTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["endDate"]))){
     $title_endDate_err = "Enter a title and end date.";
     $_SESSION['updateEvent_error'] = $title_endDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["endTime"]))){
     $title_endTime_err = "Enter a title and end time.";
     $_SESSION['updateEvent_error'] = $title_endTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["description"])) && empty(trim($_POST["location"]))){
     $description_location_err = "Enter a description and location.";
     $_SESSION['updateEvent_error'] = $description_location_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["description"])) && empty(trim($_POST["startDate"]))){
     $description_startDate_err = "Enter a description and start date.";
     $_SESSION['updateEvent_error'] = $description_startDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["description"])) && empty(trim($_POST["startTime"]))){
     $description_startTime_err = "Enter a description and start time.";
     $_SESSION['updateEvent_error'] = $description_startTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["description"])) && empty(trim($_POST["endDate"]))){
     $description_endDate_err = "Enter a description and end date.";
     $_SESSION['updateEvent_error'] = $description_endDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["description"])) && empty(trim($_POST["endTime"]))){
     $description_endTime_err = "Enter a description and end time.";
     $_SESSION['updateEvent_error'] = $description_endTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["location"])) && empty(trim($_POST["startDate"]))){
     $location_startDate_err = "Enter a location and start date.";
     $_SESSION['updateEvent_error'] = $location_startDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["location"])) && empty(trim($_POST["startTime"]))){
     $location_startTime_err = "Enter a location and start time.";
     $_SESSION['updateEvent_error'] = $location_startTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["location"])) && empty(trim($_POST["endDate"]))){
     $location_endDate_err = "Enter a location and end date.";
     $_SESSION['updateEvent_error'] = $location_endDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["location"])) && empty(trim($_POST["endTime"]))){
     $location_endTime_err = "Enter a location and end time.";
     $_SESSION['updateEvent_error'] = $location_endTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["startDate"])) && empty(trim($_POST["startTime"]))){
     $startDate_startTime_err = "Enter a start date and start time.";
     $_SESSION['updateEvent_error'] = $startDate_startTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["startDate"])) && empty(trim($_POST["endDate"]))){
     $startDate_endDate_err = "Enter a start date and end date.";
     $_SESSION['updateEvent_error'] = $startDate_endDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["startDate"])) && empty(trim($_POST["endTime"]))){
     $startDate_endTime_err = "Enter a start date and end time.";
     $_SESSION['updateEvent_error'] = $startDate_endTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["endDate"])) && empty(trim($_POST["endTime"]))){
     $endDate_endTime_err = "Enter a end date and end time.";
     $_SESSION['updateEvent_error'] = $endDate_endTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["description"])) && empty(trim($_POST["location"]))){
     $title_description_location_err = "Enter a title, description, and location.";
     $_SESSION['updateEvent_error'] = $title_description_location_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["description"])) && empty(trim($_POST["startDate"]))){
     $title_description_startDate_err = "Enter a title, description, and start date.";
     $_SESSION['updateEvent_error'] = $title_description_startDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["description"])) && empty(trim($_POST["startTime"]))){
     $title_description_startTime_err = "Enter a title, description, and start date.";
     $_SESSION['updateEvent_error'] = $title_description_startTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["description"])) && empty(trim($_POST["endDate"]))){
     $title_description_endDate_err = "Enter a title, description, and end date.";
     $_SESSION['updateEvent_error'] = $title_description_endDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["description"])) && empty(trim($_POST["endTime"]))){
     $title_description_endTime_err = "Enter a title, description, and end time.";
     $_SESSION['updateEvent_error'] = $title_description_endTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["startDate"])) && empty(trim($_POST["endDate"]))){
     $title_startDate_endDate_err = "Enter a title, start date, and end date.";
     $_SESSION['updateEvent_error'] = $title_startDate_endDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["startDate"])) && empty(trim($_POST["startTime"]))){
     $title_startDate_startTime_err = "Enter a title, start date, and start time.";
     $_SESSION['updateEvent_error'] = $title_startDate_startTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["endDate"])) && empty(trim($_POST["endTime"]))){
     $title_endDate_endTime_err = "Enter a title, end date, and end time.";
     $_SESSION['updateEvent_error'] = $title_endDate_endTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["description"])) && empty(trim($_POST["startDate"])) && empty(trim($_POST["startTime"]))){
     $description_startDate_startTime_err = "Enter a description, startDate, and start time.";
     $_SESSION['updateEvent_error'] = $description_startDate_startTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["description"])) && empty(trim($_POST["startDate"])) && empty(trim($_POST["endDate"]))){
     $description_startDate_endDate_err = "Enter a description, startDate, and end date.";
     $_SESSION['updateEvent_error'] = $description_startDate_endDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["description"])) && empty(trim($_POST["startDate"])) && empty(trim($_POST["endTime"]))){
     $description_startDate_endTime_err = "Enter a description, startDate, and end time.";
     $_SESSION['updateEvent_error'] = $description_startDate_endTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["description"])) && empty(trim($_POST["location"])) && empty(trim($_POST["startDate"]))){
     $title_description_location_startDate_err = "Enter a title, description, location, and start date.";
     $_SESSION['updateEvent_error'] = $title_description_location_startDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["description"])) && empty(trim($_POST["location"])) && empty(trim($_POST["startTime"]))){
     $title_description_location_startTime_err = "Enter a title, description, location, and start time.";
     $_SESSION['updateEvent_error'] = $title_description_location_startTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["description"])) && empty(trim($_POST["location"])) && empty(trim($_POST["endDate"]))){
     $title_description_location_endDate_err = "Enter a title, description, location, and end date.";
     $_SESSION['updateEvent_error'] = $title_description_location_endDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["description"])) && empty(trim($_POST["location"])) && empty(trim($_POST["endTime"]))){
     $title_description_location_endTime_err = "Enter a title, description, location, and end time.";
     $_SESSION['updateEvent_error'] = $title_description_location_endTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["description"])) && empty(trim($_POST["location"])) && empty(trim($_POST["startDate"])) && empty(trim($_POST["startTime"]))){
     $description_location_startDate_startTime_err = "Enter a description, location, start date, and start time.";
     $_SESSION['updateEvent_error'] = $description_location_startDate_startTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["description"])) && empty(trim($_POST["location"])) && empty(trim($_POST["startDate"])) && empty(trim($_POST["endDate"]))){
     $description_location_startDate_endDate_err = "Enter a description, location, start date, and end date.";
     $_SESSION['updateEvent_error'] = $description_location_startDate_endDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["description"])) && empty(trim($_POST["location"])) && empty(trim($_POST["startDate"])) && empty(trim($_POST["endTime"]))){
     $description_location_startDate_endTime_err = "Enter a description, location, start date, and end time.";
     $_SESSION['updateEvent_error'] = $description_location_startDate_endTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["location"])) && empty(trim($_POST["startDate"])) && empty(trim($_POST["endDate"]))){
     $title_location_startDate_endDate_err = "Enter a title, location, start date, and end date.";
     $_SESSION['updateEvent_error'] = $title_location_startDate_endDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["location"])) && empty(trim($_POST["startDate"])) && empty(trim($_POST["startTime"]))){
     $title_location_startDate_startTime_err = "Enter a title, location, start date, and start time.";
     $_SESSION['updateEvent_error'] = $title_location_startDate_startTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["location"])) && empty(trim($_POST["startDate"])) && empty(trim($_POST["endTime"]))){
     $title_location_startDate_endTime_err = "Enter a title, location, start date, and end time.";
     $_SESSION['updateEvent_error'] = $title_location_startDate_endTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["description"])) && empty(trim($_POST["startDate"])) && empty(trim($_POST["startTime"]))){
     $title_description_startDate_startTime_err = "Enter a title, description, start date, and start time.";
     $_SESSION['updateEvent_error'] = $title_description_startDate_startTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["description"])) && empty(trim($_POST["startDate"])) && empty(trim($_POST["endDate"]))){
     $title_description_startDate_endDate_err = "Enter a title, description, start date, and end date.";
     $_SESSION['updateEvent_error'] = $title_description_startDate_endDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["description"])) && empty(trim($_POST["startDate"])) && empty(trim($_POST["endTime"]))){
     $title_description_startDate_endTime_err = "Enter a title, description, start date, and end time.";
     $_SESSION['updateEvent_error'] = $title_description_startDate_endTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["description"])) && empty(trim($_POST["location"])) && empty(trim($_POST["startDate"])) && empty(trim($_POST["startTime"]))){
     $title_description_location_startDate_startTime_err = "Enter a title, description, location, start date, and start time.";
     $_SESSION['updateEvent_error'] = $title_description_location_startDate_endDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["description"])) && empty(trim($_POST["location"])) && empty(trim($_POST["startDate"])) && empty(trim($_POST["endDate"]))){
     $title_description_location_startDate_endDate_err = "Enter a title, description, location, start date, and end date.";
     $_SESSION['updateEvent_error'] = $title_description_location_startDate_endDate_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty(trim($_POST["title"])) && empty(trim($_POST["description"])) && empty(trim($_POST["location"])) && empty(trim($_POST["startDate"])) && empty(trim($_POST["endTime"]))){
     $title_description_location_startDate_endTime_err = "Enter a title, description, location, start date, start time, end date, and end time.";
     $_SESSION['updateEvent_error'] = $title_description_location_startDate_endTime_err;
-    header("location: updateEvent.php?".$event_id."");
+    header("location: updateEvent.php?event_id=".$event_id."");
   }
 
   if(empty($title_err) && empty($description_err) && empty($location_err) && empty($startDate_err) && empty($startTime_err) && empty($endDate_err) && empty($endTime_err)){

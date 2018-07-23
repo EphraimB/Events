@@ -82,6 +82,11 @@ while($row = mysqli_fetch_array($result)){
       <main>
         <?php
         echo '<form action="server.php?event_id='.$event_id.'" method="post">';
+          if(isset($_SESSION['updateEvent_error'])){
+            echo '<div class="alert alert-danger" role="alert">';
+              echo $_SESSION['updateEvent_error'];
+            echo '</div>';
+          }
         ?>
           <div class="form-group text-center">
             <label class="font-weight-bold">Title</label>
