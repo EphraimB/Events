@@ -110,12 +110,12 @@ $result = mysqli_query($link, $query);
           $endDateFormatted = date("m/d/Y", strtotime($endDate));
           $endTimeFormatted = date("h:i A", strtotime($endDate));
 
-          ini_set("allow_url_fopen", 1);
+          /*ini_set("allow_url_fopen", 1);
 
           $json = file_get_contents('http://www.mapquestapi.com/geocoding/v1/address?key=yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT&location='.urlencode($location));
           $obj = json_decode($json, true);
 
-          $mapUrl = $obj["results"][0]["locations"][0]["mapUrl"];
+          $mapUrl = $obj["results"][0]["locations"][0]["mapUrl"];*/
 
           ?>
 
