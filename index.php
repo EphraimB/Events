@@ -104,7 +104,11 @@ $result = mysqli_query($link, $query);
           $description = $row['description'];
           $location = $row['location'];
           $startDate = $row['startDate'];
+          $startDateFormatted = date("m/d/Y", strtotime($startDate));
+          $startTimeFormatted = date("h:i A", strtotime($startDate));
           $endDate = $row['endDate'];
+          $endDateFormatted = date("m/d/Y", strtotime($endDate));
+          $endTimeFormatted = date("h:i A", strtotime($endDate));
 
           ini_set("allow_url_fopen", 1);
 
@@ -119,8 +123,8 @@ $result = mysqli_query($link, $query);
           <div class="col"><? echo $title ?></div>
           <div class="col"><? echo $description ?></div>
           <div class="col"><? echo $location ?></div>
-          <div class="col"><? echo $startDate ?></div>
-          <div class="col"><? echo $endDate ?></div>
+          <div class="col"><? echo $startDateFormatted."<br>".$startTimeFormatted ?></div>
+          <div class="col"><? echo $endDateFormatted."<br>".$endTimeFormatted ?></div>
           <div class="col"><a href="updateEvent.php?event_id=<? echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
           <div class="col"><a href="deleteEvent.php?event_id=<? echo $event_id ?>&userEvents_id=<? echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
         </div>
