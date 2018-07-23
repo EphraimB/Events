@@ -80,7 +80,9 @@ while($row = mysqli_fetch_array($result)){
       <br>
       <br>
       <main>
-        <form action="server.php" method="post">
+        <?php
+        echo '<form action="server.php?event_id='.$event_id.'" method="post">';
+        ?>
           <div class="form-group text-center">
             <label class="font-weight-bold">Title</label>
             <? echo '<input type="text" class="form-control text-center" name="title" value="'.$title.'">'; ?>
