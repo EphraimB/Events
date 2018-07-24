@@ -69,10 +69,33 @@ $result = mysqli_query($link, $query);
       </nav>
       <br>
       <header>
-        <h1 class="text-center">Events</h1>
+        <h1 class="text-center">More info</h1>
       </header>
       <main>
+        <?php
+        while($row = mysqli_fetch_array($result)){
+          $title = $row['title'];
+          $description = $row['description'];
+          $location = $row['location'];
+          $startDate = $row['startDate'];
+          $startDateFormatted = date("m/d/Y", strtotime($startDate));
+          $startTimeFormatted = date("h:i A", strtotime($startDate));
+          $endDate = $row['endDate'];
+          $endDateFormatted = date("m/d/Y", strtotime($endDate));
+          $endTimeFormatted = date("h:i A", strtotime($endDate));
+          ?>
 
+          <br>
+          <br>
+          <h3 class="text-center"><? echo $title ?></h3>
+          <p class="text-center"><? echo $description ?></p>
+          <p class="text-center">Located at <? echo $location ?></p>
+          <p class="text-center">Starts at <? echo $startDateFormatted ?> at <? echo $startTimeFormatted ?></p>
+          <p class="text-center">Ends at <? echo $endDateFormatted ?> at <? echo $endTimeFormatted ?></p>
+
+          <?php
+          }
+         ?>
       </main>
     </div>
   </body>
