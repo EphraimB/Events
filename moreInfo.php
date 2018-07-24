@@ -92,6 +92,14 @@ $result = mysqli_query($link, $query);
           <p class="text-center">Located at <? echo $location ?></p>
           <p class="text-center">Starts at <? echo $startDateFormatted ?> at <? echo $startTimeFormatted ?></p>
           <p class="text-center">Ends at <? echo $endDateFormatted ?> at <? echo $endTimeFormatted ?></p>
+          <br>
+          <br>
+          <br>
+          <br>
+          <div class="row justify-content-center">
+            <div class="col-3"><a href="updateEvent.php?event_id=<? echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
+            <div class="col-3"><a href="deleteEvent.php?event_id=<? echo $event_id ?>&userEvents_id=<? echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
+          </div>
 
           <?php
           }
