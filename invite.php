@@ -82,10 +82,10 @@ $allUsers_result = mysqli_query($link, $allUsers_query);
 
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <?php
-            while($user = mysqli_fetch_array($allUsers_result)){
-              if($user[0] != $session_username){
+            while($user = mysqli_fetch_array($allUsers_result)[0]){
+              if($user != $session_username){
             ?>
-              <a class="dropdown-item" href="#"><? echo $user[0] ?></a>
+              <a class="dropdown-item" href="#"><? echo $user ?></a>
             <?php
               }
             }
