@@ -27,6 +27,9 @@ $session_user_id = $_SESSION['user_id'];
 $query = "SELECT * FROM events WHERE event_id='$event_id'";
 $result = mysqli_query($link, $query);
 
+$allUsers_query = "SELECT username FROM users";
+$allUsers_result = mysqli_query($link, $allUsers_query);
+
 ?>
 
 <!DOCTYPE html>
@@ -71,6 +74,25 @@ $result = mysqli_query($link, $query);
       <header>
         <h1 class="text-center">Invite</h1>
       </header>
+      <main>
+        <div class="dropdown">
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Invite
+          </a>
+
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <?php
+            while($user = mysqli_fetch_array($allUsers_result)){
+              if($user[0] != $session_username){
+            ?>
+              <a class="dropdown-item" href="#"><? echo $user[0] ?></a>
+            <?php
+              }
+            }
+            ?>
+          </div>
+        </div>
+      </main>
     </div>
   </body>
   </html>
