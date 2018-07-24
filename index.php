@@ -94,6 +94,7 @@ $result = mysqli_query($link, $query);
           <div class="col-lg d-none d-lg-block">End date</div>
           <div class="col-lg d-none d-lg-block">Edit</div>
           <div class="col-lg d-none d-lg-block">Delete</div>
+          <div class="col-lg d-none d-lg-block">Invite</div>
         </div>
 
         <?php
@@ -127,6 +128,7 @@ $result = mysqli_query($link, $query);
           <div class="col-lg d-none d-lg-block"><? echo $endDateFormatted."<br>".$endTimeFormatted ?></div>
           <div class="col-lg d-none d-lg-block"><a href="updateEvent.php?event_id=<? echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
           <div class="col-lg d-none d-lg-block"><a href="deleteEvent.php?event_id=<? echo $event_id ?>&userEvents_id=<? echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
+          <div class="col-lg d-none d-lg-block"><a href="invite.php?event_id=<? echo $event_id ?>" class="btn btn-primary material-icons">mail</a></div>
           <div class="col-2 d-block d-lg-none"><a href="moreInfo.php?event_id=<? echo $event_id ?>&userEvents_id=<? echo $userEvents_id ?>" class="material-icons">info</a></div>
         </div>
         <?php
