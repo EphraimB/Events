@@ -94,7 +94,7 @@ $result = mysqli_query($link, $query);
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Location</label>
-            <input ttype="search" id="place-search-input" placeholder="Start Searching..." class="form-control" name="location">
+            <input type="search" id="place-search-input" placeholder="Start Searching..." class="form-control" name="location">
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Start date &amp; time</label>

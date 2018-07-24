@@ -12,6 +12,8 @@ session_start();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" href="img/baseline_event_black_18dp.png">
   </head>
@@ -57,7 +59,7 @@ session_start();
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Address:</label>
-            <input type="text" class="form-control" name="address">
+            <input type="search" id="place-search-input" placeholder="Start Searching..." class="form-control" name="address">
           </div>
           <br>
           <p>If you already have an account: <a href="login.php">Login</a></p>
@@ -68,5 +70,12 @@ session_start();
         </form>
       </main>
     </div>
+
+    <script>
+    placeSearch({
+      key: 'yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT',
+      container: document.querySelector('#place-search-input')
+    });
+    </script>
   </body>
 </html>
