@@ -88,7 +88,7 @@ $result = mysqli_query($link, $query);
         <br>
         <div class="row font-weight-bold mb-4">
           <div class="col-4 col-lg">Title</div>
-          <div class="col-4 col-lg">Description</div>
+          <div class="col-5 col-lg">Description</div>
           <div class="col-lg d-none d-lg-block">Location</div>
           <div class="col-lg d-none d-lg-block">Start date</div>
           <div class="col-lg d-none d-lg-block">End date</div>
@@ -121,13 +121,13 @@ $result = mysqli_query($link, $query);
 
         <div class="row mb-4">
           <div class="col-4 col-lg"><? echo $title ?></div>
-          <div class="col-4 col-lg"><? echo $description ?></div>
+          <div class="col-5 col-lg"><? echo $description ?></div>
           <div class="col-lg d-none d-lg-block"><? echo $location ?></div>
           <div class="col-lg d-none d-lg-block"><? echo $startDateFormatted."<br>".$startTimeFormatted ?></div>
           <div class="col-lg d-none d-lg-block"><? echo $endDateFormatted."<br>".$endTimeFormatted ?></div>
           <div class="col-lg d-none d-lg-block"><a href="updateEvent.php?event_id=<? echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
           <div class="col-lg d-none d-lg-block"><a href="deleteEvent.php?event_id=<? echo $event_id ?>&userEvents_id=<? echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
-          <div class="col-4 d-block d-lg-none"><a href="moreInfo.php?event_id=<? echo $event_id ?>&userEvents_id=<? echo $userEvents_id ?>" class="material-icons">info</a></div>
+          <div class="col-2 d-block d-lg-none"><a href="moreInfo.php?event_id=<? echo $event_id ?>&userEvents_id=<? echo $userEvents_id ?>" class="material-icons">info</a></div>
         </div>
         <?php
           }
