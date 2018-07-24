@@ -46,6 +46,8 @@ while($row = mysqli_fetch_array($result)){
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.css"/>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="img/baseline_event_black_18dp.png">
   </head>
@@ -98,7 +100,7 @@ while($row = mysqli_fetch_array($result)){
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Location</label>
-            <? echo '<input type="text" class="form-control text-center" name="location" value="'.$location.'">'; ?>
+            <? echo '<input type="search" id="place-search-input" placeholder="Start Searching..." class="form-control text-center" name="location" value="'.$location.'">'; ?>
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Start date &amp; time</label>
@@ -127,5 +129,12 @@ while($row = mysqli_fetch_array($result)){
         </form>
       </main>
     </div>
+
+    <script>
+    placeSearch({
+      key: 'yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT',
+      container: document.querySelector('#place-search-input')
+    });
+    </script>
   </body>
 </html>
