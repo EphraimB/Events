@@ -60,7 +60,7 @@ $allUsers_result = mysqli_query($link, $allUsers_query);
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="index.php">Home</a>
             </li>
           </ul>
           <ul class="navbar-nav mr-right">
@@ -78,17 +78,27 @@ $allUsers_result = mysqli_query($link, $allUsers_query);
         <h1 class="text-center">Invite</h1>
       </header>
       <main>
-            <?php
-            while($user = mysqli_fetch_array($allUsers_result)[0]){
-                $allUsersEmail = mysqli_fetch_array($allUsersEmailResult)[0];
-                if($user != $session_username && $allUsersEmail != $email){
-                  $allUsersEmail_hash = md5(strtolower(trim($allUsersEmail)));
-            ?>
-              <a class="dropdown-item" href="#"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<? echo $allUsersEmail_hash ?>?s=30">&nbsp;<? echo $user ?></a>
-            <?php
-              }
-            }
-            ?>
+        <br>
+        <br>
+        <div class="row justify-content-center">
+          <input type="text" class="col-6">
+        </div>
+        <div class="list-group">
+        <br>
+        <br>
+          <?php
+          while($user = mysqli_fetch_array($allUsers_result)[0]){
+            $allUsersEmail = mysqli_fetch_array($allUsersEmailResult)[0];
+
+            if($user != $session_username && $allUsersEmail != $email){
+              $allUsersEmail_hash = md5(strtolower(trim($allUsersEmail)));
+          ?>
+            <a class="list-group-item list-group-item-action text-center" href="#"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<? echo $allUsersEmail_hash ?>?s=30">&emsp;<span><? echo $user ?></span></a>
+          <?php
+          }
+        }
+        ?>
+        </div>
       </main>
     </div>
   </body>
