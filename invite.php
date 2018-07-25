@@ -81,9 +81,9 @@ $allUsers_result = mysqli_query($link, $allUsers_query);
         <br>
         <br>
         <div class="row justify-content-center">
-          <input type="text" class="col-6">
+          <input type="search" class="col-10 col-lg-6" id="search" placeholder="Search..." onkeyup="filterFunction()">
         </div>
-        <div class="list-group">
+        <div class="list-group" id="listGroup">
         <br>
         <br>
           <?php
@@ -101,5 +101,7 @@ $allUsers_result = mysqli_query($link, $allUsers_query);
         </div>
       </main>
     </div>
+
+    <script src="js/script.js"></script>
   </body>
   </html>
