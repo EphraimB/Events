@@ -127,6 +127,13 @@ $allUsers_result = mysqli_query($link, $allUsers_query);
               </div>
             </div>';
             }
+            echo '
+            <br>
+            <br>
+            <div class="text-center">
+              <a href="#" class="btn btn-primary">Invite</a>
+            </div>
+            ';
           }
 
           ?>
