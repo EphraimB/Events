@@ -80,8 +80,8 @@ $allUsers_result = mysqli_query($link, $allUsers_query);
       <main>
             <?php
             while($user = mysqli_fetch_array($allUsers_result)[0]){
-                if($user != $session_username && $allUsersEmail[0] != $email){
-                  $allUsersEmail = mysqli_fetch_array($allUsersEmailResult)[0];
+                $allUsersEmail = mysqli_fetch_array($allUsersEmailResult)[0];
+                if($user != $session_username && $allUsersEmail != $email){
                   $allUsersEmail_hash = md5(strtolower(trim($allUsersEmail)));
             ?>
               <a class="dropdown-item" href="#"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<? echo $allUsersEmail_hash ?>?s=30">&nbsp;<? echo $user ?></a>
