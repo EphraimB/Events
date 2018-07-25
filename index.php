@@ -9,7 +9,7 @@ global $link;
 
 $session_username = $_SESSION['username'];
 
-if (isset($_GET['logout'])) {
+if(isset($_GET['logout'])) {
 	session_destroy();
 	unset($session_username);
 	header("location: login.php");

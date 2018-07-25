@@ -80,6 +80,17 @@ $allUsers_result = mysqli_query($link, $allUsers_query);
       <main>
         <br>
         <br>
+        <?php
+        if(isset($_SESSION['exists'])){
+          echo '
+          <div class="alert alert-danger" role="alert">
+            '.$_SESSION["exists"].' already exists.
+            <a href="clearSessionExists.php?fromEvent_id='.$event_id.'" class="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </a>
+          </div>';
+          }
+          ?>
         <div class="row justify-content-center">
           <input type="search" class="col-10 col-lg-6" id="search" placeholder="Search..." onkeyup="filterFunction()">
         </div>
