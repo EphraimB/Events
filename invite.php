@@ -131,7 +131,7 @@ $allUsers_result = mysqli_query($link, $allUsers_query);
             <br>
             <br>
             <div class="text-center">
-              <a href="#" class="btn btn-primary">Invite</a>
+              <a href="inviteSelected.php" class="btn btn-primary">Invite</a>
             </div>
             ';
           }
