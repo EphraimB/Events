@@ -114,26 +114,28 @@ $allUsers_result = mysqli_query($link, $allUsers_query);
         <br>
 
         <?php
-        if(count($_SESSION['selectedUsers']) > 0){
-          foreach($_SESSION['selectedUsers'] as $selectedUser){
-            echo '
-            <div class="card" style="width: 10rem; display: inline-block;">
-              <a href="deselectUsers.php?deselectedUser='.$selectedUser.'&fromEvent_id='.$event_id.'" class="close" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </a>
-              <img class="card-img-top" src="https://www.gravatar.com/avatar/<? echo $allUsersEmail_hash ?>?s=30">
-              <div class="card-body">
-                <p class="card-text text-center">'.$selectedUser.'</p>
+        if(isset($_SESSION['selectedUsers'])){
+          if(count($_SESSION['selectedUsers']) > 0){
+            foreach($_SESSION['selectedUsers'] as $selectedUser){
+              echo '
+              <div class="card" style="width: 10rem; display: inline-block;">
+                <a href="deselectUsers.php?deselectedUser='.$selectedUser.'&fromEvent_id='.$event_id.'" class="close" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </a>
+                  <img class="card-img-top" src="https://www.gravatar.com/avatar/<? echo $allUsersEmail_hash ?>?s=30">
+                  <div class="card-body">
+                    <p class="card-text text-center">'.$selectedUser.'</p>
+                  </div>
+                </div>';
+              }
+              echo '
+              <br>
+              <br>
+              <div class="text-center">
+                <a href="inviteSelected.php?event_id='.$event_id.'" class="btn btn-primary">Invite</a>
               </div>
-            </div>';
+              ';
             }
-            echo '
-            <br>
-            <br>
-            <div class="text-center">
-              <a href="inviteSelected.php?event_id='.$event_id.'" class="btn btn-primary">Invite</a>
-            </div>
-            ';
           }
 
           ?>
