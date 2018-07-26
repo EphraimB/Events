@@ -33,6 +33,10 @@ $result = mysqli_query($link, $query);
 $allUsers_query = "SELECT username FROM users";
 $allUsers_result = mysqli_query($link, $allUsers_query);
 
+if(!isset($_SESSION['selectedUsers'])){
+  $_SESSION['selectedUsers'] = [];
+}
+
 ?>
 
 <!DOCTYPE html>
