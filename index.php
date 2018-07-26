@@ -75,6 +75,18 @@ $result = mysqli_query($link, $query);
           </ul>
         </div>
       </nav>
+      <?php
+      if(isset($_SESSION['inviteSuccessful'])){
+        echo '
+        <div class="alert alert-success" role="alert">
+          Successfully sent an invitation.
+          <a href="clearSessionExists.php?redirectedFrom=index" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </a>
+        </div>';
+      }
+
+      ?>
       <br>
       <header>
         <h1 class="text-center">Events</h1>

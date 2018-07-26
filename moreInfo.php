@@ -11,6 +11,16 @@ $event_id = $_GET['event_id'];
 
 $session_username = $_SESSION['username'];
 
+if (isset($_GET['logout'])) {
+	session_destroy();
+	unset($session_username);
+	header("location: login.php");
+}
+
+if(!isset($session_username) || empty($session_username)){
+  header("location: login.php");
+}
+
 $emailQuery = "SELECT email FROM users WHERE username='$session_username'";
 $emailResult = mysqli_query($link, $emailQuery);
 

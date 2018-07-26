@@ -11,6 +11,16 @@ $event_id = $_GET['event_id'];
 
 $session_username = $_SESSION['username'];
 
+if (isset($_GET['logout'])) {
+	session_destroy();
+	unset($session_username);
+	header("location: login.php");
+}
+
+if(!isset($session_username) || empty($session_username)){
+  header("location: login.php");
+}
+
 $emailQuery = "SELECT email FROM users WHERE username='$session_username'";
 $emailResult = mysqli_query($link, $emailQuery);
 
@@ -77,6 +87,17 @@ if(!isset($_SESSION['selectedUsers'])){
           </ul>
         </div>
       </nav>
+      <?php
+      if(isset($_SESSION['exists'])){
+        echo '
+        <div class="alert alert-danger" role="alert">
+          '.$_SESSION["exists"].' already exists.
+          <a href="clearSessionExists.php?redirectedFrom=invite&fromEvent_id='.$event_id.'" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </a>
+        </div>';
+        }
+        ?>
       <br>
       <header>
         <h1 class="text-center">Invite</h1>
@@ -84,17 +105,6 @@ if(!isset($_SESSION['selectedUsers'])){
       <main>
         <br>
         <br>
-        <?php
-        if(isset($_SESSION['exists'])){
-          echo '
-          <div class="alert alert-danger" role="alert">
-            '.$_SESSION["exists"].' already exists.
-            <a href="clearSessionExists.php?fromEvent_id='.$event_id.'" class="close" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </a>
-          </div>';
-          }
-          ?>
         <div class="row justify-content-center">
           <input type="search" class="col-10 col-lg-6" id="search" placeholder="Search..." onkeyup="filterFunction()">
         </div>
