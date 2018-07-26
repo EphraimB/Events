@@ -126,7 +126,7 @@ if(!isset($_SESSION['selectedUsers'])){
                 <a href="deselectUsers.php?deselectedUser='.$selectedUser[0].'&fromEvent_id='.$event_id.'" class="close" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </a>
-                  <img class="card-img-top" src="https://www.gravatar.com/avatar/'.$selectedUser[1].'?s=30">
+                  <img class="card-img-top" src="https://www.gravatar.com/avatar/'.$selectedUser[1].'?s=300">
                   <div class="card-body">
                     <p class="card-text text-center">'.$selectedUser[0].'</p>
                   </div>
