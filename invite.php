@@ -108,7 +108,7 @@ if(!isset($_SESSION['selectedUsers'])){
             if($user != $session_username && $allUsersEmail != $email){
               $allUsersEmail_hash = md5(strtolower(trim($allUsersEmail)));
           ?>
-              <a class="list-group-item list-group-item-action text-center" href="selectUsers.php?selectedUser=<? echo $user ?>&fromEvent_id=<? echo $event_id ?>"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<? echo $allUsersEmail_hash ?>?s=30">&emsp;<span><? echo $user ?></span></a>
+              <a class="list-group-item list-group-item-action text-center" href="selectUsers.php?selectedUser=<? echo $user ?>&selectedUserEmail_hash=<? echo $allUsersEmail_hash ?>&fromEvent_id=<? echo $event_id ?>"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<? echo $allUsersEmail_hash ?>?s=30">&emsp;<span><? echo $user ?></span></a>
           <?php
           }
         }
@@ -123,12 +123,12 @@ if(!isset($_SESSION['selectedUsers'])){
             foreach($_SESSION['selectedUsers'] as $selectedUser){
               echo '
               <div class="card" style="width: 10rem; display: inline-block;">
-                <a href="deselectUsers.php?deselectedUser='.$selectedUser.'&fromEvent_id='.$event_id.'" class="close" aria-label="Close">
+                <a href="deselectUsers.php?deselectedUser='.$selectedUser[0].'&fromEvent_id='.$event_id.'" class="close" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </a>
-                  <img class="card-img-top" src="https://www.gravatar.com/avatar/<? echo $allUsersEmail_hash ?>?s=30">
+                  <img class="card-img-top" src="https://www.gravatar.com/avatar/'.$selectedUser[1].'?s=30">
                   <div class="card-body">
-                    <p class="card-text text-center">'.$selectedUser.'</p>
+                    <p class="card-text text-center">'.$selectedUser[0].'</p>
                   </div>
                 </div>';
               }
