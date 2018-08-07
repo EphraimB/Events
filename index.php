@@ -35,6 +35,9 @@ $session_user_id = $_SESSION['user_id'];
 $query = "SELECT * FROM events LEFT OUTER JOIN userEvents ON events.event_id=userEvents.event_id LEFT OUTER JOIN users ON userEvents.user_id=users.user_id WHERE userEvents.user_id='$session_user_id'";
 $result = mysqli_query($link, $query);
 
+$invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id'";
+$invited_result = mysqli_query($link, $invited_query);
+
 ?>
 
 <!DOCTYPE html>
@@ -50,6 +53,11 @@ $result = mysqli_query($link, $query);
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="img/baseline_event_black_18dp.png">
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#myModal").modal('show');
+			});
+		</script>
   </head>
   <body>
     <div class="container">
@@ -93,6 +101,29 @@ $result = mysqli_query($link, $query);
       </header>
       <main>
         <?php
+				if(mysqli_num_rows($invited_result) > 0){
+					echo '
+					<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+  					<div class="modal-dialog" role="document">
+    					<div class="modal-content">
+      					<div class="modal-header">
+        					<h5 class="modal-title">Invitation</h5>
+        					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          					<span aria-hidden="true">&times;</span>
+        					</button>
+      					</div>
+      					<div class="modal-body">
+        					<p>You got an invitation.</p>
+      					</div>
+      					<div class="modal-footer">
+									<button type="button" class="btn btn-danger">Decline</button>
+        					<button type="button" class="btn btn-success">Accept</button>
+      					</div>
+    					</div>
+  					</div>
+					</div>';
+				}
+
         if(mysqli_num_rows($result) > 0){
 
         ?>
