@@ -69,7 +69,7 @@ $result = mysqli_query($link, $query);
           </ul>
           <ul class="navbar-nav mr-right">
             <div class="dropdown">
-              <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<? echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
+              <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
@@ -97,18 +97,18 @@ $result = mysqli_query($link, $query);
 
           <br>
           <br>
-          <h3 class="text-center"><? echo $title ?></h3>
-          <p class="text-center"><? echo $description ?></p>
-          <p class="text-center">Located at <? echo $location ?></p>
-          <p class="text-center">Starts at <? echo $startDateFormatted ?> at <? echo $startTimeFormatted ?></p>
-          <p class="text-center">Ends at <? echo $endDateFormatted ?> at <? echo $endTimeFormatted ?></p>
+          <h3 class="text-center"><?php echo $title ?></h3>
+          <p class="text-center"><?php echo $description ?></p>
+          <p class="text-center">Located at <?php echo $location ?></p>
+          <p class="text-center">Starts at <?php echo $startDateFormatted ?> at <?php echo $startTimeFormatted ?></p>
+          <p class="text-center">Ends at <?php echo $endDateFormatted ?> at <?php echo $endTimeFormatted ?></p>
           <br>
           <br>
           <br>
           <br>
           <div class="row justify-content-center">
-            <div class="col-3"><a href="updateEvent.php?event_id=<? echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
-            <div class="col-3"><a href="deleteEvent.php?event_id=<? echo $event_id ?>&userEvents_id=<? echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
+            <div class="col-3"><a href="updateEvent.php?event_id=<?php echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
+            <div class="col-3"><a href="deleteEvent.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
           </div>
 
           <?php
