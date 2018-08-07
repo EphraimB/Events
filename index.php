@@ -35,7 +35,7 @@ $session_user_id = $_SESSION['user_id'];
 $query = "SELECT * FROM events LEFT OUTER JOIN userEvents ON events.event_id=userEvents.event_id LEFT OUTER JOIN users ON userEvents.user_id=users.user_id WHERE userEvents.user_id='$session_user_id'";
 $result = mysqli_query($link, $query);
 
-$invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id'";
+$invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id' AND status_id=0";
 $invited_result = mysqli_query($link, $invited_query);
 
 ?>
@@ -116,8 +116,8 @@ $invited_result = mysqli_query($link, $invited_query);
         					<p>You got an invitation.</p>
       					</div>
       					<div class="modal-footer">
-									<button type="button" class="btn btn-danger">Decline</button>
-        					<button type="button" class="btn btn-success">Accept</button>
+									<a class="btn btn-danger" href="updateInviteStatus.php?action=Decline">Decline</a>
+        					<a class="btn btn-success" href="updateInviteStatus.php?action=Accept">Accept</a>
       					</div>
     					</div>
   					</div>
