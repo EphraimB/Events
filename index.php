@@ -67,7 +67,7 @@ $result = mysqli_query($link, $query);
           </ul>
           <ul class="navbar-nav mr-right">
             <div class="dropdown">
-              <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<? echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
+              <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
@@ -133,15 +133,15 @@ $result = mysqli_query($link, $query);
           ?>
 
         <div class="row mb-4">
-          <div class="col-4 col-lg"><? echo $title ?></div>
-          <div class="col-5 col-lg"><? echo $description ?></div>
-          <div class="col-lg d-none d-lg-block"><? echo $location ?></div>
-          <div class="col-lg d-none d-lg-block"><? echo $startDateFormatted."<br>".$startTimeFormatted ?></div>
-          <div class="col-lg d-none d-lg-block"><? echo $endDateFormatted."<br>".$endTimeFormatted ?></div>
-          <div class="col-lg d-none d-lg-block"><a href="updateEvent.php?event_id=<? echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
-          <div class="col-lg d-none d-lg-block"><a href="deleteEvent.php?event_id=<? echo $event_id ?>&userEvents_id=<? echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
-          <div class="col-lg d-none d-lg-block"><a href="invite.php?event_id=<? echo $event_id ?>" class="btn btn-primary material-icons">mail</a></div>
-          <div class="col-2 d-block d-lg-none"><a href="moreInfo.php?event_id=<? echo $event_id ?>&userEvents_id=<? echo $userEvents_id ?>" class="material-icons">info</a></div>
+          <div class="col-4 col-lg"><?php echo $title ?></div>
+          <div class="col-5 col-lg"><?php echo $description ?></div>
+          <div class="col-lg d-none d-lg-block"><?php echo $location ?></div>
+          <div class="col-lg d-none d-lg-block"><?php echo $startDateFormatted."<br>".$startTimeFormatted ?></div>
+          <div class="col-lg d-none d-lg-block"><?php echo $endDateFormatted."<br>".$endTimeFormatted ?></div>
+          <div class="col-lg d-none d-lg-block"><a href="updateEvent.php?event_id=<?php echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
+          <div class="col-lg d-none d-lg-block"><a href="deleteEvent.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
+          <div class="col-lg d-none d-lg-block"><a href="invite.php?event_id=<?php echo $event_id ?>" class="btn btn-primary material-icons">mail</a></div>
+          <div class="col-2 d-block d-lg-none"><a href="moreInfo.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>" class="material-icons">info</a></div>
         </div>
         <?php
           }

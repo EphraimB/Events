@@ -79,7 +79,7 @@ if(!isset($_SESSION['selectedUsers'])){
           </ul>
           <ul class="navbar-nav mr-right">
             <div class="dropdown">
-              <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<? echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
+              <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
@@ -118,7 +118,7 @@ if(!isset($_SESSION['selectedUsers'])){
             if($user != $session_username && $allUsersEmail != $email){
               $allUsersEmail_hash = md5(strtolower(trim($allUsersEmail)));
           ?>
-              <a class="list-group-item list-group-item-action text-center" href="selectUsers.php?selectedUser=<? echo $user ?>&selectedUserEmail_hash=<? echo $allUsersEmail_hash ?>&fromEvent_id=<? echo $event_id ?>"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<? echo $allUsersEmail_hash ?>?s=30">&emsp;<span><? echo $user ?></span></a>
+              <a class="list-group-item list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $user ?>&selectedUserEmail_hash=<?php echo $allUsersEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $allUsersEmail_hash ?>?s=30">&emsp;<span><?php echo $user ?></span></a>
           <?php
           }
         }
