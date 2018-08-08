@@ -107,13 +107,17 @@ $result = mysqli_query($link, $query);
           <br>
           <br>
           <div class="row justify-content-center">
-            <div class="col-3"><a href="updateEvent.php?event_id=<?php echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
-            <div class="col-3"><a href="deleteEvent.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
+            <div class="col-3 col-lg-2"><a href="updateEvent.php?event_id=<?php echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
+            <div class="col-3 col-lg-2"><a href="deleteEvent.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
+						<div class="col-3 col-lg-2"><a href="invite.php?event_id=<?php echo $event_id ?>" class="btn btn-primary material-icons">mail</a></div>
           </div>
 
           <?php
           }
          ?>
+				 <br>
+				 <br>
+				 <h4 class="col font-weight-bold">Attendees (<?php echo 0 ?>)</h4>
       </main>
     </div>
   </body>
