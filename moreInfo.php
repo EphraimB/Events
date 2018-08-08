@@ -37,6 +37,9 @@ $session_user_id = $_SESSION['user_id'];
 $query = "SELECT * FROM events WHERE event_id='$event_id'";
 $result = mysqli_query($link, $query);
 
+$attendingUsers_query = "SELECT * FROM invite LEFT OUTER JOIN users ON invite.user_id=users.user_id WHERE invite.status_id=2 AND invite.event_id='$event_id'";
+$attendingUsers_result = mysqli_query($link, $attendingUsers_query);
+
 ?>
 
 <!DOCTYPE html>
@@ -118,6 +121,20 @@ $result = mysqli_query($link, $query);
 				 <br>
 				 <br>
 				 <h4 class="col font-weight-bold">Attendees (<?php echo 0 ?>)</h4>
+				 <?php
+				 while($attendingUser = mysqli_fetch_array($attendingUsers_result)){
+					 $attendingUsername = $attendingUser['username'];
+
+				 ?>
+				 <div class="card" style="width: 7rem; display: inline-block;">
+						 <img class="card-img-top circle-img" src="https://www.gravatar.com/avatar/<?php $selectedUser[1] ?>?s=300">
+						 <div class="card-body">
+							 <p class="card-text text-center"><?php echo $attendingUsername ?></p>
+						 </div>
+					 </div>
+					 <?php
+				 		}
+						?>
       </main>
     </div>
   </body>
