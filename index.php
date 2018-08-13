@@ -126,14 +126,15 @@ $invitedEvents_results = mysqli_query($link, $invitedEvents_query);
   					</div>
 					</div>';
 				}
-
+				echo '
+				<br>
+				<br>
+				<h3 class="text-center">Personal</h3>
+				';
         if(mysqli_num_rows($result) > 0){
 
         ?>
         <br>
-        <br>
-				<h3 class="text-center">Personal</h3>
-				<br>
         <div class="row font-weight-bold mb-4">
           <div class="col-4 col-lg">Title</div>
           <div class="col-5 col-lg">Description</div>
@@ -190,12 +191,16 @@ $invitedEvents_results = mysqli_query($link, $invitedEvents_query);
             <p class='text-lead text-center'>No personal events</p>";
           }
 
+					echo
+					'
+					<br>
+					<br>
+					<h3 class="text-center">Invited</h3>
+					';
+
 					if(mysqli_num_rows($invitedEvents_results) > 0){
 						?>
 		        <br>
-		        <br>
-						<h3 class="text-center">Invited</h3>
-						<br>
 		        <div class="row font-weight-bold mb-4">
 		          <div class="col-4 col-lg">Title</div>
 		          <div class="col-5 col-lg">Description</div>
