@@ -23,6 +23,7 @@ foreach(array_column($_SESSION['selectedUsers'], 0) as $selectedUser){
 
     if($result){
       $_SESSION['inviteSuccessful'] = 1;
+      unset($_SESSION['selectedUsers']);
       header("location: index.php");
     }
   }
