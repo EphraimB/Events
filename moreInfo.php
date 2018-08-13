@@ -42,6 +42,9 @@ $result = mysqli_query($link, $query);
 $attendingUsers_query = "SELECT * FROM invite LEFT OUTER JOIN users ON invite.user_id=users.user_id WHERE invite.status_id=2 AND invite.event_id='$event_id'";
 $attendingUsers_result = mysqli_query($link, $attendingUsers_query);
 
+$hostUser_query = "SELECT * FROM invite LEFT OUTER JOIN userevents ON invite.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE event_id='$event_id'";
+$hostUser_result = mysqli_query($link, $hostUser_query);
+
 $attendingUsersCount_query = "SELECT COUNT(*) FROM invite WHERE event_id='$event_id' AND status_id=2";
 $attendingUsersCount_result = mysqli_query($link, $attendingUsersCount_query);
 
@@ -138,6 +141,12 @@ $declinedUsersCount_result = mysqli_query($link, $declinedUsersCount_query);
 				 <br>
 				 <h4 class="col font-weight-bold">Attendees (<?php echo mysqli_fetch_array($attendingUsersCount_result)[0] ?>)</h4>
 				 <br>
+				 <div class="card bg-light m-2" style="width: 10rem; display: inline-block;">
+						<img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo md5(strtolower(trim(mysqli_fetch_array($hostUser_result)['email']))) ?>?s=300">
+						<div class="card-body">
+							<p class="card-text text-center"><?php echo mysqli_fetch_array($hostUser_result)['username'] ?></p>
+						</div>
+					</div>
 				 <?php
 				 while($attendingUser = mysqli_fetch_array($attendingUsers_result)){
 					 $attendingUsername = $attendingUser['username'];
@@ -145,7 +154,7 @@ $declinedUsersCount_result = mysqli_query($link, $declinedUsersCount_query);
 					 $attendingUserEmailHash = md5(strtolower(trim($attendingUserEmail)))
 
 				 ?>
-				 <div class="card bg-light m-2" style="width: 10rem; display: inline-block;">
+				 	<div class="card bg-light m-2" style="width: 10rem; display: inline-block;">
 						 <img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $attendingUserEmailHash ?>?s=300">
 						 <div class="card-body">
 							 <p class="card-text text-center"><?php echo $attendingUsername ?></p>
