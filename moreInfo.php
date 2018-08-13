@@ -121,13 +121,16 @@ $attendingUsers_result = mysqli_query($link, $attendingUsers_query);
 				 <br>
 				 <br>
 				 <h4 class="col font-weight-bold">Attendees (<?php echo 0 ?>)</h4>
+				 <br>
 				 <?php
 				 while($attendingUser = mysqli_fetch_array($attendingUsers_result)){
 					 $attendingUsername = $attendingUser['username'];
+					 $attendingUserEmail = $attendingUser['email'];
+					 $attendingUserEmailHash = md5(strtolower(trim($attendingUserEmail)))
 
 				 ?>
-				 <div class="card" style="width: 7rem; display: inline-block;">
-						 <img class="card-img-top circle-img" src="https://www.gravatar.com/avatar/<?php $selectedUser[1] ?>?s=300">
+				 <div class="card bg-light" style="width: 7rem; display: inline-block;">
+						 <img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $attendingUserEmailHash ?>?s=300">
 						 <div class="card-body">
 							 <p class="card-text text-center"><?php echo $attendingUsername ?></p>
 						 </div>
