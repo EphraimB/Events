@@ -43,6 +43,11 @@ $attendingUsers_result = mysqli_query($link, $attendingUsers_query);
 $attendingUsersCount_query = "SELECT COUNT(*) FROM invite WHERE event_id='$event_id' AND status_id=2";
 $attendingUsersCount_result = mysqli_query($link, $attendingUsersCount_query);
 
+$declinedUsers_query = "SELECT * FROM invite LEFT OUTER JOIN users ON invite.user_id=users.user_id WHERE invite.status_id=1 AND invite.event_id='$event_id'";
+$declinedUsers_result = mysqli_query($link, $declinedUsers_query);
+
+$declinedUsersCount_query = "SELECT COUNT(*) FROM invite WHERE event_id='$event_id' AND status_id=1";
+$declinedUsersCount_result = mysqli_query($link, $declinedUsersCount_query);
 ?>
 
 <!DOCTYPE html>

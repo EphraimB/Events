@@ -132,7 +132,7 @@ $invited_result = mysqli_query($link, $invited_query);
         <div class="row font-weight-bold mb-4">
           <div class="col-4 col-lg">Title</div>
           <div class="col-5 col-lg">Description</div>
-          <div class="col-lg d-none d-lg-block">Location</div>
+          <div class="col-lg-2 d-none d-lg-block">Location</div>
           <div class="col-lg d-none d-lg-block">Start date</div>
           <div class="col-lg d-none d-lg-block">End date</div>
           <div class="col-lg d-none d-lg-block">Edit</div>
@@ -167,7 +167,7 @@ $invited_result = mysqli_query($link, $invited_query);
         <div class="row mb-4">
           <div class="col-4 col-lg"><?php echo $title ?></div>
           <div class="col-5 col-lg"><?php echo $description ?></div>
-          <div class="col-lg d-none d-lg-block"><?php echo $location ?></div>
+          <div class="col-lg-2 d-none d-lg-block"><?php echo $location ?></div>
           <div class="col-lg d-none d-lg-block"><?php echo $startDateFormatted."<br>".$startTimeFormatted ?></div>
           <div class="col-lg d-none d-lg-block"><?php echo $endDateFormatted."<br>".$endTimeFormatted ?></div>
           <div class="col-lg d-none d-lg-block"><a href="updateEvent.php?event_id=<?php echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
