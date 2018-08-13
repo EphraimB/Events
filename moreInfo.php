@@ -132,7 +132,7 @@ $attendingUsersCount_result = mysqli_query($link, $attendingUsersCount_query);
 					 $attendingUserEmailHash = md5(strtolower(trim($attendingUserEmail)))
 
 				 ?>
-				 <div class="card bg-light" style="width: 10rem; display: inline-block;">
+				 <div class="card bg-light m-2" style="width: 10rem; display: inline-block;">
 						 <img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $attendingUserEmailHash ?>?s=300">
 						 <div class="card-body">
 							 <p class="card-text text-center"><?php echo $attendingUsername ?></p>
