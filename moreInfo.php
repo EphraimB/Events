@@ -8,8 +8,10 @@ global $link;
 
 
 $event_id = $_GET['event_id'];
+$invitedEvent = $_GET['invitedEvent'];
 
 $session_username = $_SESSION['username'];
+
 
 if (isset($_GET['logout'])) {
 	session_destroy();
@@ -117,11 +119,17 @@ $declinedUsersCount_result = mysqli_query($link, $declinedUsersCount_query);
           <br>
           <br>
           <br>
+					<?php
+					if($invitedEvent == "false"){
+					?>
           <div class="row justify-content-center">
             <div class="col-3 col-lg-2"><a href="updateEvent.php?event_id=<?php echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
             <div class="col-3 col-lg-2"><a href="deleteEvent.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
 						<div class="col-3 col-lg-2"><a href="invite.php?event_id=<?php echo $event_id ?>" class="btn btn-primary material-icons">mail</a></div>
           </div>
+					<?php
+					}
+					?>
 
           <?php
           }

@@ -38,6 +38,9 @@ $result = mysqli_query($link, $query);
 $invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id' AND status_id=0";
 $invited_result = mysqli_query($link, $invited_query);
 
+$invitedEvents_query = "SELECT * FROM invite LEFT OUTER JOIN events ON invite.event_id=events.event_id WHERE user_id='$session_user_id' AND status_id=2";
+$invitedEvents_results = mysqli_query($link, $invitedEvents_query);
+
 ?>
 
 <!DOCTYPE html>
@@ -129,6 +132,8 @@ $invited_result = mysqli_query($link, $invited_query);
         ?>
         <br>
         <br>
+				<h3 class="text-center">Personal</h3>
+				<br>
         <div class="row font-weight-bold mb-4">
           <div class="col-4 col-lg">Title</div>
           <div class="col-5 col-lg">Description</div>
@@ -173,7 +178,7 @@ $invited_result = mysqli_query($link, $invited_query);
           <div class="col-lg d-none d-lg-block"><a href="updateEvent.php?event_id=<?php echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
           <div class="col-lg d-none d-lg-block"><a href="deleteEvent.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
           <div class="col-lg d-none d-lg-block"><a href="invite.php?event_id=<?php echo $event_id ?>" class="btn btn-primary material-icons">mail</a></div>
-          <div class="col-2 col-lg"><a href="moreInfo.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>" class="material-icons">info</a></div>
+          <div class="col-2 col-lg"><a href="moreInfo.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>&invitedEvent=false" class="material-icons">info</a></div>
         </div>
         <?php
           }
@@ -182,8 +187,57 @@ $invited_result = mysqli_query($link, $invited_query);
             echo "
             <br>
             <br>
-            <p class='text-lead text-center'>No events</p>";
+            <p class='text-lead text-center'>No personal events</p>";
           }
+
+					if(mysqli_num_rows($invitedEvents_results) > 0){
+						?>
+		        <br>
+		        <br>
+						<h3 class="text-center">Invited</h3>
+						<br>
+		        <div class="row font-weight-bold mb-4">
+		          <div class="col-4 col-lg">Title</div>
+		          <div class="col-5 col-lg">Description</div>
+		          <div class="col-lg-2 d-none d-lg-block">Location</div>
+		          <div class="col-lg d-none d-lg-block">Start date</div>
+		          <div class="col-lg d-none d-lg-block">End date</div>
+							<div class="col-lg d-none d-lg-block"></div>
+		        </div>
+
+		        <?php
+		        while($invited_row = mysqli_fetch_array($invitedEvents_results)){
+		          $event_id = $invited_row['event_id'];
+		          $userEvents_id = $invited_row['id'];
+		          $title = $invited_row['title'];
+		          $description = $invited_row['description'];
+		          $location = $invited_row['location'];
+		          $startDate = $invited_row['startDate'];
+		          $startDateFormatted = date("m/d/Y", strtotime($startDate));
+		          $startTimeFormatted = date("h:i A", strtotime($startDate));
+		          $endDate = $invited_row['endDate'];
+		          $endDateFormatted = date("m/d/Y", strtotime($endDate));
+		          $endTimeFormatted = date("h:i A", strtotime($endDate));
+
+							?>
+
+						<div class="row mb-4">
+							<div class="col-4 col-lg"><?php echo $title ?></div>
+							<div class="col-5 col-lg"><?php echo $description ?></div>
+							<div class="col-lg-2 d-none d-lg-block"><?php echo $location ?></div>
+							<div class="col-lg d-none d-lg-block"><?php echo $startDateFormatted."<br>".$startTimeFormatted ?></div>
+							<div class="col-lg d-none d-lg-block"><?php echo $endDateFormatted."<br>".$endTimeFormatted ?></div>
+							<div class="col-2 col-lg"><a href="moreInfo.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>&invitedEvent=true" class="material-icons">info</a></div>
+						</div>
+						<?php
+							}
+							}
+							else{
+								echo "
+								<br>
+								<br>
+								<p class='text-lead text-center'>No invited events</p>";
+							}
         ?>
         <br>
         <br>
