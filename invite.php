@@ -112,10 +112,13 @@ if(!isset($_SESSION['selectedUsers'])){
         <br>
         <br>
           <?php
+					$invited_query = "SELECT * FROM invite LEFT OUTER JOIN users ON invite.user_id=users.user_id WHERE event_id='$event_id'";
+					$invited_result = mysqli_query($link, $invited_query);
+
           while($user = mysqli_fetch_array($allUsers_result)[0]){
             $allUsersEmail = mysqli_fetch_array($allUsersEmailResult)[0];
 
-            if($user != $session_username && $allUsersEmail != $email){
+            if($user != $session_username && $allUsersEmail != $email && $user != mysqli_fetch_array($invited_result)['username']){
               $allUsersEmail_hash = md5(strtolower(trim($allUsersEmail)));
           ?>
               <a class="list-group-item list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $user ?>&selectedUserEmail_hash=<?php echo $allUsersEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $allUsersEmail_hash ?>?s=30">&emsp;<span><?php echo $user ?></span></a>
