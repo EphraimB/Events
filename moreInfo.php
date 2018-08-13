@@ -40,6 +40,9 @@ $result = mysqli_query($link, $query);
 $attendingUsers_query = "SELECT * FROM invite LEFT OUTER JOIN users ON invite.user_id=users.user_id WHERE invite.status_id=2 AND invite.event_id='$event_id'";
 $attendingUsers_result = mysqli_query($link, $attendingUsers_query);
 
+$attendingUsersCount_query = "SELECT COUNT(*) FROM invite WHERE event_id='$event_id' AND status_id=2";
+$attendingUsersCount_result = mysqli_query($link, $attendingUsersCount_query);
+
 ?>
 
 <!DOCTYPE html>
@@ -120,7 +123,7 @@ $attendingUsers_result = mysqli_query($link, $attendingUsers_query);
          ?>
 				 <br>
 				 <br>
-				 <h4 class="col font-weight-bold">Attendees (<?php echo 0 ?>)</h4>
+				 <h4 class="col font-weight-bold">Attendees (<?php echo mysqli_fetch_array($attendingUsersCount_result)[0] ?>)</h4>
 				 <br>
 				 <?php
 				 while($attendingUser = mysqli_fetch_array($attendingUsers_result)){
@@ -129,7 +132,7 @@ $attendingUsers_result = mysqli_query($link, $attendingUsers_query);
 					 $attendingUserEmailHash = md5(strtolower(trim($attendingUserEmail)))
 
 				 ?>
-				 <div class="card bg-light" style="width: 7rem; display: inline-block;">
+				 <div class="card bg-light" style="width: 10rem; display: inline-block;">
 						 <img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $attendingUserEmailHash ?>?s=300">
 						 <div class="card-body">
 							 <p class="card-text text-center"><?php echo $attendingUsername ?></p>
