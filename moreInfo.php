@@ -122,6 +122,18 @@ $declinedUsersCount_result = mysqli_query($link, $declinedUsersCount_query);
           <br>
           <br>
           <br>
+					<style>
+					 @media only screen and (max-width: 991px){
+						 .attendee-card{
+							 width: 7rem;
+						 }
+					 }
+					 @media only screen and (min-width: 992px){
+						 .attendee-card{
+							 width: 10rem;
+						 }
+					 }
+				 </style>
 					<?php
 					if($invitedEvent == "false"){
 					?>
@@ -130,7 +142,24 @@ $declinedUsersCount_result = mysqli_query($link, $declinedUsersCount_query);
             <div class="col-3 col-lg-2"><a href="deleteEvent.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
 						<div class="col-3 col-lg-2"><a href="invite.php?event_id=<?php echo $event_id ?>" class="btn btn-primary material-icons">mail</a></div>
           </div>
+					<br>
+					<br>
+					<h4 class="col font-weight-bold">Declined (<?php echo mysqli_fetch_array($declinedUsersCount_result)[0] ?>)</h4>
+					<br>
 					<?php
+ 				 	while($declinedUser = mysqli_fetch_array($declinedUsers_result)){
+ 					 	$declinedUsername = $declinedUser['username'];
+ 					 	$declinedUserEmail = $declinedUser['email'];
+ 					 	$declinedUserEmailHash = md5(strtolower(trim($declinedUserEmail)));
+						?>
+						<div class="card bg-light m-2 attendee-card" style="display: inline-block;">
+							 <img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $declinedUserEmailHash ?>?s=300">
+							 <div class="card-body">
+								 <p class="card-text text-center"><?php echo $declinedUsername ?></p>
+							 </div>
+						</div>
+						<?php
+						}
 					}
 					?>
 
@@ -141,18 +170,6 @@ $declinedUsersCount_result = mysqli_query($link, $declinedUsersCount_query);
 				 <br>
 				 <h4 class="col font-weight-bold">Attendees (<?php echo mysqli_fetch_array($attendingUsersCount_result)[0] + 1 ?>)</h4>
 				 <br>
-				 <style>
-				 	@media only screen and (max-width: 991px){
-						.attendee-card{
-							width: 7rem;
-						}
-					}
-					@media only screen and (min-width: 992px){
-						.attendee-card{
-							width: 10rem;
-						}
-					}
-			 	</style>
 				 <div class="card bg-light m-2 attendee-card" style="display: inline-block;">
 					 <?php
 					 while($hostUser = mysqli_fetch_array($hostUser_result)){
@@ -173,12 +190,12 @@ $declinedUsersCount_result = mysqli_query($link, $declinedUsersCount_query);
 					 $attendingUserEmailHash = md5(strtolower(trim($attendingUserEmail)));
 
 				 ?>
-				 	<div class="card bg-light m-2 attendee-card" style=" display: inline-block;">
+				 	<div class="card bg-light m-2 attendee-card" style="display: inline-block;">
 						 <img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $attendingUserEmailHash ?>?s=300">
 						 <div class="card-body">
 							 <p class="card-text text-center"><?php echo $attendingUsername ?></p>
 						 </div>
-					 </div>
+					</div>
 					 <?php
 				 		}
 						?>
