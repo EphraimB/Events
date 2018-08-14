@@ -73,8 +73,14 @@ $invitedEvents_results = mysqli_query($link, $invitedEvents_query);
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="index.php">My Events <span class="sr-only">(current)</span></a>
             </li>
+						<li>
+							<a class="nav-link" href="index.php">Attending</a>
+						</li>
+						<li>
+							<a class="nav-link" href="index.php">Pending</a>
+						</li>
           </ul>
           <ul class="navbar-nav mr-right">
             <div class="dropdown">
@@ -100,7 +106,7 @@ $invitedEvents_results = mysqli_query($link, $invitedEvents_query);
       ?>
       <br>
       <header>
-        <h1 class="text-center">Events</h1>
+        <h1 class="text-center">My Events</h1>
       </header>
       <main>
         <?php
@@ -127,14 +133,12 @@ $invitedEvents_results = mysqli_query($link, $invitedEvents_query);
 					</div>';
 				}
 				echo '
-				<br>
-				<br>
-				<h3 class="text-center">Personal</h3>
 				';
         if(mysqli_num_rows($result) > 0){
 
         ?>
         <br>
+				<br>
         <div class="row font-weight-bold mb-4">
           <div class="col-4 col-lg">Title</div>
           <div class="col-5 col-lg">Description</div>
