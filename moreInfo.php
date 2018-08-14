@@ -146,7 +146,7 @@ $declinedUsersCount_result = mysqli_query($link, $declinedUsersCount_query);
 					 while($hostUser = mysqli_fetch_array($hostUser_result)){
 						 $hostUsername = $hostUser['username'];
 						 $hostEmail = $hostUser['email'];
-						 $hostEmailHash = md5(strtolower(trim($email)));
+						 $hostEmailHash = md5(strtolower(trim($hostEmail)));
 					 ?>
 						<img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $hostEmailHash ?>?s=300">
 						<div class="card-body">
@@ -158,7 +158,7 @@ $declinedUsersCount_result = mysqli_query($link, $declinedUsersCount_query);
 				 while($attendingUser = mysqli_fetch_array($attendingUsers_result)){
 					 $attendingUsername = $attendingUser['username'];
 					 $attendingUserEmail = $attendingUser['email'];
-					 $attendingUserEmailHash = md5(strtolower(trim($attendingUserEmail)))
+					 $attendingUserEmailHash = md5(strtolower(trim($attendingUserEmail)));
 
 				 ?>
 				 	<div class="card bg-light m-2" style="width: 10rem; display: inline-block;">
