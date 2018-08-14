@@ -75,10 +75,10 @@ $invitedEvents_results = mysqli_query($link, $invitedEvents_query);
             <li class="nav-item active">
               <a class="nav-link" href="index.php">My Events <span class="sr-only">(current)</span></a>
             </li>
-						<li>
+						<li class="nav-item">
 							<a class="nav-link" href="index.php">Attending</a>
 						</li>
-						<li>
+						<li class="nav-item">
 							<a class="nav-link" href="index.php">Pending</a>
 						</li>
           </ul>
