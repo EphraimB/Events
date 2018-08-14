@@ -72,11 +72,11 @@ $invitedEvents_results = mysqli_query($link, $invitedEvents_query);
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" href="index.php">My Events <span class="sr-only">(current)</span></a>
             </li>
-						<li class="nav-item">
-							<a class="nav-link" href="attending.php">Attending</a>
+						<li class="nav-item active">
+							<a class="nav-link" href="attending.php">Attending <span class="sr-only">(current)</span></a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="index.php">Pending</a>
@@ -106,7 +106,7 @@ $invitedEvents_results = mysqli_query($link, $invitedEvents_query);
       ?>
       <br>
       <header>
-        <h1 class="text-center">My Events</h1>
+        <h1 class="text-center">Attending</h1>
       </header>
       <main>
         <?php
@@ -132,68 +132,54 @@ $invitedEvents_results = mysqli_query($link, $invitedEvents_query);
   					</div>
 					</div>';
 				}
-				echo '
-				';
-        if(mysqli_num_rows($result) > 0){
 
-        ?>
-        <br>
-				<br>
-        <div class="row font-weight-bold mb-4">
-          <div class="col-4 col-lg">Title</div>
-          <div class="col-5 col-lg">Description</div>
-          <div class="col-lg-2 d-none d-lg-block">Location</div>
-          <div class="col-lg d-none d-lg-block">Start date</div>
-          <div class="col-lg d-none d-lg-block">End date</div>
-          <div class="col-lg d-none d-lg-block">Edit</div>
-          <div class="col-lg d-none d-lg-block">Delete</div>
-          <div class="col-lg d-none d-lg-block">Invite</div>
-					<div class="col-lg d-none d-lg-block"></div>
-        </div>
 
-        <?php
-        while($row = mysqli_fetch_array($result)){
-          $event_id = $row['event_id'];
-          $userEvents_id = $row['id'];
-          $title = $row['title'];
-          $description = $row['description'];
-          $location = $row['location'];
-          $startDate = $row['startDate'];
-          $startDateFormatted = date("m/d/Y", strtotime($startDate));
-          $startTimeFormatted = date("h:i A", strtotime($startDate));
-          $endDate = $row['endDate'];
-          $endDateFormatted = date("m/d/Y", strtotime($endDate));
-          $endTimeFormatted = date("h:i A", strtotime($endDate));
-
-          /*ini_set("allow_url_fopen", 1);
-
-          $json = file_get_contents('http://www.mapquestapi.com/geocoding/v1/address?key=yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT&location='.urlencode($location));
-          $obj = json_decode($json, true);
-
-          $mapUrl = $obj["results"][0]["locations"][0]["mapUrl"];*/
-
-          ?>
-
-        <div class="row mb-4">
-          <div class="col-4 col-lg"><?php echo $title ?></div>
-          <div class="col-5 col-lg"><?php echo $description ?></div>
-          <div class="col-lg-2 d-none d-lg-block"><?php echo $location ?></div>
-          <div class="col-lg d-none d-lg-block"><?php echo $startDateFormatted."<br>".$startTimeFormatted ?></div>
-          <div class="col-lg d-none d-lg-block"><?php echo $endDateFormatted."<br>".$endTimeFormatted ?></div>
-          <div class="col-lg d-none d-lg-block"><a href="updateEvent.php?event_id=<?php echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
-          <div class="col-lg d-none d-lg-block"><a href="deleteEvent.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
-          <div class="col-lg d-none d-lg-block"><a href="invite.php?event_id=<?php echo $event_id ?>" class="btn btn-primary material-icons">mail</a></div>
-          <div class="col-2 col-lg"><a href="moreInfo.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>&invitedEvent=false" class="material-icons">info</a></div>
-        </div>
-        <?php
-          }
-          }
-          else{
-            echo "
+					if(mysqli_num_rows($invitedEvents_results) > 0){
+						?>
+		        <br>
             <br>
-            <br>
-            <p class='text-lead text-center'>No personal events</p>";
-          }
+		        <div class="row font-weight-bold mb-4">
+		          <div class="col-4 col-lg">Title</div>
+		          <div class="col-5 col-lg">Description</div>
+		          <div class="col-lg-2 d-none d-lg-block">Location</div>
+		          <div class="col-lg d-none d-lg-block">Start date</div>
+		          <div class="col-lg d-none d-lg-block">End date</div>
+							<div class="col-lg d-none d-lg-block"></div>
+		        </div>
+
+		        <?php
+		        while($invited_row = mysqli_fetch_array($invitedEvents_results)){
+		          $event_id = $invited_row['event_id'];
+		          $userEvents_id = $invited_row['id'];
+		          $title = $invited_row['title'];
+		          $description = $invited_row['description'];
+		          $location = $invited_row['location'];
+		          $startDate = $invited_row['startDate'];
+		          $startDateFormatted = date("m/d/Y", strtotime($startDate));
+		          $startTimeFormatted = date("h:i A", strtotime($startDate));
+		          $endDate = $invited_row['endDate'];
+		          $endDateFormatted = date("m/d/Y", strtotime($endDate));
+		          $endTimeFormatted = date("h:i A", strtotime($endDate));
+
+							?>
+
+						<div class="row mb-4">
+							<div class="col-4 col-lg"><?php echo $title ?></div>
+							<div class="col-5 col-lg"><?php echo $description ?></div>
+							<div class="col-lg-2 d-none d-lg-block"><?php echo $location ?></div>
+							<div class="col-lg d-none d-lg-block"><?php echo $startDateFormatted."<br>".$startTimeFormatted ?></div>
+							<div class="col-lg d-none d-lg-block"><?php echo $endDateFormatted."<br>".$endTimeFormatted ?></div>
+							<div class="col-2 col-lg"><a href="moreInfo.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>&invitedEvent=true" class="material-icons">info</a></div>
+						</div>
+						<?php
+							}
+							}
+							else{
+								echo "
+								<br>
+								<br>
+								<p class='text-lead text-center'>No invited events</p>";
+							}
         ?>
         <br>
         <br>

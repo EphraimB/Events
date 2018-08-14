@@ -83,7 +83,7 @@ $declinedUsersCount_result = mysqli_query($link, $declinedUsersCount_query);
 							<a class="nav-link" href="index.php">My Events</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="index.php">Attending</a>
+							<a class="nav-link" href="attending.php">Attending</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="index.php">Pending</a>
