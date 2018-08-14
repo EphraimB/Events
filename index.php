@@ -9,7 +9,7 @@ global $link;
 
 $session_username = $_SESSION['username'];
 
-if (isset($_GET['logout'])) {
+if(isset($_GET['logout'])) {
 	session_destroy();
 	unset($session_username);
 	header("location: login.php");
@@ -35,6 +35,12 @@ $session_user_id = $_SESSION['user_id'];
 $query = "SELECT * FROM events LEFT OUTER JOIN userEvents ON events.event_id=userEvents.event_id LEFT OUTER JOIN users ON userEvents.user_id=users.user_id WHERE userEvents.user_id='$session_user_id'";
 $result = mysqli_query($link, $query);
 
+$invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id' AND status_id=0";
+$invited_result = mysqli_query($link, $invited_query);
+
+$invitedEvents_query = "SELECT * FROM invite LEFT OUTER JOIN events ON invite.event_id=events.event_id WHERE user_id='$session_user_id' AND status_id=2";
+$invitedEvents_results = mysqli_query($link, $invitedEvents_query);
+
 ?>
 
 <!DOCTYPE html>
@@ -50,6 +56,11 @@ $result = mysqli_query($link, $query);
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="img/baseline_event_black_18dp.png">
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#myModal").modal('show');
+			});
+		</script>
   </head>
   <body>
     <div class="container">
@@ -62,12 +73,18 @@ $result = mysqli_query($link, $query);
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="index.php">My Events <span class="sr-only">(current)</span></a>
             </li>
+						<li>
+							<a class="nav-link" href="index.php">Attending</a>
+						</li>
+						<li>
+							<a class="nav-link" href="index.php">Pending</a>
+						</li>
           </ul>
           <ul class="navbar-nav mr-right">
             <div class="dropdown">
-              <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<? echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
+              <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
@@ -75,25 +92,63 @@ $result = mysqli_query($link, $query);
           </ul>
         </div>
       </nav>
+      <?php
+      if(isset($_SESSION['inviteSuccessful'])){
+        echo '
+        <div class="alert alert-success" role="alert">
+          Successfully sent an invitation.
+          <a href="clearSessionExists.php?redirectedFrom=index" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </a>
+        </div>';
+      }
+
+      ?>
       <br>
       <header>
-        <h1 class="text-center">Events</h1>
+        <h1 class="text-center">My Events</h1>
       </header>
       <main>
         <?php
+				if(mysqli_num_rows($invited_result) > 0){
+					echo '
+					<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+  					<div class="modal-dialog" role="document">
+    					<div class="modal-content">
+      					<div class="modal-header">
+        					<h5 class="modal-title">Invitation</h5>
+        					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          					<span aria-hidden="true">&times;</span>
+        					</button>
+      					</div>
+      					<div class="modal-body">
+        					<p>You got an invitation.</p>
+      					</div>
+      					<div class="modal-footer">
+									<a class="btn btn-danger" href="updateInviteStatus.php?action=Decline">Decline</a>
+        					<a class="btn btn-success" href="updateInviteStatus.php?action=Accept">Accept</a>
+      					</div>
+    					</div>
+  					</div>
+					</div>';
+				}
+				echo '
+				';
         if(mysqli_num_rows($result) > 0){
 
         ?>
         <br>
-        <br>
+				<br>
         <div class="row font-weight-bold mb-4">
           <div class="col-4 col-lg">Title</div>
           <div class="col-5 col-lg">Description</div>
-          <div class="col-lg d-none d-lg-block">Location</div>
+          <div class="col-lg-2 d-none d-lg-block">Location</div>
           <div class="col-lg d-none d-lg-block">Start date</div>
           <div class="col-lg d-none d-lg-block">End date</div>
           <div class="col-lg d-none d-lg-block">Edit</div>
           <div class="col-lg d-none d-lg-block">Delete</div>
+          <div class="col-lg d-none d-lg-block">Invite</div>
+					<div class="col-lg d-none d-lg-block"></div>
         </div>
 
         <?php
@@ -120,14 +175,15 @@ $result = mysqli_query($link, $query);
           ?>
 
         <div class="row mb-4">
-          <div class="col-4 col-lg"><? echo $title ?></div>
-          <div class="col-5 col-lg"><? echo $description ?></div>
-          <div class="col-lg d-none d-lg-block"><? echo $location ?></div>
-          <div class="col-lg d-none d-lg-block"><? echo $startDateFormatted."<br>".$startTimeFormatted ?></div>
-          <div class="col-lg d-none d-lg-block"><? echo $endDateFormatted."<br>".$endTimeFormatted ?></div>
-          <div class="col-lg d-none d-lg-block"><a href="updateEvent.php?event_id=<? echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
-          <div class="col-lg d-none d-lg-block"><a href="deleteEvent.php?event_id=<? echo $event_id ?>&userEvents_id=<? echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
-          <div class="col-2 d-block d-lg-none"><a href="moreInfo.php?event_id=<? echo $event_id ?>&userEvents_id=<? echo $userEvents_id ?>" class="material-icons">info</a></div>
+          <div class="col-4 col-lg"><?php echo $title ?></div>
+          <div class="col-5 col-lg"><?php echo $description ?></div>
+          <div class="col-lg-2 d-none d-lg-block"><?php echo $location ?></div>
+          <div class="col-lg d-none d-lg-block"><?php echo $startDateFormatted."<br>".$startTimeFormatted ?></div>
+          <div class="col-lg d-none d-lg-block"><?php echo $endDateFormatted."<br>".$endTimeFormatted ?></div>
+          <div class="col-lg d-none d-lg-block"><a href="updateEvent.php?event_id=<?php echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
+          <div class="col-lg d-none d-lg-block"><a href="deleteEvent.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
+          <div class="col-lg d-none d-lg-block"><a href="invite.php?event_id=<?php echo $event_id ?>" class="btn btn-primary material-icons">mail</a></div>
+          <div class="col-2 col-lg"><a href="moreInfo.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>&invitedEvent=false" class="material-icons">info</a></div>
         </div>
         <?php
           }
@@ -136,8 +192,61 @@ $result = mysqli_query($link, $query);
             echo "
             <br>
             <br>
-            <p class='text-lead text-center'>No events</p>";
+            <p class='text-lead text-center'>No personal events</p>";
           }
+
+					echo
+					'
+					<br>
+					<br>
+					<h3 class="text-center">Invited</h3>
+					';
+
+					if(mysqli_num_rows($invitedEvents_results) > 0){
+						?>
+		        <br>
+		        <div class="row font-weight-bold mb-4">
+		          <div class="col-4 col-lg">Title</div>
+		          <div class="col-5 col-lg">Description</div>
+		          <div class="col-lg-2 d-none d-lg-block">Location</div>
+		          <div class="col-lg d-none d-lg-block">Start date</div>
+		          <div class="col-lg d-none d-lg-block">End date</div>
+							<div class="col-lg d-none d-lg-block"></div>
+		        </div>
+
+		        <?php
+		        while($invited_row = mysqli_fetch_array($invitedEvents_results)){
+		          $event_id = $invited_row['event_id'];
+		          $userEvents_id = $invited_row['id'];
+		          $title = $invited_row['title'];
+		          $description = $invited_row['description'];
+		          $location = $invited_row['location'];
+		          $startDate = $invited_row['startDate'];
+		          $startDateFormatted = date("m/d/Y", strtotime($startDate));
+		          $startTimeFormatted = date("h:i A", strtotime($startDate));
+		          $endDate = $invited_row['endDate'];
+		          $endDateFormatted = date("m/d/Y", strtotime($endDate));
+		          $endTimeFormatted = date("h:i A", strtotime($endDate));
+
+							?>
+
+						<div class="row mb-4">
+							<div class="col-4 col-lg"><?php echo $title ?></div>
+							<div class="col-5 col-lg"><?php echo $description ?></div>
+							<div class="col-lg-2 d-none d-lg-block"><?php echo $location ?></div>
+							<div class="col-lg d-none d-lg-block"><?php echo $startDateFormatted."<br>".$startTimeFormatted ?></div>
+							<div class="col-lg d-none d-lg-block"><?php echo $endDateFormatted."<br>".$endTimeFormatted ?></div>
+							<div class="col-2 col-lg"><a href="moreInfo.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>&invitedEvent=true" class="material-icons">info</a></div>
+						</div>
+						<?php
+							}
+							}
+							else{
+								echo "
+								<br>
+								<br>
+								<p class='text-lead text-center'>No invited events</p>";
+							}
         ?>
         <br>
         <br>

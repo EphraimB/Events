@@ -8,8 +8,20 @@ global $link;
 
 
 $event_id = $_GET['event_id'];
+$invitedEvent = $_GET['invitedEvent'];
 
 $session_username = $_SESSION['username'];
+
+
+if (isset($_GET['logout'])) {
+	session_destroy();
+	unset($session_username);
+	header("location: login.php");
+}
+
+if(!isset($session_username) || empty($session_username)){
+  header("location: login.php");
+}
 
 $emailQuery = "SELECT email FROM users WHERE username='$session_username'";
 $emailResult = mysqli_query($link, $emailQuery);
@@ -27,6 +39,20 @@ $session_user_id = $_SESSION['user_id'];
 $query = "SELECT * FROM events WHERE event_id='$event_id'";
 $result = mysqli_query($link, $query);
 
+$attendingUsers_query = "SELECT * FROM invite LEFT OUTER JOIN users ON invite.user_id=users.user_id WHERE invite.status_id=2 AND invite.event_id='$event_id'";
+$attendingUsers_result = mysqli_query($link, $attendingUsers_query);
+
+$hostUser_query = "SELECT * FROM userevents LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE userevents.event_id='$event_id'";
+$hostUser_result = mysqli_query($link, $hostUser_query);
+
+$attendingUsersCount_query = "SELECT COUNT(*) FROM invite WHERE event_id='$event_id' AND status_id=2";
+$attendingUsersCount_result = mysqli_query($link, $attendingUsersCount_query);
+
+$declinedUsers_query = "SELECT * FROM invite LEFT OUTER JOIN users ON invite.user_id=users.user_id WHERE invite.status_id=1 AND invite.event_id='$event_id'";
+$declinedUsers_result = mysqli_query($link, $declinedUsers_query);
+
+$declinedUsersCount_query = "SELECT COUNT(*) FROM invite WHERE event_id='$event_id' AND status_id=1";
+$declinedUsersCount_result = mysqli_query($link, $declinedUsersCount_query);
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +85,7 @@ $result = mysqli_query($link, $query);
           </ul>
           <ul class="navbar-nav mr-right">
             <div class="dropdown">
-              <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<? echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
+              <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
@@ -87,23 +113,92 @@ $result = mysqli_query($link, $query);
 
           <br>
           <br>
-          <h3 class="text-center"><? echo $title ?></h3>
-          <p class="text-center"><? echo $description ?></p>
-          <p class="text-center">Located at <? echo $location ?></p>
-          <p class="text-center">Starts at <? echo $startDateFormatted ?> at <? echo $startTimeFormatted ?></p>
-          <p class="text-center">Ends at <? echo $endDateFormatted ?> at <? echo $endTimeFormatted ?></p>
+          <h3 class="text-center"><?php echo $title ?></h3>
+          <p class="text-center"><?php echo $description ?></p>
+          <p class="text-center">Located at <?php echo $location ?></p>
+          <p class="text-center">Starts at <?php echo $startDateFormatted ?> at <?php echo $startTimeFormatted ?></p>
+          <p class="text-center">Ends at <?php echo $endDateFormatted ?> at <?php echo $endTimeFormatted ?></p>
           <br>
           <br>
           <br>
           <br>
+					<style>
+					 @media only screen and (max-width: 991px){
+						 .attendee-card{
+							 width: 7rem;
+						 }
+					 }
+					 @media only screen and (min-width: 992px){
+						 .attendee-card{
+							 width: 10rem;
+						 }
+					 }
+				 </style>
+					<?php
+					if($invitedEvent == "false"){
+					?>
           <div class="row justify-content-center">
-            <div class="col-3"><a href="updateEvent.php?event_id=<? echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
-            <div class="col-3"><a href="deleteEvent.php?event_id=<? echo $event_id ?>&userEvents_id=<? echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
+            <div class="col-3 col-lg-2"><a href="updateEvent.php?event_id=<?php echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
+            <div class="col-3 col-lg-2"><a href="deleteEvent.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
+						<div class="col-3 col-lg-2"><a href="invite.php?event_id=<?php echo $event_id ?>" class="btn btn-primary material-icons">mail</a></div>
           </div>
+					<br>
+					<br>
+					<h4 class="col font-weight-bold">Declined (<?php echo mysqli_fetch_array($declinedUsersCount_result)[0] ?>)</h4>
+					<br>
+					<?php
+ 				 	while($declinedUser = mysqli_fetch_array($declinedUsers_result)){
+ 					 	$declinedUsername = $declinedUser['username'];
+ 					 	$declinedUserEmail = $declinedUser['email'];
+ 					 	$declinedUserEmailHash = md5(strtolower(trim($declinedUserEmail)));
+						?>
+						<div class="card bg-light m-2 attendee-card" style="display: inline-block;">
+							 <img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $declinedUserEmailHash ?>?s=300">
+							 <div class="card-body">
+								 <p class="card-text text-center"><?php echo $declinedUsername ?></p>
+							 </div>
+						</div>
+						<?php
+						}
+					}
+					?>
 
           <?php
           }
          ?>
+				 <br>
+				 <br>
+				 <h4 class="col font-weight-bold">Attendees (<?php echo mysqli_fetch_array($attendingUsersCount_result)[0] + 1 ?>)</h4>
+				 <br>
+				 <div class="card bg-light m-2 attendee-card" style="display: inline-block;">
+					 <?php
+					 while($hostUser = mysqli_fetch_array($hostUser_result)){
+						 $hostUsername = $hostUser['username'];
+						 $hostEmail = $hostUser['email'];
+						 $hostEmailHash = md5(strtolower(trim($hostEmail)));
+					 ?>
+						<img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $hostEmailHash ?>?s=300">
+						<div class="card-body">
+							<p class="card-text text-center"><?php echo $hostUsername ?></p>
+						</div>
+						<?php } ?>
+					</div>
+				 <?php
+				 while($attendingUser = mysqli_fetch_array($attendingUsers_result)){
+					 $attendingUsername = $attendingUser['username'];
+					 $attendingUserEmail = $attendingUser['email'];
+					 $attendingUserEmailHash = md5(strtolower(trim($attendingUserEmail)));
+
+				 ?>
+				 	<div class="card bg-light m-2 attendee-card" style="display: inline-block;">
+						 <img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $attendingUserEmailHash ?>?s=300">
+						 <div class="card-body">
+							 <p class="card-text text-center"><?php echo $attendingUsername ?></p>
+						 </div>
+					</div>
+					 <?php
+				 		}
+						?>
       </main>
     </div>
   </body>

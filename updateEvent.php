@@ -11,6 +11,16 @@ $event_id = $_GET['event_id'];
 
 $session_username = $_SESSION['username'];
 
+if (isset($_GET['logout'])) {
+	session_destroy();
+	unset($session_username);
+	header("location: login.php");
+}
+
+if(!isset($session_username) || empty($session_username)){
+  header("location: login.php");
+}
+
 $emailQuery = "SELECT email FROM users WHERE username='$session_username'";
 $emailResult = mysqli_query($link, $emailQuery);
 
@@ -67,7 +77,7 @@ while($row = mysqli_fetch_array($result)){
           </ul>
           <ul class="navbar-nav mr-right">
             <div class="dropdown">
-              <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<? echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
+              <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
@@ -92,15 +102,15 @@ while($row = mysqli_fetch_array($result)){
         ?>
           <div class="form-group text-center">
             <label class="font-weight-bold">Title</label>
-            <? echo '<input type="text" class="form-control text-center" name="title" value="'.$title.'">'; ?>
+            <?php echo '<input type="text" class="form-control text-center" name="title" value="'.$title.'">'; ?>
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Description</label>
-            <? echo '<input type="text" class="form-control text-center" name="description" value="'.$description.'">'; ?>
+            <?php echo '<input type="text" class="form-control text-center" name="description" value="'.$description.'">'; ?>
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Location</label>
-            <? echo '<input type="search" id="place-search-input" placeholder="Start Searching..." class="form-control text-center" name="location" value="'.$location.'">'; ?>
+            <?php echo '<input type="search" id="place-search-input" placeholder="Start Searching..." class="form-control text-center" name="location" value="'.$location.'">'; ?>
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Start date &amp; time</label>
