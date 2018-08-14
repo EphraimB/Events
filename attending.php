@@ -181,11 +181,6 @@ $invitedEvents_results = mysqli_query($link, $invitedEvents_query);
 								<p class='text-lead text-center'>No invited events</p>";
 							}
         ?>
-        <br>
-        <br>
-        <div class="text-center text-white">
-          <a class="btn btn-primary" href="addEvent.php">Add event</a>
-        </div>
       </main>
     </div>
 
