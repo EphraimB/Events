@@ -136,12 +136,13 @@ $invitedEventsPassed_results = mysqli_query($link, $invitedEventsPassed_query);
 					</div>';
 				}
 
-
+					echo '
+					<br>
+					<br>
+					<h4 class="text-center">Upcoming</h4>
+					';
 					if(mysqli_num_rows($invitedEventsUpcoming_results) > 0){
 						?>
-		        <br>
-            <br>
-						<h4 class="text-center">Upcoming</h4>
 						<br>
 		        <div class="row font-weight-bold mb-4">
 		          <div class="col-4 col-lg">Title</div>
@@ -186,11 +187,13 @@ $invitedEventsPassed_results = mysqli_query($link, $invitedEventsPassed_query);
 								<p class='text-lead text-center'>No upcoming invited events</p>";
 							}
 
+							echo '
+							<br>
+							<br>
+							<h4 class="text-center">Passed</h4>
+							';
 							if(mysqli_num_rows($invitedEventsPassed_results) > 0){
 								?>
-								<br>
-								<br>
-								<h4 class="text-center">Passed</h4>
 								<br>
 								<div class="row font-weight-bold mb-4">
 									<div class="col-4 col-lg">Title</div>
