@@ -4,10 +4,12 @@ session_start();
 
 require_once 'config.php';
 
+global $link;
+
 
 $session_username = $_SESSION['username'];
 
-if (isset($_GET['logout'])) {
+if(isset($_GET['logout'])) {
 	session_destroy();
 	unset($session_username);
 	header("location: login.php");
@@ -24,8 +26,14 @@ $email = mysqli_fetch_array($emailResult)[0];
 
 $email_hash = md5(strtolower(trim($email)));
 
-$query = "SELECT * FROM events, userEvents, users WHERE username='$session_username'";
-$result = mysqli_query($link, $query);
+$user_id_query = "SELECT * FROM users WHERE username='$session_username'";
+$user_id_result = mysqli_query($link, $user_id_query);
+
+$_SESSION['user_id'] = mysqli_fetch_array($user_id_result)[0];
+$session_user_id = $_SESSION['user_id'];
+
+$invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id' AND status_id=0";
+$invited_result = mysqli_query($link, $invited_query);
 
 ?>
 
@@ -40,10 +48,13 @@ $result = mysqli_query($link, $query);
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.css"/>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="img/baseline_event_black_18dp.png">
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#myModal").modal('show');
+			});
+		</script>
   </head>
   <body>
     <div class="container">
@@ -55,14 +66,14 @@ $result = mysqli_query($link, $query);
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-						<li class="nav-item">
-							<a class="nav-link" href="index.php">My Events</a>
-						</li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">My Events</a>
+            </li>
 						<li class="nav-item">
 							<a class="nav-link" href="attending.php">Attending</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="pending.php">Pending</a>
+						<li class="nav-item active">
+							<a class="nav-link" href="pending.php">Pending <span class="sr-only">(current)</span></a>
 						</li>
           </ul>
           <ul class="navbar-nav mr-right">
@@ -75,60 +86,51 @@ $result = mysqli_query($link, $query);
           </ul>
         </div>
       </nav>
+      <?php
+      if(isset($_SESSION['inviteSuccessful'])){
+        echo '
+        <div class="alert alert-success" role="alert">
+          Successfully sent an invitation.
+          <a href="clearSessionExists.php?redirectedFrom=index" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </a>
+        </div>';
+      }
+
+      ?>
       <br>
       <header>
-        <h1 class="text-center">Add event</h1>
+        <h1 class="text-center">Pending</h1>
       </header>
-      <br>
-      <br>
       <main>
-        <form action="server.php" method="post">
-          <?php
-            if(isset($_SESSION['addEvent_error'])){
-              echo '<div class="alert alert-danger" role="alert">';
-                echo $_SESSION['addEvent_error'];
-              echo '</div>';
-            }
-          ?>
-          <div class="form-group text-center">
-            <label class="font-weight-bold">Title</label>
-            <input type="text" class="form-control" name="title">
-          </div>
-          <div class="form-group text-center">
-            <label class="font-weight-bold">Description</label>
-            <input type="text" class="form-control" name="description">
-          </div>
-          <div class="form-group text-center">
-            <label class="font-weight-bold">Location</label>
-            <input type="search" id="place-search-input" placeholder="Start Searching..." class="form-control" name="location">
-          </div>
-          <div class="form-group text-center">
-            <label class="font-weight-bold">Start date &amp; time</label>
-            <div class="form-row">
-              <input type="date" class="form-control text-center col-6" name="startDate">
-              <input type="time" class="form-control text-center col-6" name="startTime">
-            </div>
-          </div>
-          <div class="form-group text-center">
-            <label class="font-weight-bold">End date &amp; time</label>
-            <div class="form-row">
-              <input type="date" class="form-control text-center col-6" name="endDate">
-              <input type="time" class="form-control text-center col-6" name="endTime">
-            </div>
-          </div>
-          <br>
-          <div class="text-center">
-            <button type="register" class="btn btn-primary" name="addEvent_button">Submit</button>
-          </div>
-        </form>
+        <?php
+				if(mysqli_num_rows($invited_result) > 0){
+					echo '
+					<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+  					<div class="modal-dialog" role="document">
+    					<div class="modal-content">
+      					<div class="modal-header">
+        					<h5 class="modal-title">Invitation</h5>
+        					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          					<span aria-hidden="true">&times;</span>
+        					</button>
+      					</div>
+      					<div class="modal-body">
+        					<p>You got an invitation.</p>
+      					</div>
+      					<div class="modal-footer">
+									<a class="btn btn-danger" href="updateInviteStatus.php?action=Decline">Decline</a>
+        					<a class="btn btn-success" href="updateInviteStatus.php?action=Accept">Accept</a>
+      					</div>
+    					</div>
+  					</div>
+					</div>';
+				}
+
+        ?>
       </main>
     </div>
 
-      <script>
-      placeSearch({
-        key: 'yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT',
-        container: document.querySelector('#place-search-input')
-      });
-      </script>
+    <script src="js/script.js"></script>
   </body>
 </html>

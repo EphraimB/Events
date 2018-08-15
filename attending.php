@@ -79,7 +79,7 @@ $invitedEventsPassed_results = mysqli_query($link, $invitedEventsPassed_query);
 							<a class="nav-link" href="attending.php">Attending <span class="sr-only">(current)</span></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="index.php">Pending</a>
+							<a class="nav-link" href="pending.php">Pending</a>
 						</li>
           </ul>
           <ul class="navbar-nav mr-right">
