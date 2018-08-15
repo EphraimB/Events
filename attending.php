@@ -38,10 +38,10 @@ $result = mysqli_query($link, $query);*/
 $invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id' AND status_id=0";
 $invited_result = mysqli_query($link, $invited_query);
 
-$invitedEventsUpcoming_query = "SELECT * FROM invite LEFT OUTER JOIN events ON invite.event_id=events.event_id WHERE user_id='$session_user_id' AND status_id=2 AND events.endDate >= CURRENT_DATE()";
+$invitedEventsUpcoming_query = "SELECT * FROM invite LEFT OUTER JOIN events ON invite.event_id=events.event_id WHERE user_id='$session_user_id' AND status_id=2 AND events.endDate >= NOW()";
 $invitedEventsUpcoming_results = mysqli_query($link, $invitedEventsUpcoming_query);
 
-$invitedEventsPassed_query = "SELECT * FROM invite LEFT OUTER JOIN events ON invite.event_id=events.event_id WHERE user_id='$session_user_id' AND status_id=2 AND events.startDate <= CURRENT_DATE()";
+$invitedEventsPassed_query = "SELECT * FROM invite LEFT OUTER JOIN events ON invite.event_id=events.event_id WHERE user_id='$session_user_id' AND status_id=2 AND events.startDate <= NOW()";
 $invitedEventsPassed_results = mysqli_query($link, $invitedEventsPassed_query);
 
 ?>
@@ -183,7 +183,7 @@ $invitedEventsPassed_results = mysqli_query($link, $invitedEventsPassed_query);
 								echo "
 								<br>
 								<br>
-								<p class='text-lead text-center'>No invited events</p>";
+								<p class='text-lead text-center'>No upcoming invited events</p>";
 							}
 
 							if(mysqli_num_rows($invitedEventsPassed_results) > 0){
@@ -232,7 +232,7 @@ $invitedEventsPassed_results = mysqli_query($link, $invitedEventsPassed_query);
 										echo "
 										<br>
 										<br>
-										<p class='text-lead text-center'>No invited events</p>";
+										<p class='text-lead text-center'>No passed invited events</p>";
 									}
         ?>
       </main>
