@@ -53,6 +53,12 @@ $declinedUsers_result = mysqli_query($link, $declinedUsers_query);
 
 $declinedUsersCount_query = "SELECT COUNT(*) FROM invite WHERE event_id='$event_id' AND status_id=1";
 $declinedUsersCount_result = mysqli_query($link, $declinedUsersCount_query);
+
+$pendingUsers_query = "SELECT * FROM invite LEFT OUTER JOIN users ON invite.user_id=users.user_id WHERE invite.status_id=0 AND invite.event_id='$event_id'";
+$pendingUsers_result = mysqli_query($link, $pendingUsers_query);
+
+$pendingUsersCount_query = "SELECT COUNT(*) FROM invite WHERE event_id='$event_id' AND status_id=0";
+$pendingUsersCount_result = mysqli_query($link, $pendingUsersCount_query);
 ?>
 
 <!DOCTYPE html>
@@ -148,6 +154,25 @@ $declinedUsersCount_result = mysqli_query($link, $declinedUsersCount_query);
             <div class="col-3 col-lg-2"><a href="deleteEvent.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
 						<div class="col-3 col-lg-2"><a href="invite.php?event_id=<?php echo $event_id ?>" class="btn btn-primary material-icons">mail</a></div>
           </div>
+					<br>
+					<br>
+					<h4 class="col font-weight-bold">Pending (<?php echo mysqli_fetch_array($pendingUsersCount_result)[0] ?>)</h4>
+					<br>
+					<?php
+ 				 	while($pendingUser = mysqli_fetch_array($pendingUsers_result)){
+ 					 	$pendingUsername = $pendingUser['username'];
+ 					 	$pendingUserEmail = $pendingUser['email'];
+ 					 	$pendingUserEmailHash = md5(strtolower(trim($pendingUserEmail)));
+						?>
+						<div class="card bg-light m-2 attendee-card" style="display: inline-block;">
+							 <img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $pendingUserEmailHash ?>?s=300">
+							 <div class="card-body">
+								 <p class="card-text text-center"><?php echo $pendingUsername ?></p>
+							 </div>
+						</div>
+						<?php
+						}
+					?>
 					<br>
 					<br>
 					<h4 class="col font-weight-bold">Declined (<?php echo mysqli_fetch_array($declinedUsersCount_result)[0] ?>)</h4>
