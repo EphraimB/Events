@@ -32,7 +32,7 @@ $user_id_result = mysqli_query($link, $user_id_query);
 $_SESSION['user_id'] = mysqli_fetch_array($user_id_result)[0];
 $session_user_id = $_SESSION['user_id'];
 
-$query = "SELECT * FROM events LEFT OUTER JOIN userEvents ON events.event_id=userEvents.event_id LEFT OUTER JOIN users ON userEvents.user_id=users.user_id WHERE userEvents.user_id='$session_user_id'";
+$query = "SELECT * FROM events LEFT OUTER JOIN userevents ON events.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE userevents.user_id='$session_user_id'";
 $result = mysqli_query($link, $query);
 
 $invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id' AND status_id=0";
@@ -75,10 +75,10 @@ $invitedEvents_results = mysqli_query($link, $invitedEvents_query);
             <li class="nav-item active">
               <a class="nav-link" href="index.php">My Events <span class="sr-only">(current)</span></a>
             </li>
-						<li>
-							<a class="nav-link" href="index.php">Attending</a>
+						<li class="nav-item">
+							<a class="nav-link" href="attending.php">Attending</a>
 						</li>
-						<li>
+						<li class="nav-item">
 							<a class="nav-link" href="index.php">Pending</a>
 						</li>
           </ul>
@@ -194,59 +194,6 @@ $invitedEvents_results = mysqli_query($link, $invitedEvents_query);
             <br>
             <p class='text-lead text-center'>No personal events</p>";
           }
-
-					echo
-					'
-					<br>
-					<br>
-					<h3 class="text-center">Invited</h3>
-					';
-
-					if(mysqli_num_rows($invitedEvents_results) > 0){
-						?>
-		        <br>
-		        <div class="row font-weight-bold mb-4">
-		          <div class="col-4 col-lg">Title</div>
-		          <div class="col-5 col-lg">Description</div>
-		          <div class="col-lg-2 d-none d-lg-block">Location</div>
-		          <div class="col-lg d-none d-lg-block">Start date</div>
-		          <div class="col-lg d-none d-lg-block">End date</div>
-							<div class="col-lg d-none d-lg-block"></div>
-		        </div>
-
-		        <?php
-		        while($invited_row = mysqli_fetch_array($invitedEvents_results)){
-		          $event_id = $invited_row['event_id'];
-		          $userEvents_id = $invited_row['id'];
-		          $title = $invited_row['title'];
-		          $description = $invited_row['description'];
-		          $location = $invited_row['location'];
-		          $startDate = $invited_row['startDate'];
-		          $startDateFormatted = date("m/d/Y", strtotime($startDate));
-		          $startTimeFormatted = date("h:i A", strtotime($startDate));
-		          $endDate = $invited_row['endDate'];
-		          $endDateFormatted = date("m/d/Y", strtotime($endDate));
-		          $endTimeFormatted = date("h:i A", strtotime($endDate));
-
-							?>
-
-						<div class="row mb-4">
-							<div class="col-4 col-lg"><?php echo $title ?></div>
-							<div class="col-5 col-lg"><?php echo $description ?></div>
-							<div class="col-lg-2 d-none d-lg-block"><?php echo $location ?></div>
-							<div class="col-lg d-none d-lg-block"><?php echo $startDateFormatted."<br>".$startTimeFormatted ?></div>
-							<div class="col-lg d-none d-lg-block"><?php echo $endDateFormatted."<br>".$endTimeFormatted ?></div>
-							<div class="col-2 col-lg"><a href="moreInfo.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>&invitedEvent=true" class="material-icons">info</a></div>
-						</div>
-						<?php
-							}
-							}
-							else{
-								echo "
-								<br>
-								<br>
-								<p class='text-lead text-center'>No invited events</p>";
-							}
         ?>
         <br>
         <br>
