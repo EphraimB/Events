@@ -32,9 +32,6 @@ $user_id_result = mysqli_query($link, $user_id_query);
 $_SESSION['user_id'] = mysqli_fetch_array($user_id_result)[0];
 $session_user_id = $_SESSION['user_id'];
 
-/*$query = "SELECT * FROM events LEFT OUTER JOIN userEvents ON events.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE userevents.user_id='$session_user_id'";
-$result = mysqli_query($link, $query);*/
-
 $invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id' AND status_id=0";
 $invited_result = mysqli_query($link, $invited_query);
 
