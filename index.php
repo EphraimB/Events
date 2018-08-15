@@ -35,6 +35,9 @@ $session_user_id = $_SESSION['user_id'];
 $upcomingQuery = "SELECT * FROM events LEFT OUTER JOIN userevents ON events.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE userevents.user_id='$session_user_id' AND events.endDate >= NOW()";
 $upcomingResult = mysqli_query($link, $upcomingQuery);
 
+$passedQuery = "SELECT * FROM events LEFT OUTER JOIN userevents ON events.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE userevents.user_id='$session_user_id' AND events.startDate <= NOW()";
+$passedResult = mysqli_query($link, $passedQuery);
+
 $invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id' AND status_id=0";
 $invited_result = mysqli_query($link, $invited_query);
 
@@ -129,6 +132,7 @@ $invited_result = mysqli_query($link, $invited_query);
   					</div>
 					</div>';
 				}
+
 				echo '
 				<br>
 				<br>
@@ -193,6 +197,72 @@ $invited_result = mysqli_query($link, $invited_query);
             <br>
             <br>
             <p class='text-lead text-center'>No upcoming personal events</p>";
+          }
+
+				echo '
+				<br>
+				<br>
+				<h4 class="text-center">Passed</h4>
+				';
+        if(mysqli_num_rows($passedResult) > 0){
+
+        ?>
+        <br>
+				<br>
+        <div class="row font-weight-bold mb-4">
+          <div class="col-4 col-lg">Title</div>
+          <div class="col-5 col-lg">Description</div>
+          <div class="col-lg-2 d-none d-lg-block">Location</div>
+          <div class="col-lg d-none d-lg-block">Start date</div>
+          <div class="col-lg d-none d-lg-block">End date</div>
+          <div class="col-lg d-none d-lg-block">Edit</div>
+          <div class="col-lg d-none d-lg-block">Delete</div>
+          <div class="col-lg d-none d-lg-block">Invite</div>
+					<div class="col-lg d-none d-lg-block"></div>
+        </div>
+
+        <?php
+        while($row = mysqli_fetch_array($passedResult)){
+          $passedEvent_id = $row['event_id'];
+          $passedUserEvents_id = $row['id'];
+          $passedTitle = $row['title'];
+          $passedDescription = $row['description'];
+          $passedLocation = $row['location'];
+          $passedStartDate = $row['startDate'];
+          $passedStartDateFormatted = date("m/d/Y", strtotime($passedStartDate));
+          $passedStartTimeFormatted = date("h:i A", strtotime($passedStartDate));
+          $passedEndDate = $row['endDate'];
+          $passedEndDateFormatted = date("m/d/Y", strtotime($passedEndDate));
+          $passedEndTimeFormatted = date("h:i A", strtotime($passedEndDate));
+
+          /*ini_set("allow_url_fopen", 1);
+
+          $json = file_get_contents('http://www.mapquestapi.com/geocoding/v1/address?key=yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT&location='.urlencode($location));
+          $obj = json_decode($json, true);
+
+          $mapUrl = $obj["results"][0]["locations"][0]["mapUrl"];*/
+
+          ?>
+
+        <div class="row mb-4">
+          <div class="col-4 col-lg"><?php echo $passedTitle ?></div>
+          <div class="col-5 col-lg"><?php echo $passedDescription ?></div>
+          <div class="col-lg-2 d-none d-lg-block"><?php echo $passedLocation ?></div>
+          <div class="col-lg d-none d-lg-block"><?php echo $passedStartDateFormatted."<br>".$passedStartTimeFormatted ?></div>
+          <div class="col-lg d-none d-lg-block"><?php echo $passedEndDateFormatted."<br>".$passedEndTimeFormatted ?></div>
+          <div class="col-lg d-none d-lg-block"><a href="updateEvent.php?event_id=<?php echo $passedEvent_id ?>" class="btn btn-warning material-icons">edit</a></div>
+          <div class="col-lg d-none d-lg-block"><a href="deleteEvent.php?event_id=<?php echo $passedEvent_id ?>&userEvents_id=<?php echo $passedUserEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
+          <div class="col-lg d-none d-lg-block"><a href="invite.php?event_id=<?php echo $passedEvent_id ?>" class="btn btn-primary material-icons">mail</a></div>
+          <div class="col-2 col-lg"><a href="moreInfo.php?event_id=<?php echo $passedEvent_id ?>&userEvents_id=<?php echo $passedUserEvents_id ?>&invitedEvent=false" class="material-icons">info</a></div>
+        </div>
+        <?php
+          }
+          }
+          else{
+            echo "
+            <br>
+            <br>
+            <p class='text-lead text-center'>No passed personal events</p>";
           }
         ?>
         <br>
