@@ -56,11 +56,6 @@ $invited_result = mysqli_query($link, $invited_query);
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="img/baseline_event_black_18dp.png">
-		<script type="text/javascript">
-			$(document).ready(function(){
-				$("#myModal").modal('show');
-			});
-		</script>
   </head>
   <body>
     <div class="container">
@@ -79,7 +74,7 @@ $invited_result = mysqli_query($link, $invited_query);
 							<a class="nav-link" href="attending.php">Attending</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="index.php">Pending</a>
+							<a class="nav-link" href="pending.php">Pending</a>
 						</li>
           </ul>
           <ul class="navbar-nav mr-right">
@@ -109,35 +104,11 @@ $invited_result = mysqli_query($link, $invited_query);
         <h1 class="text-center">My Events</h1>
       </header>
       <main>
-        <?php
-				if(mysqli_num_rows($invited_result) > 0){
-					echo '
-					<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
-  					<div class="modal-dialog" role="document">
-    					<div class="modal-content">
-      					<div class="modal-header">
-        					<h5 class="modal-title">Invitation</h5>
-        					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          					<span aria-hidden="true">&times;</span>
-        					</button>
-      					</div>
-      					<div class="modal-body">
-        					<p>You got an invitation.</p>
-      					</div>
-      					<div class="modal-footer">
-									<a class="btn btn-danger" href="updateInviteStatus.php?action=Decline">Decline</a>
-        					<a class="btn btn-success" href="updateInviteStatus.php?action=Accept">Accept</a>
-      					</div>
-    					</div>
-  					</div>
-					</div>';
-				}
-
-				echo '
 				<br>
 				<br>
 				<h4 class="text-center">Upcoming</h4>
-				';
+
+				<?php
         if(mysqli_num_rows($upcomingResult) > 0){
 
         ?>
@@ -156,7 +127,7 @@ $invited_result = mysqli_query($link, $invited_query);
         </div>
 
         <?php
-        while($row = mysqli_fetch_array($result)){
+        while($row = mysqli_fetch_array($upcomingResult)){
           $upcomingEvent_id = $row['event_id'];
           $upcomingUserEvents_id = $row['id'];
           $upcomingTitle = $row['title'];
