@@ -32,7 +32,7 @@ $user_id_result = mysqli_query($link, $user_id_query);
 $_SESSION['user_id'] = mysqli_fetch_array($user_id_result)[0];
 $session_user_id = $_SESSION['user_id'];
 
-$invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id' AND status_id=0";
+$invited_query = "SELECT * FROM invite LEFT OUTER JOIN events ON invite.event_id=events.event_id LEFT OUTER JOIN userevents ON invite.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE invite.user_id='$session_user_id' AND invite.status_id=0";
 $invited_result = mysqli_query($link, $invited_query);
 
 ?>
@@ -100,22 +100,27 @@ $invited_result = mysqli_query($link, $invited_query);
       <main>
         <?php
 				if(mysqli_num_rows($invited_result) > 0){
-					echo '
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Invitation</h5>
-              </div>
-              <div class="modal-body">
-                <p class="modal-text">You got an invitation.</p>
-                <div class="modal-footer">
-                  <a class="btn btn-danger" href="updateInviteStatus.php?action=Decline">Decline</a>
-                  <a class="btn btn-success" href="updateInviteStatus.php?action=Accept">Accept</a>
-                </div>
-              </div>
-            </div>
-          ';
-				}
+					while($invitedRow = mysqli_fetch_array($invited_result)){
+						$username = $invitedRow['username'];
+						$title = $invitedRow['title'];
+
+						echo '
+          	<div class="modal-dialog" role="document">
+            	<div class="modal-content">
+              	<div class="modal-header">
+                	<h5 class="modal-title">Invitation</h5>
+              	</div>
+              	<div class="modal-body">
+                	<p class="modal-text">You got an invitation from '.$username.' to go to '.$title.'.</p>
+                	<div class="modal-footer">
+                  	<a class="btn btn-danger" href="updateInviteStatus.php?action=Decline">Decline</a>
+                  	<a class="btn btn-success" href="updateInviteStatus.php?action=Accept">Accept</a>
+                	</div>
+              	</div>
+            	</div>
+          	';
+						}
+					}
 
         ?>
       </main>
