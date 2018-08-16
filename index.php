@@ -127,7 +127,7 @@ $invited_result = mysqli_query($link, $invited_query);
         </div>
 
         <?php
-        while($row = mysqli_fetch_array($result)){
+        while($row = mysqli_fetch_array($upcomingResult)){
           $upcomingEvent_id = $row['event_id'];
           $upcomingUserEvents_id = $row['id'];
           $upcomingTitle = $row['title'];
