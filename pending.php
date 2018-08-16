@@ -101,17 +101,21 @@ $invited_result = mysqli_query($link, $invited_query);
         <?php
 				if(mysqli_num_rows($invited_result) > 0){
 					while($invitedRow = mysqli_fetch_array($invited_result)){
+						$event_id = $invitedRow['event_id'];
 						$username = $invitedRow['username'];
 						$title = $invitedRow['title'];
+						$description = $invitedRow['description'];
+						$startDate = $invitedRow['startDate'];
+						$startDateFormatting = date("m/d/Y h:i A", strtotime($startDate));
 
 						echo '
           	<div class="modal-dialog" role="document">
             	<div class="modal-content">
               	<div class="modal-header">
-                	<h5 class="modal-title">Invitation</h5>
+                	<h5 class="modal-title"><a href="moreInfo.php?event_id='.$event_id.'&invitedEvent=truebutpending">'.$title.'</a></h5>
               	</div>
               	<div class="modal-body">
-                	<p class="modal-text">You got an invitation from '.$username.' to go to '.$title.'.</p>
+                	<p class="modal-text">You got an invitation from '.$username.' to '.$description.' at '.$startDateFormatting.'.</p>
                 	<div class="modal-footer">
                   	<a class="btn btn-danger" href="updateInviteStatus.php?action=Decline">Decline</a>
                   	<a class="btn btn-success" href="updateInviteStatus.php?action=Accept">Accept</a>
