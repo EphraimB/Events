@@ -177,8 +177,8 @@ $pendingUsersCount_result = mysqli_query($link, $pendingUsersCount_query);
 					if($invitedEvent == "truebutpending"){
 						echo '
 						<div class="row justify-content-center">
-							<div class="col-5 col-lg-2"><a class="btn btn-danger" href="updateInviteStatus.php?action=Decline">Decline</a></div>
-							<div class="col-5 col-lg-2"><a class="btn btn-success" href="updateInviteStatus.php?action=Accept">Accept</a></div>
+							<div class="col-5 col-lg-2"><a class="btn btn-danger" href="updateInviteStatus.php?action=Decline&event_id='.$event_id.'">Decline</a></div>
+							<div class="col-5 col-lg-2"><a class="btn btn-success" href="updateInviteStatus.php?action=Accept&event_id='.$event_id.'">Accept</a></div>
 						</div>
 						';
 					}
