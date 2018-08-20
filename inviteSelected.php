@@ -22,8 +22,8 @@ foreach(array_column($_SESSION['selectedUsers'], 0) as $selectedUser){
     $result = mysqli_query($link, $query);
 
     if($result){
-      $notifications_query = "INSERT INTO notifications(user_id, event_id, type_id)
-            VALUES ('$selectedUser_id', '$event_id', 0)";
+      $notifications_query = "INSERT INTO notifications(user_id, event_id, type_id, cleared)
+            VALUES ('$selectedUser_id', '$event_id', 0, 0)";
       $notifications_result = mysqli_query($link, $notifications_query);
 
       if($notifications_result){

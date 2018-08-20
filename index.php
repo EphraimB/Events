@@ -41,10 +41,10 @@ $passedResult = mysqli_query($link, $passedQuery);
 $invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id' AND status_id=0";
 $invited_result = mysqli_query($link, $invited_query);
 
-$notifications_query = "SELECT * FROM notifications LEFT OUTER JOIN events ON notifications.event_id=events.event_id LEFT OUTER JOIN userevents ON notifications.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE notifications.user_id='$session_user_id'";
+$notifications_query = "SELECT * FROM notifications LEFT OUTER JOIN events ON notifications.event_id=events.event_id LEFT OUTER JOIN userevents ON notifications.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE notifications.user_id='$session_user_id' AND cleared=0";
 $notifications_result = mysqli_query($link, $notifications_query);
 
-$notificationsCount_query = "SELECT COUNT(*) FROM notifications WHERE user_id='$session_user_id'";
+$notificationsCount_query = "SELECT COUNT(*) FROM notifications WHERE user_id='$session_user_id' AND cleared=0";
 $notificationsCount_result = mysqli_query($link, $notificationsCount_query);
 
 $notifications = mysqli_fetch_array($notificationsCount_result)[0];
@@ -98,6 +98,9 @@ $notifications = mysqli_fetch_array($notificationsCount_result)[0];
 							if($notifications == 0){
 							?>
 							<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
+							<div class="dropdown-menu dropdown-menu-right p-3" style="width: 300px" aria-labelledby="notificationsMenuLink">
+								<p>No notifications.</p>
+							</div>
 							<?php
 							}
 							else{
@@ -112,6 +115,9 @@ $notifications = mysqli_fetch_array($notificationsCount_result)[0];
 									echo '<p>You have a pending event named '.$event_name.' from '.$invitedFrom.'</p>';
 								}
 								?>
+								<div class="text-right">
+									<a href="clearNotifications.php" class="material-icons">clear_all</a>
+								</div>
 							</div>
 							<?php
 							}
