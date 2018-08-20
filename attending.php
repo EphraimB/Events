@@ -158,7 +158,7 @@ $invitedEventsPassed_results = mysqli_query($link, $invitedEventsPassed_query);
 							echo '
 							<br>
 							<br>
-							<h4 class="text-center">Passed</h4>
+							<h4 class="text-center">Past</h4>
 							';
 							if(mysqli_num_rows($invitedEventsPassed_results) > 0){
 								?>
@@ -203,7 +203,7 @@ $invitedEventsPassed_results = mysqli_query($link, $invitedEventsPassed_query);
 										echo "
 										<br>
 										<br>
-										<p class='text-lead text-center'>No passed invited events</p>";
+										<p class='text-lead text-center'>No past invited events</p>";
 									}
         ?>
       </main>

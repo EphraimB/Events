@@ -206,7 +206,7 @@ $notifications = mysqli_fetch_array($notificationsCount_result)[0];
 				echo '
 				<br>
 				<br>
-				<h4 class="text-center">Passed</h4>
+				<h4 class="text-center">Past</h4>
 				';
         if(mysqli_num_rows($passedResult) > 0){
 
@@ -266,7 +266,7 @@ $notifications = mysqli_fetch_array($notificationsCount_result)[0];
             echo "
             <br>
             <br>
-            <p class='text-lead text-center'>No passed personal events</p>";
+            <p class='text-lead text-center'>No past personal events</p>";
           }
         ?>
         <br>
