@@ -41,6 +41,14 @@ $passedResult = mysqli_query($link, $passedQuery);
 $invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id' AND status_id=0";
 $invited_result = mysqli_query($link, $invited_query);
 
+$notifications_query = "SELECT * FROM notifications LEFT OUTER JOIN events ON notifications.event_id=events.event_id WHERE user_id='$session_user_id'";
+$notifications_result = mysqli_query($link, $notifications_query);
+
+$notificationsCount_query = "SELECT COUNT(*) FROM notifications WHERE user_id='$session_user_id'";
+$notificationsCount_result = mysqli_query($link, $notificationsCount_query);
+
+$notifications = mysqli_fetch_array($notificationsCount_result)[0];
+
 ?>
 
 <!DOCTYPE html>
@@ -86,10 +94,27 @@ $invited_result = mysqli_query($link, $invited_query);
             </div>
 						&emsp;
 						<div class="dropdown">
+							<?php
+							if($notifications == 0){
+							?>
 							<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
-							<div class="dropdown-menu dropdown-menu-right p-3" aria-labelledby="dropdownMenuLink">
+							<?php
+							}
+							else{
+							?>
+							<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+							<div class="dropdown-menu dropdown-menu-right p-3" style="width: 300px" aria-labelledby="notificationsMenuLink">
+								<?php
+								while($notification = mysqli_fetch_array($notifications_result)){
+									$event_name = $notification['title'];
 
+									echo '<p>You have a pending event: '.$event_name.'</p>';
+								}
+								?>
 							</div>
+							<?php
+							}
+							?>
 						</div>
           </ul>
         </div>
