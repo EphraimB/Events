@@ -85,6 +85,7 @@ $notifications = mysqli_fetch_array($notificationsCount_result)[0];
 							<a class="nav-link" href="pending.php">Pending</a>
 						</li>
           </ul>
+					<hr class="d-block d-lg-none">
           <ul class="navbar-nav mr-right">
             <div class="dropdown">
               <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>

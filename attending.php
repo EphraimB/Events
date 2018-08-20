@@ -41,6 +41,13 @@ $invitedEventsUpcoming_results = mysqli_query($link, $invitedEventsUpcoming_quer
 $invitedEventsPassed_query = "SELECT * FROM invite LEFT OUTER JOIN events ON invite.event_id=events.event_id WHERE user_id='$session_user_id' AND status_id=2 AND events.startDate <= NOW()";
 $invitedEventsPassed_results = mysqli_query($link, $invitedEventsPassed_query);
 
+$notifications_query = "SELECT * FROM notifications LEFT OUTER JOIN events ON notifications.event_id=events.event_id LEFT OUTER JOIN userevents ON notifications.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE notifications.user_id='$session_user_id' AND cleared=0";
+$notifications_result = mysqli_query($link, $notifications_query);
+
+$notificationsCount_query = "SELECT COUNT(*) FROM notifications WHERE user_id='$session_user_id' AND cleared=0";
+$notificationsCount_result = mysqli_query($link, $notificationsCount_query);
+
+$notifications = mysqli_fetch_array($notificationsCount_result)[0];
 ?>
 
 <!DOCTYPE html>
@@ -77,6 +84,7 @@ $invitedEventsPassed_results = mysqli_query($link, $invitedEventsPassed_query);
 							<a class="nav-link" href="pending.php">Pending</a>
 						</li>
           </ul>
+					<hr class="d-block d-lg-none">
           <ul class="navbar-nav mr-right">
             <div class="dropdown">
               <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
@@ -84,6 +92,37 @@ $invitedEventsPassed_results = mysqli_query($link, $invitedEventsPassed_query);
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
             </div>
+						&emsp;
+						<div class="dropdown">
+							<?php
+							if($notifications == 0){
+							?>
+							<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
+							<div class="dropdown-menu dropdown-menu-right p-3" style="width: 300px" aria-labelledby="notificationsMenuLink">
+								<p>No notifications.</p>
+							</div>
+							<?php
+							}
+							else{
+							?>
+							<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+							<div class="dropdown-menu dropdown-menu-right p-3" style="width: 300px" aria-labelledby="notificationsMenuLink">
+								<?php
+								while($notification = mysqli_fetch_array($notifications_result)){
+									$event_name = $notification['title'];
+									$invitedFrom = $notification['username'];
+
+									echo '<p>You have a pending event named '.$event_name.' from '.$invitedFrom.'</p>';
+								}
+								?>
+								<div class="text-right">
+									<a href="clearNotifications.php" class="material-icons">clear_all</a>
+								</div>
+							</div>
+							<?php
+							}
+							?>
+						</div>
           </ul>
         </div>
       </nav>
