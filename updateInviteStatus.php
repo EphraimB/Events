@@ -7,14 +7,15 @@ global $link;
 
 $action = $_GET['action'];
 $session_user_id = $_SESSION['user_id'];
+$event_id = $_GET['event_id'];
 
 if($action == "Decline"){
-  $query_decline = "UPDATE invite SET status_id=1 WHERE user_id='$session_user_id'";
+  $query_decline = "UPDATE invite SET status_id=1 WHERE user_id='$session_user_id' AND event_id='$event_id'";
   $result_decline = mysqli_query($link, $query_decline);
 }
 
 if($action == "Accept"){
-  $query_accept = "UPDATE invite SET status_id=2 WHERE user_id='$session_user_id'";
+  $query_accept = "UPDATE invite SET status_id=2 WHERE user_id='$session_user_id' AND event_id='$event_id'";
   $result_accept = mysqli_query($link, $query_accept);
 }
 

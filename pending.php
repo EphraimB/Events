@@ -117,8 +117,8 @@ $invited_result = mysqli_query($link, $invited_query);
               	<div class="modal-body">
                 	<p class="modal-text">You got an invitation from '.$username.' to '.$description.' at '.$startDateFormatting.'.</p>
                 	<div class="modal-footer">
-                  	<a class="btn btn-danger" href="updateInviteStatus.php?action=Decline">Decline</a>
-                  	<a class="btn btn-success" href="updateInviteStatus.php?action=Accept">Accept</a>
+                  	<a class="btn btn-danger" href="updateInviteStatus.php?action=Decline&event_id='.$event_id.'">Decline</a>
+                  	<a class="btn btn-success" href="updateInviteStatus.php?action=Accept&event_id='.$event_id.'">Accept</a>
                 	</div>
               	</div>
             	</div>
