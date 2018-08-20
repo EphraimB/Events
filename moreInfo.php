@@ -146,9 +146,6 @@ $pendingUsersCount_result = mysqli_query($link, $pendingUsersCount_query);
 						 }
 					 }
 				 </style>
-					<?php
-					if($invitedEvent == "false"){
-					?>
           <div class="row justify-content-center">
             <div class="col-3 col-lg-2"><a href="updateEvent.php?event_id=<?php echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
             <div class="col-3 col-lg-2"><a href="deleteEvent.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
@@ -172,7 +169,6 @@ $pendingUsersCount_result = mysqli_query($link, $pendingUsersCount_query);
 						</div>
 						<?php
 						}
-					}
 
 					if($invitedEvent == "truebutpending"){
 						echo '
@@ -185,7 +181,7 @@ $pendingUsersCount_result = mysqli_query($link, $pendingUsersCount_query);
 					?>
 					<br>
 					<br>
-					<h4 class="col font-weight-bold">Declined (<?php echo mysqli_fetch_array($declinedUsersCount_result)[0] ?>)</h4>
+					<h4 class="col font-weight-bold">Not going (<?php echo mysqli_fetch_array($declinedUsersCount_result)[0] ?>)</h4>
 					<br>
 					<?php
  				 	while($declinedUser = mysqli_fetch_array($declinedUsers_result)){
@@ -208,7 +204,7 @@ $pendingUsersCount_result = mysqli_query($link, $pendingUsersCount_query);
          ?>
 				 <br>
 				 <br>
-				 <h4 class="col font-weight-bold">Attendees (<?php echo mysqli_fetch_array($attendingUsersCount_result)[0] + 1 ?>)</h4>
+				 <h4 class="col font-weight-bold">Going (<?php echo mysqli_fetch_array($attendingUsersCount_result)[0] + 1 ?>)</h4>
 				 <br>
 				 <div class="card bg-light m-2 attendee-card" style="display: inline-block;">
 					 <?php
