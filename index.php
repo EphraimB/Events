@@ -41,7 +41,7 @@ $passedResult = mysqli_query($link, $passedQuery);
 $invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id' AND status_id=0";
 $invited_result = mysqli_query($link, $invited_query);
 
-$notifications_query = "SELECT * FROM notifications LEFT OUTER JOIN events ON notifications.event_id=events.event_id WHERE user_id='$session_user_id'";
+$notifications_query = "SELECT * FROM notifications LEFT OUTER JOIN events ON notifications.event_id=events.event_id LEFT OUTER JOIN userevents ON notifications.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE notifications.user_id='$session_user_id'";
 $notifications_result = mysqli_query($link, $notifications_query);
 
 $notificationsCount_query = "SELECT COUNT(*) FROM notifications WHERE user_id='$session_user_id'";
@@ -107,8 +107,9 @@ $notifications = mysqli_fetch_array($notificationsCount_result)[0];
 								<?php
 								while($notification = mysqli_fetch_array($notifications_result)){
 									$event_name = $notification['title'];
+									$invitedFrom = $notification['username'];
 
-									echo '<p>You have a pending event: '.$event_name.'</p>';
+									echo '<p>You have a pending event named '.$event_name.' from '.$invitedFrom.'</p>';
 								}
 								?>
 							</div>
