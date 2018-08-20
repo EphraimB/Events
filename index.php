@@ -84,6 +84,13 @@ $invited_result = mysqli_query($link, $invited_query);
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
             </div>
+						&emsp;
+						<div class="dropdown">
+							<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
+							<div class="dropdown-menu dropdown-menu-right p-3" aria-labelledby="dropdownMenuLink">
+
+							</div>
+						</div>
           </ul>
         </div>
       </nav>
