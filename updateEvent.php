@@ -11,6 +11,12 @@ $event_id = $_GET['event_id'];
 
 $session_username = $_SESSION['username'];
 
+$user_id_query = "SELECT * FROM users WHERE username='$session_username'";
+$user_id_result = mysqli_query($link, $user_id_query);
+
+$_SESSION['user_id'] = mysqli_fetch_array($user_id_result)[0];
+$session_user_id = $_SESSION['user_id'];
+
 if (isset($_GET['logout'])) {
 	session_destroy();
 	unset($session_username);
@@ -30,6 +36,14 @@ $email_hash = md5(strtolower(trim($email)));
 
 $query = "SELECT * FROM events WHERE event_id=$event_id";
 $result = mysqli_query($link, $query);
+
+$notifications_query = "SELECT * FROM notifications LEFT OUTER JOIN events ON notifications.event_id=events.event_id LEFT OUTER JOIN userevents ON notifications.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE notifications.user_id='$session_user_id' AND cleared=0";
+$notifications_result = mysqli_query($link, $notifications_query);
+
+$notificationsCount_query = "SELECT COUNT(*) FROM notifications WHERE user_id='$session_user_id' AND cleared=0";
+$notificationsCount_result = mysqli_query($link, $notificationsCount_query);
+
+$notifications = mysqli_fetch_array($notificationsCount_result)[0];
 
 while($row = mysqli_fetch_array($result)){
   $title = $row['title'];
@@ -81,6 +95,7 @@ while($row = mysqli_fetch_array($result)){
 							<a class="nav-link" href="pending.php">Pending</a>
 						</li>
           </ul>
+					<hr class="d-block d-lg-none">
           <ul class="navbar-nav mr-right">
             <div class="dropdown">
               <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
@@ -88,6 +103,37 @@ while($row = mysqli_fetch_array($result)){
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
             </div>
+						&emsp;
+						<div class="dropdown">
+							<?php
+							if($notifications == 0){
+							?>
+							<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
+							<div class="dropdown-menu dropdown-menu-right p-3" style="width: 300px" aria-labelledby="notificationsMenuLink">
+								<p>No notifications.</p>
+							</div>
+							<?php
+							}
+							else{
+							?>
+							<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+							<div class="dropdown-menu dropdown-menu-right p-3" style="width: 300px" aria-labelledby="notificationsMenuLink">
+								<?php
+								while($notification = mysqli_fetch_array($notifications_result)){
+									$event_name = $notification['title'];
+									$invitedFrom = $notification['username'];
+
+									echo '<p>You have a pending event named '.$event_name.' from '.$invitedFrom.'</p>';
+								}
+								?>
+								<div class="text-right">
+									<a href="clearNotifications.php" class="material-icons">clear_all</a>
+								</div>
+							</div>
+							<?php
+							}
+							?>
+						</div>
           </ul>
         </div>
       </nav>
