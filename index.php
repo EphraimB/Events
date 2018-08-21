@@ -90,6 +90,7 @@ $notifications = mysqli_fetch_array($notificationsCount_result)[0];
             <div class="dropdown">
               <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<a class="dropdown-item" href="#">Dark theme</a>
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
             </div>
