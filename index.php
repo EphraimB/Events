@@ -49,6 +49,11 @@ $notificationsCount_result = mysqli_query($link, $notificationsCount_query);
 
 $notifications = mysqli_fetch_array($notificationsCount_result)[0];
 
+$darkTheme_query = "SELECT darkTheme FROM users WHERE user_id='$session_user_id'";
+$darkTheme_result = mysqli_query($link, $darkTheme_query);
+
+$darkTheme = mysqli_fetch_array($darkTheme_result)[0];
+
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +95,18 @@ $notifications = mysqli_fetch_array($notificationsCount_result)[0];
             <div class="dropdown">
               <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="#">Dark theme</a>
+								<?php
+								if($darkTheme == 1){
+								?>
+								<a class="dropdown-item" href="darkThemeToggle.php?currentTheme=dark"><i class="material-icons align-text-top">check_box</i>&ensp;Dark theme</a>
+								<?php
+								}
+								else{
+								?>
+								<a class="dropdown-item" href="darkThemeToggle.php?currentTheme=light"><i class="material-icons align-text-top">check_box_outline_blank</i>&ensp;Dark theme</a>
+								<?php
+								}
+								?>
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
             </div>
