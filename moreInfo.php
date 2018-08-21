@@ -186,11 +186,25 @@ $notifications = mysqli_fetch_array($notificationsCount_result)[0];
 						 }
 					 }
 				 </style>
+				 <?php
+				 if($invitedEvent == "false"){
+				 ?>
           <div class="row justify-content-center">
             <div class="col-3 col-lg-2"><a href="updateEvent.php?event_id=<?php echo $event_id ?>" class="btn btn-warning material-icons">edit</a></div>
             <div class="col-3 col-lg-2"><a href="deleteEvent.php?event_id=<?php echo $event_id ?>&userEvents_id=<?php echo $userEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
 						<div class="col-3 col-lg-2"><a href="invite.php?event_id=<?php echo $event_id ?>" class="btn btn-primary material-icons">mail</a></div>
           </div>
+					<?php
+					}
+					if($invitedEvent == "truebutpending"){
+						echo '
+						<div class="row justify-content-center">
+							<div class="col-5 col-lg-2"><a class="btn btn-danger" href="updateInviteStatus.php?action=Decline&event_id='.$event_id.'">Decline</a></div>
+							<div class="col-5 col-lg-2"><a class="btn btn-success" href="updateInviteStatus.php?action=Accept&event_id='.$event_id.'">Accept</a></div>
+						</div>
+						';
+					}
+				  ?>
 					<br>
 					<br>
 					<h4 class="col font-weight-bold">Pending (<?php echo mysqli_fetch_array($pendingUsersCount_result)[0] ?>)</h4>
@@ -208,15 +222,6 @@ $notifications = mysqli_fetch_array($notificationsCount_result)[0];
 							 </div>
 						</div>
 						<?php
-						}
-
-					if($invitedEvent == "truebutpending"){
-						echo '
-						<div class="row justify-content-center">
-							<div class="col-5 col-lg-2"><a class="btn btn-danger" href="updateInviteStatus.php?action=Decline&event_id='.$event_id.'">Decline</a></div>
-							<div class="col-5 col-lg-2"><a class="btn btn-success" href="updateInviteStatus.php?action=Accept&event_id='.$event_id.'">Accept</a></div>
-						</div>
-						';
 					}
 					?>
 					<br>
