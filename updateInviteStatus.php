@@ -20,6 +20,11 @@ if($action == "Accept"){
 }
 
 if($result_decline || $result_accept){
-  header("location: index.php");
+  $clearNotification_query = "UPDATE notifications SET cleared=1 WHERE user_id='$session_user_id' AND event_id='$event_id'";
+  $clearNotification_result = mysqli_query($link, $clearNotification_query);
+
+  if($clearNotification_query){
+    header("location: index.php");
+  }
 }
 ?>
