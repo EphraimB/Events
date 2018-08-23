@@ -11,6 +11,10 @@ $redirectedFrom = $_GET['redirectedfrom'];
 $session_username = $_SESSION['username'];
 $currentTheme = $_GET['currentTheme'];
 
+$event_id = $_GET['event_id'];
+$userEvents_id = $_GET['userEvents_id'];
+$invitedEvent = $_GET['invitedEvent'];
+
 
 if($currentTheme == "light"){
   $toggleDark_query = "UPDATE users SET darkTheme=1";
@@ -33,6 +37,10 @@ if($toggleDark_result || $toggleLight_result){
 
   else if($redirectedFrom == "pending"){
     header("location: pending.php");
+  }
+
+  else if($redirectedFrom == "moreInfo"){
+    header("location: moreInfo.php?event_id=$event_id&userEvents_id=$userEvents_id&invitedEvent=$invitedEvent");
   }
 }
 
