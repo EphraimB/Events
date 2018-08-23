@@ -70,7 +70,18 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="img/baseline_event_black_18dp.png">
   </head>
+	<?php
+	if($darkTheme == 0){
+	?>
   <body>
+	<?php
+	}
+	else if($darkTheme == 1){
+	?>
+	<body style="background-color: black; color: white">
+	<?php
+	}
+	?>
     <div class="container">
 			<?php
 			if($darkTheme == 0){
