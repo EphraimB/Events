@@ -165,9 +165,18 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 							<?php
 							}
 							else{
+								if($darkTheme == 0){
 							?>
-							<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
-							<div class="dropdown-menu dropdown-menu-right p-3" style="width: 300px" aria-labelledby="notificationsMenuLink">
+								<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+								<?php
+								}
+								else if($darkTheme == 1){
+								?>
+									<a class="nav-item dropdown text-white material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+								<?php
+								}
+								?>
+								<div class="dropdown-menu dropdown-menu-right p-3" style="width: 300px" aria-labelledby="notificationsMenuLink">
 								<?php
 								while($notification = mysqli_fetch_array($notifications_result)){
 									$event_name = $notification['title'];

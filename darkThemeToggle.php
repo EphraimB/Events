@@ -30,6 +30,10 @@ if($toggleDark_result || $toggleLight_result){
   else if($redirectedFrom == "attending"){
     header("location: attending.php");
   }
+
+  else if($redirectedFrom == "pending"){
+    header("location: pending.php");
+  }
 }
 
 ?>
