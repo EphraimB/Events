@@ -133,12 +133,12 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 								<?php
 								if($darkTheme == 1){
 								?>
-								<a class="dropdown-item" href="darkThemeToggle.php?currentTheme=dark"><i class="material-icons align-text-top">check_box</i>&ensp;Dark theme</a>
+								<a class="dropdown-item" href="darkThemeToggle.php?currentTheme=dark&redirectedfrom=index"><i class="material-icons align-text-top">check_box</i>&ensp;Dark theme</a>
 								<?php
 								}
 								else{
 								?>
-								<a class="dropdown-item" href="darkThemeToggle.php?currentTheme=light"><i class="material-icons align-text-top">check_box_outline_blank</i>&ensp;Dark theme</a>
+								<a class="dropdown-item" href="darkThemeToggle.php?currentTheme=light&redirectedfrom=index"><i class="material-icons align-text-top">check_box_outline_blank</i>&ensp;Dark theme</a>
 								<?php
 								}
 								?>

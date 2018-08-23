@@ -6,6 +6,7 @@ require_once 'config.php';
 
 global $link;
 
+$redirectedFrom = $_GET['redirectedfrom'];
 
 $session_username = $_SESSION['username'];
 $currentTheme = $_GET['currentTheme'];
@@ -22,7 +23,13 @@ if($currentTheme == "dark"){
 }
 
 if($toggleDark_result || $toggleLight_result){
-  header("location: index.php");
+  if($redirectedFrom == "index"){
+    header("location: index.php");
+  }
+
+  else if($redirectedFrom == "attending"){
+    header("location: attending.php");
+  }
 }
 
 ?>
