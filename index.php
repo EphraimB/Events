@@ -72,8 +72,19 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
   </head>
   <body>
     <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <span class="navbar-brand mb-0 h1"><img src="img/baseline_event_black_18dp.png"></span>
+			<?php
+			if($darkTheme == 0){
+			?>
+      	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<?php
+			}
+			else if($darkTheme == 1){
+			?>
+				<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<?php
+			}
+			?>
+        <span class="navbar-brand mb-0 h1 material-icons">event</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -93,7 +104,20 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 					<hr class="d-block d-lg-none">
           <ul class="navbar-nav mr-right">
             <div class="dropdown">
-              <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
+							<?php
+							if($darkTheme == 0){
+							?>
+              	<a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<?php
+							}
+							else if($darkTheme == 1){
+							?>
+								<a class="nav-item dropdown dropdown-toggle text-white" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<?php
+							}
+							?>
+								<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?>
+							</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<?php
 								if($darkTheme == 1){
