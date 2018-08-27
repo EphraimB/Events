@@ -112,7 +112,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 						</li>
           </ul>
 					<hr class="d-block d-lg-none">
-          <ul class="navbar-nav mr-right">
+					<ul class="navbar-nav mr-right">
             <div class="dropdown">
 							<?php
 							if($darkTheme == 0){
@@ -132,12 +132,12 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 								<?php
 								if($darkTheme == 1){
 								?>
-								<a class="dropdown-item" href="darkThemeToggle.php?currentTheme=dark&redirectedfrom=attending"><i class="material-icons align-text-top">check_box</i>&ensp;Dark theme</a>
+								<a class="dropdown-item" href="darkThemeToggle.php?currentTheme=dark&redirectedfrom=index"><i class="material-icons align-text-top">check_box</i>&ensp;Dark theme</a>
 								<?php
 								}
 								else{
 								?>
-								<a class="dropdown-item" href="darkThemeToggle.php?currentTheme=light&redirectedfrom=attending"><i class="material-icons align-text-top">check_box_outline_blank</i>&ensp;Dark theme</a>
+								<a class="dropdown-item" href="darkThemeToggle.php?currentTheme=light&redirectedfrom=index"><i class="material-icons align-text-top">check_box_outline_blank</i>&ensp;Dark theme</a>
 								<?php
 								}
 								?>
@@ -150,15 +150,15 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 							if($notifications == 0){
 								if($darkTheme == 0){
 							?>
-							<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
-						<?php
-						}
-						else if($darkTheme == 1){
-						?>
-							<a class="nav-item dropdown text-white material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
-						<?php
-						}
-						?>
+									<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
+								<?php
+								}
+								else if($darkTheme == 1){
+								?>
+									<a class="nav-item dropdown text-white material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
+								<?php
+								}
+								?>
 							<div class="dropdown-menu dropdown-menu-right p-3" style="width: 300px" aria-labelledby="notificationsMenuLink">
 								<p>No notifications.</p>
 							</div>
@@ -167,16 +167,16 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 							else{
 								if($darkTheme == 0){
 							?>
-								<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
-								<?php
-								}
-								else if($darkTheme == 1){
-								?>
-									<a class="nav-item dropdown text-white material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
-								<?php
-								}
-								?>
-								<div class="dropdown-menu dropdown-menu-right p-3" style="width: 300px" aria-labelledby="notificationsMenuLink">
+									<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+							<?php
+							}
+							else if($darkTheme == 1){
+							?>
+								<a class="nav-item dropdown text-white material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+							<?php
+							}
+							?>
+							<div class="dropdown-menu dropdown-menu-right p-3" style="width: 300px" aria-labelledby="notificationsMenuLink">
 								<?php
 								while($notification = mysqli_fetch_array($notifications_result)){
 									$event_name = $notification['title'];
