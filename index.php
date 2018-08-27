@@ -53,7 +53,6 @@ $darkTheme_query = "SELECT darkTheme FROM users WHERE user_id='$session_user_id'
 $darkTheme_result = mysqli_query($link, $darkTheme_query);
 
 $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
-
 ?>
 
 <!DOCTYPE html>

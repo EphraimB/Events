@@ -46,6 +46,10 @@ if($toggleDark_result || $toggleLight_result){
   else if($redirectedFrom == "addEvent"){
     header("location: addEvent.php");
   }
+
+  else if($redirectedFrom == "invite"){
+    header("location: invite.php?event_id=$event_id");
+  }
 }
 
 ?>
