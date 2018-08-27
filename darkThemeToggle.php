@@ -9,6 +9,13 @@ global $link;
 $redirectedFrom = $_GET['redirectedfrom'];
 
 $session_username = $_SESSION['username'];
+
+$user_id_query = "SELECT * FROM users WHERE username='$session_username'";
+$user_id_result = mysqli_query($link, $user_id_query);
+
+$_SESSION['user_id'] = mysqli_fetch_array($user_id_result)[0];
+$session_user_id = $_SESSION['user_id'];
+
 $currentTheme = $_GET['currentTheme'];
 
 $event_id = $_GET['event_id'];
@@ -17,12 +24,12 @@ $invitedEvent = $_GET['invitedEvent'];
 
 
 if($currentTheme == "light"){
-  $toggleDark_query = "UPDATE users SET darkTheme=1";
+  $toggleDark_query = "UPDATE users SET darkTheme=1 WHERE user_id='$session_user_id'";
   $toggleDark_result = mysqli_query($link, $toggleDark_query);
 }
 
 if($currentTheme == "dark"){
-  $toggleLight_query = "UPDATE users SET darkTheme=0";
+  $toggleLight_query = "UPDATE users SET darkTheme=0 WHERE user_id='$session_user_id'";
   $toggleLight_result = mysqli_query($link, $toggleLight_query);
 }
 

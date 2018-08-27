@@ -226,10 +226,17 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 						$startDate = $invitedRow['startDate'];
 						$startDateFormatting = date("m/d/Y h:i A", strtotime($startDate));
 
-						echo '
-          	<div class="modal-dialog" role="document">
-            	<div class="modal-content">
-              	<div class="modal-header">
+						echo '<div class="modal-dialog" role="document">';
+
+							if($darkTheme == 0){
+            		echo '<div class="modal-content">';
+							}
+
+							else if($darkTheme == 1){
+								echo '<div class="modal-content bg-dark">';
+							}
+
+              	echo '<div class="modal-header">
                 	<h5 class="modal-title"><a href="moreInfo.php?event_id='.$event_id.'&invitedEvent=truebutpending">'.$title.'</a></h5>
               	</div>
               	<div class="modal-body">
