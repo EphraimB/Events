@@ -45,6 +45,11 @@ $notificationsCount_result = mysqli_query($link, $notificationsCount_query);
 
 $notifications = mysqli_fetch_array($notificationsCount_result)[0];
 
+$darkTheme_query = "SELECT darkTheme FROM users WHERE user_id='$session_user_id'";
+$darkTheme_result = mysqli_query($link, $darkTheme_query);
+
+$darkTheme = mysqli_fetch_array($darkTheme_result)[0];
+
 while($row = mysqli_fetch_array($result)){
   $title = $row['title'];
   $description = $row['description'];
@@ -75,10 +80,32 @@ while($row = mysqli_fetch_array($result)){
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="img/baseline_event_black_18dp.png">
   </head>
-  <body>
+	<?php
+	if($darkTheme == 0){
+	?>
+	<body>
+	<?php
+	}
+	else if($darkTheme == 1){
+	?>
+	<body style="background-color: black; color: white">
+	<?php
+	}
+	?>
     <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <span class="navbar-brand mb-0 h1"><img src="img/baseline_event_black_18dp.png"></span>
+			<?php
+			if($darkTheme == 0){
+			?>
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<?php
+			}
+			else if($darkTheme == 1){
+			?>
+				<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<?php
+			}
+			?>
+        <span class="navbar-brand mb-0 h1 material-icons">event</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -98,8 +125,33 @@ while($row = mysqli_fetch_array($result)){
 					<hr class="d-block d-lg-none">
           <ul class="navbar-nav mr-right">
             <div class="dropdown">
-              <a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?></a>
+							<?php
+							if($darkTheme == 0){
+							?>
+								<a class="nav-item dropdown dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<?php
+							}
+							else if($darkTheme == 1){
+							?>
+								<a class="nav-item dropdown dropdown-toggle text-white" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<?php
+							}
+							?>
+								<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?>
+							</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<?php
+								if($darkTheme == 1){
+								?>
+								<a class="dropdown-item" href="darkThemeToggle.php?currentTheme=dark&redirectedfrom=updateEvent&event_id=<?php echo $event_id ?>"><i class="material-icons align-text-top">check_box</i>&ensp;Dark theme</a>
+								<?php
+								}
+								else{
+								?>
+								<a class="dropdown-item" href="darkThemeToggle.php?currentTheme=light&redirectedfrom=updateEvent&event_id=<?php echo $event_id ?>"><i class="material-icons align-text-top">check_box_outline_blank</i>&ensp;Dark theme</a>
+								<?php
+								}
+								?>
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
             </div>
@@ -107,16 +159,34 @@ while($row = mysqli_fetch_array($result)){
 						<div class="dropdown">
 							<?php
 							if($notifications == 0){
+								if($darkTheme == 0){
 							?>
-							<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
+								<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
+								<?php
+								}
+								else if($darkTheme == 1){
+								?>
+									<a class="nav-item dropdown text-white material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
+								<?php
+								}
+								?>
 							<div class="dropdown-menu dropdown-menu-right p-3" style="width: 300px" aria-labelledby="notificationsMenuLink">
 								<p>No notifications.</p>
 							</div>
 							<?php
 							}
 							else{
+								if($darkTheme == 0){
 							?>
-							<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+								<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+								<?php
+								}
+								else if($darkTheme == 1){
+								?>
+									<a class="nav-item dropdown text-white material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+								<?php
+								}
+								?>
 							<div class="dropdown-menu dropdown-menu-right p-3" style="width: 300px" aria-labelledby="notificationsMenuLink">
 								<?php
 								while($notification = mysqli_fetch_array($notifications_result)){

@@ -50,6 +50,10 @@ if($toggleDark_result || $toggleLight_result){
   else if($redirectedFrom == "invite"){
     header("location: invite.php?event_id=$event_id");
   }
+
+  else if($redirectedFrom == "updateEvent"){
+    header("location: updateEvent.php?event_id=$event_id");
+  }
 }
 
 ?>
