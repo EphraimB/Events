@@ -232,7 +232,6 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           <div class="col-lg d-none d-lg-block">Edit</div>
           <div class="col-lg d-none d-lg-block">Delete</div>
           <div class="col-lg d-none d-lg-block">Invite</div>
-					<div class="col-lg d-none d-lg-block"></div>
         </div>
 
         <?php
@@ -259,7 +258,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           ?>
 
         <div class="row mb-4">
-          <div class="col-4 col-lg"><?php echo $upcomingTitle ?></div>
+          <div class="col-4 col-lg"><a href="moreInfo.php?event_id=<?php echo $upcomingEvent_id ?>&userEvents_id=<?php echo $upcomingUserEvents_id ?>&invitedEvent=false"><?php echo $upcomingTitle ?></a></div>
           <div class="col-5 col-lg"><?php echo $upcomingDescription ?></div>
           <div class="col-lg-2 d-none d-lg-block"><?php echo $upcomingLocation ?></div>
           <div class="col-lg d-none d-lg-block"><?php echo $upcomingStartDateFormatted."<br>".$upcomingStartTimeFormatted ?></div>
@@ -267,7 +266,6 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           <div class="col-lg d-none d-lg-block"><a href="updateEvent.php?event_id=<?php echo $upcomingEvent_id ?>" class="btn btn-warning material-icons">edit</a></div>
           <div class="col-lg d-none d-lg-block"><a href="deleteEvent.php?event_id=<?php echo $upcomingEvent_id ?>&userEvents_id=<?php echo $upcomingUserEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
           <div class="col-lg d-none d-lg-block"><a href="invite.php?event_id=<?php echo $upcomingEvent_id ?>" class="btn btn-primary material-icons">mail</a></div>
-          <div class="col-2 col-lg"><a href="moreInfo.php?event_id=<?php echo $upcomingEvent_id ?>&userEvents_id=<?php echo $upcomingUserEvents_id ?>&invitedEvent=false" class="material-icons">info</a></div>
         </div>
         <?php
           }
@@ -298,7 +296,6 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           <div class="col-lg d-none d-lg-block">Edit</div>
           <div class="col-lg d-none d-lg-block">Delete</div>
           <div class="col-lg d-none d-lg-block">Invite</div>
-					<div class="col-lg d-none d-lg-block"></div>
         </div>
 
         <?php
@@ -325,7 +322,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           ?>
 
         <div class="row mb-4">
-          <div class="col-4 col-lg"><?php echo $passedTitle ?></div>
+          <div class="col-4 col-lg"><a href="moreInfo.php?event_id=<?php echo $passedEvent_id ?>&userEvents_id=<?php echo $passedUserEvents_id ?>&invitedEvent=false"><?php echo $passedTitle ?></a></div>
           <div class="col-5 col-lg"><?php echo $passedDescription ?></div>
           <div class="col-lg-2 d-none d-lg-block"><?php echo $passedLocation ?></div>
           <div class="col-lg d-none d-lg-block"><?php echo $passedStartDateFormatted."<br>".$passedStartTimeFormatted ?></div>
@@ -333,7 +330,6 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           <div class="col-lg d-none d-lg-block"><a href="updateEvent.php?event_id=<?php echo $passedEvent_id ?>" class="btn btn-warning material-icons">edit</a></div>
           <div class="col-lg d-none d-lg-block"><a href="deleteEvent.php?event_id=<?php echo $passedEvent_id ?>&userEvents_id=<?php echo $passedUserEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
           <div class="col-lg d-none d-lg-block"><a href="invite.php?event_id=<?php echo $passedEvent_id ?>" class="btn btn-primary material-icons">mail</a></div>
-          <div class="col-2 col-lg"><a href="moreInfo.php?event_id=<?php echo $passedEvent_id ?>&userEvents_id=<?php echo $passedUserEvents_id ?>&invitedEvent=false" class="material-icons">info</a></div>
         </div>
         <?php
           }
