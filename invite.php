@@ -34,6 +34,11 @@ $allUsersEmailResult = mysqli_query($link, $allUsersEmailQuery);
 $user_id_query = "SELECT * FROM users WHERE username='$session_username'";
 $user_id_result = mysqli_query($link, $user_id_query);
 
+$invitedUsers = [];
+
+$user_id_invited_query = "SELECT * FROM invite LEFT OUTER JOIN users ON invite.user_id=users.user_id WHERE invite.event_id='$event_id' AND invite.status_id=2";
+$user_id_invited_result = mysqli_query($link, $user_id_invited_query);
+
 $_SESSION['user_id'] = mysqli_fetch_array($user_id_result)[0];
 $session_user_id = $_SESSION['user_id'];
 
@@ -227,13 +232,14 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
         <br>
         <br>
           <?php
-					$invited_query = "SELECT * FROM invite LEFT OUTER JOIN users ON invite.user_id=users.user_id WHERE event_id='$event_id'";
-					$invited_result = mysqli_query($link, $invited_query);
+					while($invited = mysqli_fetch_array($user_id_invited_result)['username']){
+						array_push($invitedUsers, $invited);
+					}
 
-          while($user = mysqli_fetch_array($allUsers_result)[0]){
+					while($user = mysqli_fetch_array($allUsers_result)[0]){
             $allUsersEmail = mysqli_fetch_array($allUsersEmailResult)[0];
 
-            if($user != $session_username && $allUsersEmail != $email && $user != mysqli_fetch_array($invited_result)['username']){
+            if($user != $session_username && $allUsersEmail != $email && in_array($user, $invitedUsers) == 0){
               $allUsersEmail_hash = md5(strtolower(trim($allUsersEmail)));
 
 							if($darkTheme == 0){
