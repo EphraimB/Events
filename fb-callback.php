@@ -90,5 +90,6 @@ try {
 
 $me = $response->getGraphUser();
 $_SESSION['username'] = $me->getName();
+$_SESSION['facebookPicture'] = $me->getId();
 header("location: index.php");
 ?>
