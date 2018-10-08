@@ -1,5 +1,18 @@
 <?php
 session_start();
+
+require_once 'vendor/autoload.php'; // change path as needed
+
+$fb = new Facebook\Facebook([
+  'app_id' => '292677644669875',
+  'app_secret' => '02a3954f09e40fd21915931561f391d0',
+  'default_graph_version' => 'v2.10',
+  ]);
+
+$helper = $fb->getRedirectLoginHelper();
+
+$permissions = ['email']; // Optional permissions
+$loginUrl = $helper->getLoginUrl('http://localhost/Events/fb-callback.php', $permissions);
 ?>
 
 <!DOCTYPE html>
@@ -17,32 +30,6 @@ session_start();
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '292677644669875',
-      cookie     : true,
-      xfbml      : true,
-      version    : 'v3.1'
-    });
-
-    FB.AppEvents.logPageView();
-
-  };
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
     <div class="container">
       <br>
       <header>
@@ -73,12 +60,10 @@ session_start();
           <br>
           <div class="text-center">
             <button type="register" class="btn btn-primary" name="login_btn">Submit</button>
+            <?php
+              echo '<a href="' . $loginUrl . '" class="btn btn-secondary" name="facebookLogin_btn">Log in with Facebook!</a>';
+             ?>
           </div>
-
-        <fb:login-button
-          scope="public_profile,email"
-          onlogin="checkLoginState();">
-        </fb:login-button>
         </form>
       </main>
     </div>
