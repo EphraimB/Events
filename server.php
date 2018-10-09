@@ -654,8 +654,8 @@ function facebookRegister(){
   else if(mysqli_num_rows($matchingUser_result) < 1){
     $session_username = $_SESSION['username'];
 
-    $addUser_query = "INSERT INTO users(username, password, email, birthday, address, createdAt)
-                    VALUES ('$session_username', '', '$facebookEmail', '', '', now())";
+    $addUser_query = "INSERT INTO users(username, password, email, createdAt)
+                    VALUES ('$session_username', '', '$facebookEmail', now())";
     $addUser_result = mysqli_query($link, $addUser_query);
 
     header("location: login.php");
