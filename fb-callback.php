@@ -89,8 +89,14 @@ try {
 }
 
 $me = $response->getGraphUser();
-$_SESSION['username'] = $me->getName();
+//$_SESSION['username'] = $me->getName();
+$_SESSION['username'] = "EphraimB";
 $_SESSION['facebookEmail'] = $me->getEmail();
+//$_SESSION['facebookBirthday'] = $me->getBirthday();
+//$_SESSION['facebookAddress'] = $me->getAddress();
 $_SESSION['facebookPicture'] = $me->getId();
+
+//var_dump($_SESSION['facebookBirthday']);
+//var_dump($me);
 header("location: server.php");
 ?>
