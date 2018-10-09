@@ -89,8 +89,7 @@ try {
 }
 
 $me = $response->getGraphUser();
-//$_SESSION['username'] = $me->getName();
-$_SESSION['username'] = "EphraimB";
+$_SESSION['username'] = $me->getName();
 $_SESSION['facebookEmail'] = $me->getEmail();
 //$_SESSION['facebookBirthday'] = $me->getBirthday();
 //$_SESSION['facebookAddress'] = $me->getAddress();
