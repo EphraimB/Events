@@ -26,6 +26,10 @@ if(isset($_POST['editEvent_button'])){
   editEvent();
 }
 
+if(isset($_SESSION['facebookPicture'])){
+  facebookRegister();
+}
+
 function register(){
   global $link;
 
@@ -629,6 +633,20 @@ function addEvent(){
     else{
       echo "Problem";
     }
+  }
+}
+
+function facebookRegister(){
+  global $link;
+
+  $facebookEmail = $_SESSION['facebookEmail'];
+
+  $matchingUser_query = "SELECT * FROM users WHERE email='$facebookEmail'";
+  $matchingUser_result = mysqli_query($link, $matchingUser_query);
+
+  if(mysqli_num_rows($matchingUser_result) == 1){
+    $_SESSION['username'] = mysqli_fetch_array($matchingUser_result)['username'];
+    header("location: index.php");
   }
 }
 

@@ -77,7 +77,7 @@ $_SESSION['fb_access_token'] = (string) $accessToken;
 try {
   // Get the \Facebook\GraphNodes\GraphUser object for the current user.
   // If you provided a 'default_access_token', the '{access-token}' is optional.
-  $response = $fb->get('/me', $accessToken);
+  $response = $fb->get('/me?locale=en_US&fields=name,email', $accessToken);
 } catch(\Facebook\Exceptions\FacebookResponseException $e) {
   // When Graph returns an error
   echo 'Graph returned an error: ' . $e->getMessage();
@@ -90,6 +90,7 @@ try {
 
 $me = $response->getGraphUser();
 $_SESSION['username'] = $me->getName();
+$_SESSION['facebookEmail'] = $me->getEmail();
 $_SESSION['facebookPicture'] = $me->getId();
-header("location: index.php");
+header("location: server.php");
 ?>
