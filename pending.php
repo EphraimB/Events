@@ -119,8 +119,19 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 								<a class="nav-item dropdown dropdown-toggle text-white" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<?php
 							}
+							
+							if(!isset($_SESSION['facebookPicture'])){
 							?>
 								<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?>
+								<?php
+								}
+
+								if(isset($_SESSION['facebookPicture'])){
+								?>
+								<img class="align-middle circle-img" width="30" height="30" src="https://graph.facebook.com/<?php echo $_SESSION['facebookPicture'] ?>/picture">&nbsp;<?php echo $_SESSION['username']; ?>
+								<?php
+								}
+								?>
 							</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<?php
