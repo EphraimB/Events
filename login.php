@@ -61,7 +61,7 @@ $loginUrl = $helper->getLoginUrl('http://localhost/Events/fb-callback.php', $per
           <div class="text-center">
             <button type="register" class="btn btn-primary" name="login_btn">Submit</button>
             <?php
-              echo '<a href="' . $loginUrl . '" class="btn btn-secondary" name="facebookLogin_btn">Log in with Facebook!</a>';
+              echo '<a href="' . $loginUrl . '" class="btn btn-secondary facebookButton">Log in with Facebook!</a>';
              ?>
           </div>
         </form>
