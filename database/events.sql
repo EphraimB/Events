@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2018 at 07:21 PM
+-- Generation Time: Oct 10, 2018 at 08:50 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.7
 
@@ -21,6 +21,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `events`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comments`
+--
+
+CREATE TABLE `comments` (
+  `comment_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `event_id` int(11) NOT NULL,
+  `comment` text NOT NULL,
+  `dateTime_commented` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`comment_id`, `user_id`, `event_id`, `comment`, `dateTime_commented`) VALUES
+(4, 1, 2, 'Testing', '2018-10-10 14:45:41');
 
 -- --------------------------------------------------------
 
@@ -95,7 +116,9 @@ CREATE TABLE `notifications` (
 INSERT INTO `notifications` (`id`, `user_id`, `event_id`, `type_id`, `cleared`) VALUES
 (1, 1, 3, 0, 1),
 (2, 4, 2, 0, 1),
-(3, 4, 6, 0, 1);
+(3, 4, 6, 0, 1),
+(4, 1, 3, 0, 0),
+(5, 3, 3, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -131,8 +154,8 @@ CREATE TABLE `users` (
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `birthday` datetime NOT NULL,
-  `address` varchar(255) NOT NULL,
+  `birthday` datetime DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
   `createdAt` datetime NOT NULL,
   `lastLogin` datetime DEFAULT NULL,
   `darkTheme` tinyint(1) NOT NULL
@@ -143,14 +166,20 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `birthday`, `address`, `createdAt`, `lastLogin`, `darkTheme`) VALUES
-(1, 'EphraimB', '$2y$10$h8Np8hviWrGvBfO9/bSnnexCP6ZM.L7OZbxBVh89v2Yq9Ek2.wmnO', 'emb16@outlook.com', '1996-07-19 00:00:00', '570 Cedar Hill Rd, Far Rockaway, New York, 11691-5403, US', '2018-08-07 11:23:34', '2018-08-21 12:41:05', 0),
-(2, 'Cutie', '$2y$10$v1HC6zxQXmwndVNNfErgB.dStJqHDQf6Wgc3Of7b5w85mxQGuFWey', 'cutie@cutieland.gov', '2008-06-01 00:00:00', '570 Cedar Hill Rd, Far Rockaway, New York, 11691-5403, US', '2018-08-07 11:55:08', '2018-08-20 11:56:33', 0),
-(3, 'PinnyThePooh', '$2y$10$W1KNwSTKPGQ1aOYjFe8kluO/aDhgLUsdZWqcI2YPNoE7Epj8ADBE.', 'pinnythepooh@cutiemail.com', '2010-11-14 00:00:00', '570 Cedar Hill Rd, Far Rockaway, New York, 11691-5403, US', '2018-08-13 11:06:52', '2018-08-16 11:09:47', 0),
+(1, 'EphraimB', '$2y$10$h8Np8hviWrGvBfO9/bSnnexCP6ZM.L7OZbxBVh89v2Yq9Ek2.wmnO', 'emb16@outlook.com', '1996-07-19 00:00:00', '570 Cedar Hill Rd, Far Rockaway, New York, 11691-5403, US', '2018-08-07 11:23:34', '2018-10-10 13:48:52', 1),
+(2, 'Cutie', '$2y$10$v1HC6zxQXmwndVNNfErgB.dStJqHDQf6Wgc3Of7b5w85mxQGuFWey', 'cutie@cutieland.gov', '2008-06-01 00:00:00', '570 Cedar Hill Rd, Far Rockaway, New York, 11691-5403, US', '2018-08-07 11:55:08', '2018-10-04 10:34:46', 0),
+(3, 'PinnyThePooh', '$2y$10$W1KNwSTKPGQ1aOYjFe8kluO/aDhgLUsdZWqcI2YPNoE7Epj8ADBE.', 'pinnythepooh@cutiemail.com', '2010-11-14 00:00:00', '570 Cedar Hill Rd, Far Rockaway, New York, 11691-5403, US', '2018-08-13 11:06:52', '2018-10-04 11:53:47', 0),
 (4, 'DaveM', '$2y$10$kCMIgzTWjF2CXvYvyioZBeHgZcbTkAb4ZYwRaqx0KbIRJShJszPx2', 'dmurray@kulanukids.org', '1982-08-14 00:00:00', '981 Baeck St, Ronkonkoma, New York, 11779-6632, US', '2018-08-14 12:06:34', '2018-08-21 12:09:23', 0);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`comment_id`);
 
 --
 -- Indexes for table `events`
@@ -187,6 +216,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
@@ -202,7 +237,7 @@ ALTER TABLE `invite`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `userevents`
