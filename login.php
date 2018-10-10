@@ -26,6 +26,8 @@ $loginUrl = $helper->getLoginUrl('http://localhost/Events/fb-callback.php', $per
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://raw.github.com/noizwaves/bootstrap-social-buttons/v1.0.0/social-buttons.css" rel="stylesheet">
     <link rel="icon" href="img/baseline_event_black_18dp.png">
     <link rel="stylesheet" href="css/style.css">
   </head>
@@ -60,9 +62,7 @@ $loginUrl = $helper->getLoginUrl('http://localhost/Events/fb-callback.php', $per
           <br>
           <div class="text-center">
             <button type="register" class="btn btn-primary" name="login_btn">Submit</button>
-            <?php
-              echo '<a href="' . $loginUrl . '" id="facebookButtonLink"><img src="img/facebookButton.png" id="facebookButton"></a>';
-             ?>
+            <button class="btn btn-facebook"><i class="fa fa-facebook"></i> | Connect with Facebook</button><br/><br/>
           </div>
         </form>
       </main>
