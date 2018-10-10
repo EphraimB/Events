@@ -2,4 +2,5 @@
   border-radius: 50%;
 }
 
-.facebookButton{background-image: src("img/facebookButton.png");}
+#facebookButtonLink{}
+#facebookButton{display: inline-block; width: 25%; height: 25%;}
