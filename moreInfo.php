@@ -207,15 +207,6 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 								<?php
 								}
 								?>
-								<div class="dropdown-menu dropdown-menu-right p-3" style="width: 300px" aria-labelledby="notificationsMenuLink">
-								<?php
-								while($notification = mysqli_fetch_array($notifications_result)){
-									$event_name = $notification['title'];
-									$invitedFrom = $notification['username'];
-
-									echo '<p>You have a pending event named '.$event_name.' from '.$invitedFrom.'</p>';
-								}
-								?>
 							<div class="dropdown-menu dropdown-menu-right p-3" style="width: 300px" aria-labelledby="notificationsMenuLink">
 								<?php
 								while($notification = mysqli_fetch_array($notifications_result)){
