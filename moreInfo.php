@@ -413,6 +413,12 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 					 <?php
 				 		}
 						?>
+
+						<form action="submitComment.php">
+							<h3 class="text-center">Comments</h3>
+							<textarea cols="100" id="commentField" name="commentField"></textarea>
+							<input type="submit">
+						</form>
       </main>
     </div>
   </body>
