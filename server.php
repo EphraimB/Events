@@ -26,6 +26,10 @@ if(isset($_POST['editEvent_button'])){
   editEvent();
 }
 
+if(isset($_SESSION['facebookPicture'])){
+  facebookRegister();
+}
+
 function register(){
   global $link;
 
@@ -629,6 +633,32 @@ function addEvent(){
     else{
       echo "Problem";
     }
+  }
+}
+
+function facebookRegister(){
+  global $link;
+
+  $facebookEmail = $_SESSION['facebookEmail'];
+  //$facebookBirthday = $_SESSION['facebookBirthday'];
+  //$facebookAddress = $_SESSION['facebookAddress'];
+
+  $matchingUser_query = "SELECT * FROM users WHERE email='$facebookEmail'";
+  $matchingUser_result = mysqli_query($link, $matchingUser_query);
+
+  if(mysqli_num_rows($matchingUser_result) == 1){
+    $_SESSION['username'] = mysqli_fetch_array($matchingUser_result)['username'];
+    header("location: index.php");
+  }
+
+  else if(mysqli_num_rows($matchingUser_result) < 1){
+    $session_username = $_SESSION['username'];
+
+    $addUser_query = "INSERT INTO users(username, password, email, createdAt)
+                    VALUES ('$session_username', '', '$facebookEmail', now())";
+    $addUser_result = mysqli_query($link, $addUser_query);
+
+    header("location: login.php");
   }
 }
 

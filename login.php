@@ -1,5 +1,18 @@
 <?php
 session_start();
+
+require_once 'vendor/autoload.php'; // change path as needed
+
+$fb = new Facebook\Facebook([
+  'app_id' => '292677644669875',
+  'app_secret' => '02a3954f09e40fd21915931561f391d0',
+  'default_graph_version' => 'v2.10',
+  ]);
+
+$helper = $fb->getRedirectLoginHelper();
+
+$permissions = ['email']; // Optional permissions
+$loginUrl = $helper->getLoginUrl('http://localhost/Events/fb-callback.php', $permissions);
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +26,10 @@ session_start();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://raw.github.com/noizwaves/bootstrap-social-buttons/v1.0.0/social-buttons.css" rel="stylesheet">
     <link rel="icon" href="img/baseline_event_black_18dp.png">
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <div class="container">
@@ -46,6 +62,7 @@ session_start();
           <br>
           <div class="text-center">
             <button type="register" class="btn btn-primary" name="login_btn">Submit</button>
+            <button class="btn btn-social btn-facebook" style="background-color: #3B5998;"><a class="btn btn-social btn-facebook" style="color: white;" href="<?php echo $loginUrl ?>"><i class="fa fa-facebook"></i> | Connect with Facebook</a></button>
           </div>
         </form>
       </main>
