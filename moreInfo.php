@@ -439,7 +439,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 										Comment
 									</div>
 									<div class='card-body'>
-										<p class='card-text'>".$userComment."</p>
+										<p class='card-text text-left'>".$userComment."</p>
 									</div>
 									<div class='card-footer text-muted'>
 										By ".$username."
