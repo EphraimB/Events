@@ -423,6 +423,31 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 							<br>
 							<input class="btn btn-primary" type="submit">
 						</form>
+						<br>
+					 <?php
+					 $getComments_query = "SELECT * FROM comments LEFT OUTER JOIN users ON comments.user_id=users.user_id WHERE event_id='$event_id'";
+					 $getComments_result = mysqli_query($link, $getComments_query);
+
+					 if(mysqli_num_rows($getComments_result) > 0){
+						 	while($comment = mysqli_fetch_array($getComments_result)){
+								$userComment = $comment['comment'];
+								$username = $comment['username'];
+
+								echo "
+								<div class='card text-center' style='width: 18rem; color: black;'>
+									<div class='card-header'>
+										Comment
+									</div>
+									<div class='card-body'>
+										<p class='card-text'>".$userComment."</p>
+									</div>
+									<div class='card-footer text-muted'>
+										By ".$username."
+									</div>
+								</div>";
+							}
+					 }
+					 ?>
       </main>
     </div>
   </body>
