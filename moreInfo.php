@@ -408,8 +408,12 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 						<br>
 						<br>
 						<br>
+						<?php
+						$commentsCount_query = "SELECT COUNT(*) FROM comments WHERE event_id='$event_id'";
+						$commentsCount_result = mysqli_query($link, $commentsCount_query);
+						?>
 						<form action="submitComment.php">
-							<h3 class="text-center">Comments</h3>
+							<h3 class="text-center">Comments (<?php echo mysqli_fetch_array($commentsCount_result)[0] ?>)</h3>
 							<input type="hidden" name="event_id" value="<?php echo $event_id ?>">
 							<input type="hidden" name="userEvents_id" value="<?php echo $userEvents_id ?>">
 							<input type="hidden" name="invitedEvent" value="<?php echo $invitedEvent ?>">
