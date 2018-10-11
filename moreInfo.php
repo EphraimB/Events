@@ -423,11 +423,11 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 						</form>
 						<br>
 					 <?php
-					 $getComments_query = "SELECT * FROM comments LEFT OUTER JOIN users ON comments.user_id=users.user_id WHERE event_id='$event_id'";
+					 $getComments_query = "SELECT * FROM comments LEFT OUTER JOIN users ON comments.user_id=users.user_id WHERE event_id='$event_id' ORDER BY dateTime_commented DESC";
 					 $getComments_result = mysqli_query($link, $getComments_query);
 
+					 date_default_timezone_set('US/Eastern');
 					 if(mysqli_num_rows($getComments_result) > 0){
-						 date_default_timezone_set('US/Eastern');
 						 $commentNumber = 0;
 						 	while($comment = mysqli_fetch_array($getComments_result)){
 								$userComment = $comment['comment'];
