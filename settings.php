@@ -194,6 +194,13 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
       <header>
         <h1 class="text-center">Settings</h1>
       </header>
+      <main>
+        <div class="card bg-light">
+          <div class="card-header">
+            User profile
+          </div>
+        </div>
+      </main>
     </div>
   </body>
   </html>
