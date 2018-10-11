@@ -427,10 +427,19 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 					 $getComments_result = mysqli_query($link, $getComments_query);
 
 					 if(mysqli_num_rows($getComments_result) > 0){
+						 date_default_timezone_set('US/Eastern');
 						 $commentNumber = 0;
 						 	while($comment = mysqli_fetch_array($getComments_result)){
 								$userComment = $comment['comment'];
 								$username = $comment['username'];
+								$datetime = $comment['dateTime_commented'];
+
+								$now  = date('Y-m-d h:i:s');
+								$datetime1 = new DateTime($datetime);
+								$datetime2 = new DateTime($now);
+								$interval = $datetime1->diff($datetime2);
+								/*$hours = $interval->h;
+								$hours = $hours + ($interval->days*24);*/
 
 								$commentNumber++;
 
@@ -443,9 +452,19 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 									<div class='card-body'>
 										<p class='card-text text-left'>".$userComment."</p>
 									</div>
-									<div class='card-footer text-muted'>
-										By ".$username."
-									</div>
+									<div class='card-footer text-muted'>";
+									if($interval->format('%a')=="0"){
+										if($interval->format('%h')=="1"){
+											echo "By ".$username." ".$interval->format('%h hour')." ago";
+										}
+										else{
+											echo "By ".$username." ".$interval->format('%h hours')." ago";
+										}
+									}
+									else{
+										echo "By ".$username." ".$interval->format('%a days')." ago";
+									}
+									echo "</div>
 								</div>
 								<br>";
 								}
@@ -458,9 +477,19 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 										<div class='card-body'>
 											<p class='card-text text-left'>".$userComment."</p>
 										</div>
-										<div class='card-footer text-muted'>
-											By ".$username."
-										</div>
+										<div class='card-footer text-muted'>";
+										if($interval->format('%a')=="0"){
+											if($interval->format('%h')=="1"){
+												echo "By ".$username." ".$interval->format('%h hour')." ago";
+											}
+											else{
+												echo "By ".$username." ".$interval->format('%h hours')." ago";
+											}
+										}
+										else{
+											echo "By ".$username." ".$interval->format('%a days')." ago";
+										}
+										echo "</div>
 									</div>
 									<br>";
 								}
