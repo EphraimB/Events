@@ -207,15 +207,6 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 								<?php
 								}
 								?>
-								<div class="dropdown-menu dropdown-menu-right p-3" style="width: 300px" aria-labelledby="notificationsMenuLink">
-								<?php
-								while($notification = mysqli_fetch_array($notifications_result)){
-									$event_name = $notification['title'];
-									$invitedFrom = $notification['username'];
-
-									echo '<p>You have a pending event named '.$event_name.' from '.$invitedFrom.'</p>';
-								}
-								?>
 							<div class="dropdown-menu dropdown-menu-right p-3" style="width: 300px" aria-labelledby="notificationsMenuLink">
 								<?php
 								while($notification = mysqli_fetch_array($notifications_result)){
@@ -413,6 +404,98 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 					 <?php
 				 		}
 						?>
+						<br>
+						<br>
+						<br>
+						<br>
+						<?php
+						$commentsCount_query = "SELECT COUNT(*) FROM comments WHERE event_id='$event_id'";
+						$commentsCount_result = mysqli_query($link, $commentsCount_query);
+						?>
+						<form action="submitComment.php">
+							<h3 class="text-center">Comments (<?php echo mysqli_fetch_array($commentsCount_result)[0] ?>)</h3>
+							<input type="hidden" name="event_id" value="<?php echo $event_id ?>">
+							<input type="hidden" name="userEvents_id" value="<?php echo $userEvents_id ?>">
+							<input type="hidden" name="invitedEvent" value="<?php echo $invitedEvent ?>">
+							<textarea cols="100" name="commentField"></textarea>
+							<br>
+							<input class="btn btn-primary" type="submit">
+						</form>
+						<br>
+					 <?php
+					 $getComments_query = "SELECT * FROM comments LEFT OUTER JOIN users ON comments.user_id=users.user_id WHERE event_id='$event_id' ORDER BY dateTime_commented DESC";
+					 $getComments_result = mysqli_query($link, $getComments_query);
+
+					 date_default_timezone_set('US/Eastern');
+					 if(mysqli_num_rows($getComments_result) > 0){
+						 $commentNumber = 0;
+						 	while($comment = mysqli_fetch_array($getComments_result)){
+								$userComment = $comment['comment'];
+								$username = $comment['username'];
+								$datetime = $comment['dateTime_commented'];
+
+								$now  = date('Y-m-d h:i:s');
+								$datetime1 = new DateTime($datetime);
+								$datetime2 = new DateTime($now);
+								$interval = $datetime1->diff($datetime2);
+								/*$hours = $interval->h;
+								$hours = $hours + ($interval->days*24);*/
+
+								$commentNumber++;
+
+								if($darkTheme == 0){
+								echo "
+								<div class='card bg-light text-center' style='width: 18rem;'>
+									<div class='card-header'>
+										Comment #$commentNumber
+									</div>
+									<div class='card-body'>
+										<p class='card-text text-left'>".$userComment."</p>
+									</div>
+									<div class='card-footer text-muted'>";
+									if($interval->format('%a')=="0"){
+										if($interval->format('%h')=="1"){
+											echo "By ".$username." ".$interval->format('%h hour')." ago";
+										}
+										else{
+											echo "By ".$username." ".$interval->format('%h hours')." ago";
+										}
+									}
+									else{
+										echo "By ".$username." ".$interval->format('%a days')." ago";
+									}
+									echo "</div>
+								</div>
+								<br>";
+								}
+								else if($darkTheme == 1){
+									echo "
+									<div class='card bg-dark text-center' style='width: 18rem;'>
+										<div class='card-header'>
+											Comment #$commentNumber
+										</div>
+										<div class='card-body'>
+											<p class='card-text text-left'>".$userComment."</p>
+										</div>
+										<div class='card-footer text-muted'>";
+										if($interval->format('%a')=="0"){
+											if($interval->format('%h')=="1"){
+												echo "By ".$username." ".$interval->format('%h hour')." ago";
+											}
+											else{
+												echo "By ".$username." ".$interval->format('%h hours')." ago";
+											}
+										}
+										else{
+											echo "By ".$username." ".$interval->format('%a days')." ago";
+										}
+										echo "</div>
+									</div>
+									<br>";
+								}
+							}
+					 }
+					 ?>
       </main>
     </div>
   </body>
