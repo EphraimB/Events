@@ -61,6 +61,10 @@ if($toggleDark_result || $toggleLight_result){
   else if($redirectedFrom == "updateEvent"){
     header("location: updateEvent.php?event_id=$event_id");
   }
+
+  else if($redirectedFrom == "settings"){
+    header("location: settings.php");
+  }
 }
 
 ?>
