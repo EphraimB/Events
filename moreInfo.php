@@ -430,8 +430,9 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
 								$commentNumber++;
 
+								if($darkTheme == 0){
 								echo "
-								<div class='card text-center' style='width: 18rem; color: black;'>
+								<div class='card bg-light text-center' style='width: 18rem;'>
 									<div class='card-header'>
 										Comment #$commentNumber
 									</div>
@@ -443,6 +444,22 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 									</div>
 								</div>
 								<br>";
+								}
+								else if($darkTheme == 1){
+									echo "
+									<div class='card bg-dark text-center' style='width: 18rem;'>
+										<div class='card-header'>
+											Comment #$commentNumber
+										</div>
+										<div class='card-body'>
+											<p class='card-text text-left'>".$userComment."</p>
+										</div>
+										<div class='card-footer text-muted'>
+											By ".$username."
+										</div>
+									</div>
+									<br>";
+								}
 							}
 					 }
 					 ?>
