@@ -404,7 +404,10 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 					 <?php
 				 		}
 						?>
-
+						<br>
+						<br>
+						<br>
+						<br>
 						<form action="submitComment.php">
 							<h3 class="text-center">Comments</h3>
 							<input type="hidden" name="event_id" value="<?php echo $event_id ?>">
@@ -420,14 +423,17 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 					 $getComments_result = mysqli_query($link, $getComments_query);
 
 					 if(mysqli_num_rows($getComments_result) > 0){
+						 $commentNumber = 0;
 						 	while($comment = mysqli_fetch_array($getComments_result)){
 								$userComment = $comment['comment'];
 								$username = $comment['username'];
 
+								$commentNumber++;
+
 								echo "
 								<div class='card text-center' style='width: 18rem; color: black;'>
 									<div class='card-header'>
-										Comment
+										Comment #$commentNumber
 									</div>
 									<div class='card-body'>
 										<p class='card-text text-left'>".$userComment."</p>
@@ -435,7 +441,8 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 									<div class='card-footer text-muted'>
 										By ".$username."
 									</div>
-								</div>";
+								</div>
+								<br>";
 							}
 					 }
 					 ?>
