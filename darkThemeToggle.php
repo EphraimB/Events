@@ -17,18 +17,19 @@ $_SESSION['user_id'] = mysqli_fetch_array($user_id_result)[0];
 $session_user_id = $_SESSION['user_id'];
 
 $currentTheme = $_GET['currentTheme'];
+$theme = $_GET['theme'];
 
 $event_id = $_GET['event_id'];
 $userEvents_id = $_GET['userEvents_id'];
 $invitedEvent = $_GET['invitedEvent'];
 
 
-if($currentTheme == "light"){
+if($currentTheme == "light" || $theme == "dark"){
   $toggleDark_query = "UPDATE users SET darkTheme=1 WHERE user_id='$session_user_id'";
   $toggleDark_result = mysqli_query($link, $toggleDark_query);
 }
 
-if($currentTheme == "dark"){
+if($currentTheme == "dark" || $theme == "light"){
   $toggleLight_query = "UPDATE users SET darkTheme=0 WHERE user_id='$session_user_id'";
   $toggleLight_result = mysqli_query($link, $toggleLight_query);
 }

@@ -202,13 +202,13 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
         <?php
         if($darkTheme == 0){
         ?>
-        <div class="card bg-light" style="width: 20rem;">
+        <div class="card bg-light float-left mr-3" style="width: 20rem;">
         <?php
         }
 
         else if($darkTheme == 1){
         ?>
-        <div class="card bg-dark" style="width: 20rem;">
+        <div class="card bg-dark float-left mr-3" style="width: 20rem;">
           <?php
           }
           ?>
@@ -304,6 +304,53 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
                 </div>
               </form>
             </div>
+          </div>
+        </div>
+        <?php
+        if($darkTheme == 0){
+        ?>
+        <div class="card bg-light" style="width: 20rem;">
+        <?php
+        }
+
+        else if($darkTheme == 1){
+        ?>
+        <div class="card bg-dark" style="width: 20rem;">
+          <?php
+          }
+          ?>
+          <div class="card-header">
+            <div class="card-title text-center">
+              <h4>Theme</h4>
+            </div>
+          </div>
+          <div class="card-body">
+            <form action="darkThemeToggle.php">
+              <input type="hidden" name="redirectedfrom" value="settings">
+              <div class="form-group text-center">
+                <label class="font-weight-bold" for="theme">Theme</label>
+                <select class="form-control" name="theme">
+                  <?php
+                  if($darkTheme == 0){
+                  ?>
+                  <option value="light">Light</option>
+                  <option value="dark">Dark</option>
+                  <?php
+                  }
+                  else if($darkTheme == 1){
+                  ?>
+                  <option value="dark">Dark</option>
+                  <option value="light">Light</option>
+                  <?php
+                  }
+                  ?>
+                </select>
+              </div>
+              <br>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+            </form>
           </div>
         </div>
       </main>
