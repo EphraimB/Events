@@ -151,18 +151,7 @@ while($row = mysqli_fetch_array($result)){
 								?>
 							</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<?php
-								if($darkTheme == 1){
-								?>
-								<a class="dropdown-item" href="darkThemeToggle.php?currentTheme=dark&redirectedfrom=updateEvent&event_id=<?php echo $event_id ?>"><i class="material-icons align-text-top">check_box</i>&ensp;Dark theme</a>
-								<?php
-								}
-								else{
-								?>
-								<a class="dropdown-item" href="darkThemeToggle.php?currentTheme=light&redirectedfrom=updateEvent&event_id=<?php echo $event_id ?>"><i class="material-icons align-text-top">check_box_outline_blank</i>&ensp;Dark theme</a>
-								<?php
-								}
-								?>
+								<a class="dropdown-item" href="settings.php"><i class="material-icons align-text-top">settings</i>&ensp;Settings</a>
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
             </div>

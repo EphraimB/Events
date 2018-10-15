@@ -134,18 +134,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 								?>
 							</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<?php
-								if($darkTheme == 1){
-								?>
-								<a class="dropdown-item" href="darkThemeToggle.php?currentTheme=dark&redirectedfrom=pending"><i class="material-icons align-text-top">check_box</i>&ensp;Dark theme</a>
-								<?php
-								}
-								else{
-								?>
-								<a class="dropdown-item" href="darkThemeToggle.php?currentTheme=light&redirectedfrom=pending"><i class="material-icons align-text-top">check_box_outline_blank</i>&ensp;Dark theme</a>
-								<?php
-								}
-								?>
+								<a class="dropdown-item" href="settings.php"><i class="material-icons align-text-top">settings</i>&ensp;Settings</a>
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
             </div>
