@@ -262,7 +262,6 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
           </div>
           <div class="card-body">
             <form action="darkThemeToggle.php">
-              <input type="hidden" name="redirectedfrom" value="settings">
               <div class="form-group text-center">
                 <label class="font-weight-bold" for="theme">Theme</label>
                 <select class="form-control" name="theme">
