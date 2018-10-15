@@ -203,55 +203,24 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
         if($darkTheme == 0){
         ?>
         <div class="card bg-light" style="width: 20rem;">
-          <div class="card-header">
-            <div class="row">
-              <div class="col-lg-6"></div>
-              <div class="col-lg-6 text-right"><a href="#"><i class="material-icons">open_in_new</i></a></div>
-            </div>
-            <div class="card-title text-center">
-              <h4>User profile</h4>
-            </div>
-          </div>
-          <div class="card-body">
-              <?php
-              while($userProfile = mysqli_fetch_array($userProfile_result)){
-                $username = $userProfile['username'];
-                $email = $userProfile['email'];
-                $birthday = $userProfile['birthday'];
-                $birthdayFormatted = date("Y-m-d", strtotime($birthday));
-                $address = $userProfile['address'];
-
-              ?>
-                <div class="form-group text-center">
-                  <label class="font-weight-bold" for="username">Username</label>
-                  <input tabindex="-1" id="username" class="form-control text-center" name="username" value="<?php echo $username ?>" readonly>
-                </div>
-                <div class="form-group text-center">
-                  <label class="font-weight-bold" for="email">Email</label>
-                  <input tabindex="-1" type="email" id="email" class="form-control text-center" name="email" value="<?php echo $email ?>" readonly>
-                </div>
-                <div class="form-group text-center">
-                  <label class="font-weight-bold" for="birthday">Birthday</label>
-                  <input tabindex="-1" type="date" id="birthday" class="form-control text-center" name="birthday" value="<?php echo $birthdayFormatted ?>" readonly>
-                </div>
-                <div class="form-group text-center">
-                  <label class="font-weight-bold" for="address">Address</label>
-                  <input tabindex="-1" id="address" class="form-control text-center" name="address" value="<?php echo $address ?>" readonly>
-                </div>
-              <?php
-              }
-              ?>
-          </div>
-        </div>
         <?php
         }
+
         else if($darkTheme == 1){
         ?>
         <div class="card bg-dark" style="width: 20rem;">
+          <?php
+          }
+          ?>
           <div class="card-header">
             <div class="row">
               <div class="col-lg-6"></div>
-              <div class="col-lg-6 text-right"><a href="#"><i class="material-icons">open_in_new</i></a></div>
+              <div class="col-lg-6 text-right">
+                <!-- Button trigger modal -->
+                <a href="#" data-toggle="modal" data-target="#userProfileModal">
+                  <i class="material-icons">open_in_new</i>
+                </a>
+              </div>
             </div>
             <div class="card-title text-center">
               <h4>User profile</h4>
@@ -288,9 +257,27 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
               ?>
           </div>
         </div>
-        <?php
-        }
-        ?>
+
+        <!-- Modal -->
+        <div class="modal fade" id="userProfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   </body>
