@@ -26,8 +26,16 @@ if(isset($_POST['editEvent_button'])){
   editEvent();
 }
 
+if(isset($_POST['userProfile_btn'])){
+  updateUserProfile();
+}
+
 if(isset($_SESSION['facebookPicture'])){
   facebookRegister();
+}
+
+function updateUserProfile(){
+  echo "Under construction...";
 }
 
 function register(){
