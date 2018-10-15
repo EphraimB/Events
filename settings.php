@@ -213,15 +213,6 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
           }
           ?>
           <div class="card-header">
-            <div class="row">
-              <div class="col-lg-6"></div>
-              <div class="col-lg-6 text-right">
-                <!-- Button trigger modal -->
-                <a href="#" data-toggle="modal" data-target="#userProfileModal">
-                  <i class="material-icons">open_in_new</i>
-                </a>
-              </div>
-            </div>
             <div class="card-title text-center">
               <h4>User profile</h4>
             </div>
@@ -236,76 +227,33 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
                 $address = $userProfile['address'];
 
               ?>
+              <form action="server.php" method="post">
                 <div class="form-group text-center">
                   <label class="font-weight-bold" for="username">Username</label>
                   <input tabindex="-1" id="username" class="form-control text-center" name="username" value="<?php echo $username ?>" readonly>
                 </div>
                 <div class="form-group text-center">
                   <label class="font-weight-bold" for="email">Email</label>
-                  <input tabindex="-1" type="email" id="email" class="form-control text-center" name="email" value="<?php echo $email ?>" readonly>
+                  <input type="email" id="email" class="form-control text-center" name="email" value="<?php echo $email ?>">
                 </div>
                 <div class="form-group text-center">
                   <label class="font-weight-bold" for="birthday">Birthday</label>
-                  <input tabindex="-1" type="date" id="birthday" class="form-control text-center" name="birthday" value="<?php echo $birthdayFormatted ?>" readonly>
+                  <input type="date" id="birthday" class="form-control text-center" name="birthday" value="<?php echo $birthdayFormatted ?>">
                 </div>
                 <div class="form-group text-center">
                   <label class="font-weight-bold" for="address">Address</label>
-                  <input tabindex="-1" id="address" class="form-control text-center" name="address" value="<?php echo $address ?>" readonly>
+                  <input id="address" class="form-control text-center" name="address" value="<?php echo $address ?>">
                 </div>
+                <div class="text-center">
+                  <button type="submit" name="userProfile_btn" class="btn btn-primary">Save changes</button>
+                </div>
+              </form>
               <?php
               }
               ?>
           </div>
         </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="userProfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <?php
-            if($darkTheme == 0){
-            ?>
-            <div class="modal-content bg-light">
-            <?php
-            }
-            else if($darkTheme == 1){
-            ?>
-            <div class="modal-content bg-dark">
-            <?php
-            }
-            ?>
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">User profile</h5>
-                <button type="button" class="close bg-light" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form action="server.php" method="post">
-                  <div class="form-group text-center">
-                    <label class="font-weight-bold" for="username">Username</label>
-                    <input tabindex="-1" id="username" class="form-control text-center" name="username" value="<?php echo $username ?>" readonly>
-                  </div>
-                  <div class="form-group text-center">
-                    <label class="font-weight-bold" for="email">Email</label>
-                    <input type="email" id="email" class="form-control text-center" name="email" value="<?php echo $email ?>">
-                  </div>
-                  <div class="form-group text-center">
-                    <label class="font-weight-bold" for="birthday">Birthday</label>
-                    <input type="date" id="birthday" class="form-control text-center" name="birthday" value="<?php echo $birthdayFormatted ?>">
-                  </div>
-                  <div class="form-group text-center">
-                    <label class="font-weight-bold" for="address">Address</label>
-                    <input id="address" class="form-control text-center" name="address" value="<?php echo $address ?>">
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" name="userProfile_btn" class="btn btn-primary">Save changes</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
         <?php
         if($darkTheme == 0){
         ?>
