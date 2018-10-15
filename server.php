@@ -35,7 +35,20 @@ if(isset($_SESSION['facebookPicture'])){
 }
 
 function updateUserProfile(){
-  echo "Under construction...";
+  global $link;
+
+  $session_user_id = $_SESSION['user_id'];
+  $username = $_POST['username'];
+  $email = $_POST['email'];
+  $birthday = $_POST['birthday'];
+  $address = $_POST['address'];
+
+  $updateProfile_query = "UPDATE users SET email='$email', birthday='$birthday', address='$address' WHERE user_id='$session_user_id'";
+  $updateProfile_result = mysqli_query($link, $updateProfile_query);
+
+  if($updateProfile_result){
+    header("location: settings.php");
+  }
 }
 
 function register(){

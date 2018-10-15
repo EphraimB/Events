@@ -287,15 +287,15 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
                   </div>
                   <div class="form-group text-center">
                     <label class="font-weight-bold" for="email">Email</label>
-                    <input tabindex="-1" type="email" id="email" class="form-control text-center" name="email" value="<?php echo $email ?>">
+                    <input type="email" id="email" class="form-control text-center" name="email" value="<?php echo $email ?>">
                   </div>
                   <div class="form-group text-center">
                     <label class="font-weight-bold" for="birthday">Birthday</label>
-                    <input tabindex="-1" type="date" id="birthday" class="form-control text-center" name="birthday" value="<?php echo $birthdayFormatted ?>">
+                    <input type="date" id="birthday" class="form-control text-center" name="birthday" value="<?php echo $birthdayFormatted ?>">
                   </div>
                   <div class="form-group text-center">
                     <label class="font-weight-bold" for="address">Address</label>
-                    <input tabindex="-1" id="address" class="form-control text-center" name="address" value="<?php echo $address ?>">
+                    <input id="address" class="form-control text-center" name="address" value="<?php echo $address ?>">
                   </div>
                 </div>
                 <div class="modal-footer">
