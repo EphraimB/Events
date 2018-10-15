@@ -35,6 +35,9 @@ $darkTheme_result = mysqli_query($link, $darkTheme_query);
 
 $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
+$userProfile_query = "SELECT * FROM users WHERE username='$session_username'";
+$userProfile_result = mysqli_query($link, $userProfile_query);
+
 ?>
 
 <!DOCTYPE html>
@@ -194,12 +197,81 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
       <header>
         <h1 class="text-center">Settings</h1>
       </header>
+      <br>
       <main>
+        <?php
+        if($darkTheme == 0){
+        ?>
         <div class="card bg-light">
-          <div class="card-header">
+          <div class="card-header text-center">
             User profile
           </div>
+          <div class="card-body">
+            <form>
+              <?php
+              while($userProfile = mysqli_fetch_array($userProfile_result)){
+                $username = $userProfile['username'];
+
+              ?>
+                <div class="form-group text-center">
+                  <label class="font-weight-bold" for="username">Username</label>
+                  <input id="username" class="form-control text-center" name="username" value="<?php echo $username ?>">
+                </div>
+
+              <?php
+              }
+              ?>
+            </form>
+          </div>
         </div>
+        <?php
+        }
+        else if($darkTheme == 1){
+        ?>
+        <div class="card bg-dark" style="width: 20rem;">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-lg-6"></div>
+              <div class="col-lg-6 text-right"><a href="#"><i class="material-icons">open_in_new</i></a></div>
+            </div>
+            <div class="card-title text-center">
+              <h4>User profile</h4>
+            </div>
+          </div>
+          <div class="card-body">
+              <?php
+              while($userProfile = mysqli_fetch_array($userProfile_result)){
+                $username = $userProfile['username'];
+                $email = $userProfile['email'];
+                $birthday = $userProfile['birthday'];
+                $birthdayFormatted = date("Y-m-d", strtotime($birthday));
+                $address = $userProfile['address'];
+
+              ?>
+                <div class="form-group text-center">
+                  <label class="font-weight-bold" for="username">Username</label>
+                  <input tabindex="-1" id="username" class="form-control text-center" name="username" value="<?php echo $username ?>" readonly>
+                </div>
+                <div class="form-group text-center">
+                  <label class="font-weight-bold" for="email">Email</label>
+                  <input tabindex="-1" type="email" id="email" class="form-control text-center" name="email" value="<?php echo $email ?>" readonly>
+                </div>
+                <div class="form-group text-center">
+                  <label class="font-weight-bold" for="birthday">Birthday</label>
+                  <input tabindex="-1" type="date" id="birthday" class="form-control text-center" name="birthday" value="<?php echo $birthdayFormatted ?>" readonly>
+                </div>
+                <div class="form-group text-center">
+                  <label class="font-weight-bold" for="address">Address</label>
+                  <input tabindex="-1" id="address" class="form-control text-center" name="address" value="<?php echo $address ?>" readonly>
+                </div>
+              <?php
+              }
+              ?>
+          </div>
+        </div>
+        <?php
+        }
+        ?>
       </main>
     </div>
   </body>
