@@ -259,6 +259,7 @@ while($row = mysqli_fetch_array($result)){
             <button type="register" class="btn btn-primary" name="editEvent_button">Submit</button>
           </div>
         </form>
+				<br>
       </main>
     </div>
 
