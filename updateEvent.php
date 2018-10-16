@@ -232,7 +232,7 @@ while($row = mysqli_fetch_array($result)){
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Location</label>
-            <?php echo '<input type="search" id="place-search-input" placeholder="Start Searching..." class="form-control text-center" name="location" value="'.$location.'">'; ?>
+            <?php echo '<input type="text" id="location" class="form-control text-center" name="location" value="'.$location.'">'; ?>
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Start date &amp; time</label>
@@ -263,10 +263,16 @@ while($row = mysqli_fetch_array($result)){
     </div>
 
     <script>
-    placeSearch({
-      key: 'yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT',
-      container: document.querySelector('#place-search-input')
-    });
-    </script>
+		//Google Maps API
+		$(document).ready(function() {
+			google.maps.event.addDomListener(window, 'load', initialize);
+		});
+
+		function initialize() {
+			var input = document.getElementById('location');
+			var autocomplete = new google.maps.places.Autocomplete(input);
+		}
+		</script>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK-fy6hmPp1VEu8bSeKJoXkqWWgUO0dEo&libraries=places"></script>
   </body>
 </html>

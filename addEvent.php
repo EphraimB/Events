@@ -135,7 +135,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 							</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<a class="dropdown-item" href="settings.php"><i class="material-icons align-text-top">settings</i>&ensp;Settings</a>
-								
+
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
             </div>
@@ -216,7 +216,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Location</label>
-            <input type="search" id="place-search-input" placeholder="Start Searching..." class="form-control" name="location">
+						<input type="text" id="location" class="form-control" name="location">
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Start date &amp; time</label>
@@ -237,14 +237,20 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
             <button type="register" class="btn btn-primary" name="addEvent_button">Submit</button>
           </div>
         </form>
+				<br>
       </main>
     </div>
-
       <script>
-      placeSearch({
-        key: 'yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT',
-        container: document.querySelector('#place-search-input')
-      });
+			//Google Maps API
+			$(document).ready(function() {
+   			google.maps.event.addDomListener(window, 'load', initialize);
+			});
+
+			function initialize() {
+    		var input = document.getElementById('location');
+    		var autocomplete = new google.maps.places.Autocomplete(input);
+			}
       </script>
+			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK-fy6hmPp1VEu8bSeKJoXkqWWgUO0dEo&libraries=places"></script>
   </body>
 </html>
