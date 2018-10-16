@@ -238,8 +238,17 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           <br>
 					<h3 class="text-center"><?php echo $title ?></h3>
 					<p class="text-center"><?php echo $description ?></p>
+					<?php
+					if($darkTheme == 0){
+					?>
 					<div class="card" style="width: 18rem;">
 						<?php
+					}
+					else if($darkTheme == 1){
+					?>
+					<div class="card bg-dark" style="width: 18rem;">
+					<?php
+					}
 						ini_set("allow_url_fopen", 1);
 
 	          $json = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($location).'&key=AIzaSyDK-fy6hmPp1VEu8bSeKJoXkqWWgUO0dEo');
