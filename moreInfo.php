@@ -236,12 +236,27 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
           <br>
           <br>
-          <h3 class="text-center"><?php echo $title ?></h3>
-          <p class="text-center"><?php echo $description ?></p>
-          <p class="text-center">Located at <?php echo $location ?></p>
-          <p class="text-center">Starts at <?php echo $startDateFormatted ?> at <?php echo $startTimeFormatted ?></p>
-          <p class="text-center">Ends at <?php echo $endDateFormatted ?> at <?php echo $endTimeFormatted ?></p>
+					<h3 class="text-center"><?php echo $title ?></h3>
+					<p class="text-center"><?php echo $description ?></p>
+					<div class="card" style="width: 18rem;">
+						<?php
+						ini_set("allow_url_fopen", 1);
+
+	          $json = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($location).'&key=AIzaSyDK-fy6hmPp1VEu8bSeKJoXkqWWgUO0dEo');
+	          $obj = json_decode($json, true);
+
+	          $mapLatitude = $obj["results"][0]["geometry"]["location"]["lat"];
+						$mapLongitude = $obj["results"][0]["geometry"]["location"]["lng"];
+						echo '<img class="card-img-top" src="https://maps.googleapis.com/maps/api/staticmap?markers=color:red|'.$mapLatitude.','.$mapLongitude.'&zoom=18&size=300x300&key=AIzaSyDK-fy6hmPp1VEu8bSeKJoXkqWWgUO0dEo">';
+						?>
+						<div class="card-body">
+          		<p class="text-center card-text"><i class="material-icons align-text-top">location_on</i> <?php echo $location ?></p>
+          		<p class="text-center card-text"><i class="material-icons align-text-top">access_time</i> <?php echo $startDateFormatted ?> at <?php echo $startTimeFormatted ?></p>
+          		<p class="text-center card-text">to <?php echo $endDateFormatted ?> at <?php echo $endTimeFormatted ?></p>
+						</div>
+					</div>
           <br>
+					</div>
           <br>
           <br>
           <br>
