@@ -265,7 +265,6 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 						</div>
 					</div>
           <br>
-					</div>
           <br>
           <br>
           <br>
