@@ -9,16 +9,6 @@ global $link;
 
 $session_username = $_SESSION['username'];
 
-if(isset($_GET['logout'])) {
-	session_destroy();
-	unset($session_username);
-	header("location: login.php");
-}
-
-if(!isset($session_username) || empty($session_username)){
-  header("location: login.php");
-}
-
 $emailQuery = "SELECT email FROM users WHERE username='$session_username'";
 $emailResult = mysqli_query($link, $emailQuery);
 
@@ -31,12 +21,6 @@ $user_id_result = mysqli_query($link, $user_id_query);
 
 $_SESSION['user_id'] = mysqli_fetch_array($user_id_result)[0];
 $session_user_id = $_SESSION['user_id'];
-
-$upcomingQuery = "SELECT * FROM events LEFT OUTER JOIN userevents ON events.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE userevents.user_id='$session_user_id' AND events.endDate >= NOW()";
-$upcomingResult = mysqli_query($link, $upcomingQuery);
-
-$passedQuery = "SELECT * FROM events LEFT OUTER JOIN userevents ON events.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE userevents.user_id='$session_user_id' AND events.startDate <= NOW()";
-$passedResult = mysqli_query($link, $passedQuery);
 
 $invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id' AND status_id=0";
 $invited_result = mysqli_query($link, $invited_query);
@@ -101,8 +85,8 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.php">My Events <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">My Events</a>
             </li>
 						<li class="nav-item">
 							<a class="nav-link" href="attending.php">Attending</a>
@@ -111,7 +95,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 							<a class="nav-link" href="pending.php">Pending</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="findFriends.php">Find Friends</a>
+							<a class="nav-link active" href="findFriends.php">Find Friends <span class="sr-only">(current)</span></a>
 						</li>
           </ul>
 					<hr class="d-block d-lg-none">
@@ -214,138 +198,6 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
       ?>
       <br>
       <header>
-        <h1 class="text-center">My Events</h1>
+        <h1 class="text-center">Find Friends</h1>
       </header>
       <main>
-				<br>
-				<br>
-				<h4 class="text-center">Upcoming</h4>
-
-				<?php
-        if(mysqli_num_rows($upcomingResult) > 0){
-
-        ?>
-        <br>
-				<br>
-        <div class="row font-weight-bold mb-4">
-          <div class="col-4 col-lg">Title</div>
-          <div class="col-5 col-lg">Description</div>
-          <div class="col-lg-2 d-none d-lg-block">Location</div>
-          <div class="col-lg d-none d-lg-block">Start date</div>
-          <div class="col-lg d-none d-lg-block">End date</div>
-          <div class="col-lg d-none d-lg-block">Edit</div>
-          <div class="col-lg d-none d-lg-block">Delete</div>
-          <div class="col-lg d-none d-lg-block">Invite</div>
-        </div>
-
-        <?php
-        while($row = mysqli_fetch_array($upcomingResult)){
-          $upcomingEvent_id = $row['event_id'];
-          $upcomingUserEvents_id = $row['id'];
-          $upcomingTitle = $row['title'];
-          $upcomingDescription = $row['description'];
-          $upcomingLocation = $row['location'];
-          $upcomingStartDate = $row['startDate'];
-          $upcomingStartDateFormatted = date("m/d/Y", strtotime($upcomingStartDate));
-          $upcomingStartTimeFormatted = date("h:i A", strtotime($upcomingStartDate));
-          $upcomingEndDate = $row['endDate'];
-          $upcomingEndDateFormatted = date("m/d/Y", strtotime($upcomingEndDate));
-          $upcomingEndTimeFormatted = date("h:i A", strtotime($upcomingEndDate));
-
-          /*ini_set("allow_url_fopen", 1);
-
-          $json = file_get_contents('http://www.mapquestapi.com/geocoding/v1/address?key=yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT&location='.urlencode($location));
-          $obj = json_decode($json, true);
-
-          $mapUrl = $obj["results"][0]["locations"][0]["mapUrl"];*/
-
-          ?>
-
-        <div class="row mb-4">
-          <div class="col-4 col-lg"><a href="moreInfo.php?event_id=<?php echo $upcomingEvent_id ?>&userEvents_id=<?php echo $upcomingUserEvents_id ?>&invitedEvent=false"><?php echo $upcomingTitle ?></a></div>
-          <div class="col-5 col-lg"><?php echo $upcomingDescription ?></div>
-          <div class="col-lg-2 d-none d-lg-block"><?php echo $upcomingLocation ?></div>
-          <div class="col-lg d-none d-lg-block"><?php echo $upcomingStartDateFormatted."<br>".$upcomingStartTimeFormatted ?></div>
-          <div class="col-lg d-none d-lg-block"><?php echo $upcomingEndDateFormatted."<br>".$upcomingEndTimeFormatted ?></div>
-          <div class="col-lg d-none d-lg-block"><a href="updateEvent.php?event_id=<?php echo $upcomingEvent_id ?>" class="btn btn-warning material-icons">edit</a></div>
-          <div class="col-lg d-none d-lg-block"><a href="deleteEvent.php?event_id=<?php echo $upcomingEvent_id ?>&userEvents_id=<?php echo $upcomingUserEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
-          <div class="col-lg d-none d-lg-block"><a href="invite.php?event_id=<?php echo $upcomingEvent_id ?>" class="btn btn-primary material-icons">mail</a></div>
-        </div>
-        <?php
-          }
-          }
-          else{
-            echo "
-            <br>
-            <br>
-            <p class='text-lead text-center'>No upcoming personal events</p>";
-          }
-
-				echo '
-				<br>
-				<br>
-				<h4 class="text-center">Past</h4>
-				';
-        if(mysqli_num_rows($passedResult) > 0){
-
-        ?>
-        <br>
-				<br>
-        <div class="row font-weight-bold mb-4">
-          <div class="col-4 col-lg">Title</div>
-          <div class="col-5 col-lg">Description</div>
-          <div class="col-lg-2 d-none d-lg-block">Location</div>
-          <div class="col-lg d-none d-lg-block">Start date</div>
-          <div class="col-lg d-none d-lg-block">End date</div>
-          <div class="col-lg d-none d-lg-block">Edit</div>
-          <div class="col-lg d-none d-lg-block">Delete</div>
-          <div class="col-lg d-none d-lg-block">Invite</div>
-        </div>
-
-        <?php
-        while($row = mysqli_fetch_array($passedResult)){
-          $passedEvent_id = $row['event_id'];
-          $passedUserEvents_id = $row['id'];
-          $passedTitle = $row['title'];
-          $passedDescription = $row['description'];
-          $passedLocation = $row['location'];
-          $passedStartDate = $row['startDate'];
-          $passedStartDateFormatted = date("m/d/Y", strtotime($passedStartDate));
-          $passedStartTimeFormatted = date("h:i A", strtotime($passedStartDate));
-          $passedEndDate = $row['endDate'];
-          $passedEndDateFormatted = date("m/d/Y", strtotime($passedEndDate));
-          $passedEndTimeFormatted = date("h:i A", strtotime($passedEndDate));
-          ?>
-
-        <div class="row mb-4">
-          <div class="col-4 col-lg"><a href="moreInfo.php?event_id=<?php echo $passedEvent_id ?>&userEvents_id=<?php echo $passedUserEvents_id ?>&invitedEvent=false"><?php echo $passedTitle ?></a></div>
-          <div class="col-5 col-lg"><?php echo $passedDescription ?></div>
-          <div class="col-lg-2 d-none d-lg-block"><?php echo $passedLocation ?></div>
-          <div class="col-lg d-none d-lg-block"><?php echo $passedStartDateFormatted."<br>".$passedStartTimeFormatted ?></div>
-          <div class="col-lg d-none d-lg-block"><?php echo $passedEndDateFormatted."<br>".$passedEndTimeFormatted ?></div>
-          <div class="col-lg d-none d-lg-block"><a href="updateEvent.php?event_id=<?php echo $passedEvent_id ?>" class="btn btn-warning material-icons">edit</a></div>
-          <div class="col-lg d-none d-lg-block"><a href="deleteEvent.php?event_id=<?php echo $passedEvent_id ?>&userEvents_id=<?php echo $passedUserEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
-          <div class="col-lg d-none d-lg-block"><a href="invite.php?event_id=<?php echo $passedEvent_id ?>" class="btn btn-primary material-icons">mail</a></div>
-        </div>
-        <?php
-          }
-          }
-          else{
-            echo "
-            <br>
-            <br>
-            <p class='text-lead text-center'>No past personal events</p>";
-          }
-        ?>
-        <br>
-        <br>
-        <div class="text-center text-white">
-          <a class="btn btn-primary" href="addEvent.php">Add event</a>
-        </div>
-				<br>
-      </main>
-    </div>
-
-    <script src="js/script.js"></script>
-  </body>
-</html>
