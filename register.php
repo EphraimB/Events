@@ -68,6 +68,7 @@ session_start();
             <button type="register" class="btn btn-primary" name="register_btn">Submit</button>
           </div>
         </form>
+        <br>
       </main>
     </div>
 
