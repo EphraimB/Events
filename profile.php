@@ -199,7 +199,18 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
       </header>
       <br>
       <main>
+        <?php
+        if($darkTheme == 0){
+        ?>
         <div class="card">
+        <?php
+        }
+        else if($darkTheme == 1){
+        ?>
+        <div class="card bg-dark">
+        <?php
+        }
+        ?>
           <div class="card-header">
             <h3 class="card-title"><?php echo $session_username ?></h3>
           </div>
