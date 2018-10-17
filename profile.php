@@ -241,7 +241,7 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
 
               if(isset($_SESSION['facebookPicture'])){
               ?>
-              <img class="align-middle" width="200" height="200" src="https://graph.facebook.com/<?php echo $_SESSION['facebookPicture'] ?>/picture">
+              <img class="align-middle" width="200" height="200" src="https://graph.facebook.com/<?php echo $_SESSION['facebookPicture'] ?>/picture?height=500&width=500">
               <?php
               }
               ?>
