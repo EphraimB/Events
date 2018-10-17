@@ -207,10 +207,11 @@ $findFriends_result = mysqli_query($link, $findFriends_query);
       <main>
         <div class="list-group">
           <?php
-          while($user = mysqli_fetch_array($findFriends_result)){
-            $username = $user['username'];
-            $user_email = $user['email'];
-            $user_email_hash = md5(strtolower(trim($user_email)));
+          while($friend = mysqli_fetch_array($findFriends_result)){
+            $friend_user_id = $friend['user_id'];
+            $friend_username = $friend['username'];
+            $friend_email = $friend['email'];
+            $friend_email_hash = md5(strtolower(trim($friend_email)));
 
             if($darkTheme == 0){
           ?>
@@ -224,9 +225,9 @@ $findFriends_result = mysqli_query($link, $findFriends_query);
           }
           ?>
             <div class="row">
-              <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $user_email_hash ?>?s=150" width="50" height="50">
-              &ensp;<p class="col"><?php echo $username ?></p>
-              <a href="addFriend.php" class="btn btn-primary col-2 mr-5">Add friend <i class="material-icons align-text-top">person_add</i></a>
+              <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friend_email_hash ?>?s=150" width="50" height="50">
+              &ensp;<p class="col"><?php echo $friend_username ?></p>
+              <a href="addFriend.php?friend_user_id=<?php echo $friend_user_id ?>" class="btn btn-primary col-2 mr-5">Add friend <i class="material-icons align-text-top">person_add</i></a>
             </div>
           </li>
           <?php
