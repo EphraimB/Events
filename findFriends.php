@@ -201,3 +201,8 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
         <h1 class="text-center">Find Friends</h1>
       </header>
       <main>
+
+      </main>
+    </div>
+  </body>
+</html>

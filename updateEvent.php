@@ -78,7 +78,7 @@ while($row = mysqli_fetch_array($result)){
     <script src="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.js"></script>
     <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.css"/>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="img/baseline_event_black_18dp.png">
+    <link rel="icon" href="img/baseline-event-black-18/1x/baseline_event_black_18dp.png">
   </head>
 	<?php
 	if($darkTheme == 0){

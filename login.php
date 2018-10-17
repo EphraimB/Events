@@ -28,7 +28,7 @@ $loginUrl = $helper->getLoginUrl('http://localhost/Events/fb-callback.php', $per
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://raw.github.com/noizwaves/bootstrap-social-buttons/v1.0.0/social-buttons.css" rel="stylesheet">
-    <link rel="icon" href="img/baseline_event_black_18dp.png">
+    <link rel="icon" href="img/baseline-event-black-18/1x/baseline_event_black_18dp.png">
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
