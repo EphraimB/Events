@@ -34,6 +34,9 @@ $darkTheme_query = "SELECT darkTheme FROM users WHERE user_id='$session_user_id'
 $darkTheme_result = mysqli_query($link, $darkTheme_query);
 
 $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
+
+$userProfile_query = "SELECT * FROM users WHERE user_id='$session_user_id'";
+$userProfile_result = mysqli_query($link, $userProfile_query);
 ?>
 
 <!DOCTYPE html>
@@ -194,8 +197,46 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
       <header>
         <h1 class="text-center">User Profile</h1>
       </header>
+      <br>
       <main>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title"><?php echo $session_username ?></h3>
+          </div>
+          <div class="card-body">
+            <?php
+            while($info = mysqli_fetch_array($userProfile_result)){
+              $address = $info['address'];
+              $memberSince = $info['createdAt'];
+              $memberSinceFormatted = date('F d, Y', strtotime($memberSince));
+            ?>
+            <div class="row">
+              <div class="col-3">
+                <p class="card-text font-weight-bold">Address:</p>
+                <a class="card-link" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($address) ?>"><p class="card-text"><?php echo $address ?></p></a>
+              </div>
+              <div class="col">
+                <p class="card-text font-weight-bold">Events member since:</p>
+                <p class="card-text"><?php echo $memberSinceFormatted ?></p>
+              </div>
+            <?php
+            }
 
+            if(!isset($_SESSION['facebookPicture'])){
+            ?>
+              <img class="align-middle" width="200" height="200" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=500">
+              <?php
+              }
+
+              if(isset($_SESSION['facebookPicture'])){
+              ?>
+              <img class="align-middle" width="200" height="200" src="https://graph.facebook.com/<?php echo $_SESSION['facebookPicture'] ?>/picture">
+              <?php
+              }
+              ?>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   </body>
