@@ -140,7 +140,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 								?>
 							</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="profile.php"><i class="material-icons align-text-top">account_circle</i>&ensp;Profile</a>
+								<a class="dropdown-item" href="profile.php?user_id=<?php echo $session_user_id ?>"><i class="material-icons align-text-top">account_circle</i>&ensp;Profile</a>
 								<a class="dropdown-item" href="settings.php"><i class="material-icons align-text-top">settings</i>&ensp;Settings</a>
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>

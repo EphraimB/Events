@@ -8,6 +8,7 @@ global $link;
 
 
 $session_username = $_SESSION['username'];
+$profileUserId = $_GET['user_id'];
 
 $emailQuery = "SELECT email FROM users WHERE username='$session_username'";
 $emailResult = mysqli_query($link, $emailQuery);
@@ -15,6 +16,13 @@ $emailResult = mysqli_query($link, $emailQuery);
 $email = mysqli_fetch_array($emailResult)[0];
 
 $email_hash = md5(strtolower(trim($email)));
+
+$profileEmailQuery = "SELECT email FROM users WHERE user_id='$profileUserId'";
+$profileEmailResult = mysqli_query($link, $profileEmailQuery);
+
+$profileEmail = mysqli_fetch_array($profileEmailResult)[0];
+
+$profileEmail_hash = md5(strtolower(trim($profileEmail)));
 
 $user_id_query = "SELECT * FROM users WHERE username='$session_username'";
 $user_id_result = mysqli_query($link, $user_id_query);
@@ -35,7 +43,7 @@ $darkTheme_result = mysqli_query($link, $darkTheme_query);
 
 $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
-$userProfile_query = "SELECT * FROM users WHERE user_id='$session_user_id'";
+$userProfile_query = "SELECT * FROM users WHERE user_id='$profileUserId'";
 $userProfile_result = mysqli_query($link, $userProfile_query);
 ?>
 
@@ -210,17 +218,17 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
         <div class="card bg-dark">
         <?php
         }
+
+        while($info = mysqli_fetch_array($userProfile_result)){
+          $username = $info['username'];
+          $address = $info['address'];
+          $memberSince = $info['createdAt'];
+          $memberSinceFormatted = date('F d, Y', strtotime($memberSince));
         ?>
           <div class="card-header">
-            <h3 class="card-title"><?php echo $session_username ?></h3>
+            <h3 class="card-title"><?php echo $username ?></h3>
           </div>
           <div class="card-body">
-            <?php
-            while($info = mysqli_fetch_array($userProfile_result)){
-              $address = $info['address'];
-              $memberSince = $info['createdAt'];
-              $memberSinceFormatted = date('F d, Y', strtotime($memberSince));
-            ?>
             <div class="row">
               <div class="col-3">
                 <p class="card-text font-weight-bold">Address:</p>
@@ -232,19 +240,8 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
               </div>
             <?php
             }
-
-            if(!isset($_SESSION['facebookPicture'])){
             ?>
-              <img class="align-middle" width="200" height="200" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=500">
-              <?php
-              }
-
-              if(isset($_SESSION['facebookPicture'])){
-              ?>
-              <img class="align-middle" width="200" height="200" src="https://graph.facebook.com/<?php echo $_SESSION['facebookPicture'] ?>/picture?height=500&width=500">
-              <?php
-              }
-              ?>
+              <img class="align-middle" width="200" height="200" src="https://www.gravatar.com/avatar/<?php echo $profileEmail_hash ?>?s=500">
             </div>
           </div>
         </div>
