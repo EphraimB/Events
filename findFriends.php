@@ -37,6 +37,9 @@ $darkTheme_query = "SELECT darkTheme FROM users WHERE user_id='$session_user_id'
 $darkTheme_result = mysqli_query($link, $darkTheme_query);
 
 $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
+
+$findFriends_query = "SELECT * FROM users WHERE user_id <> '$session_user_id'";
+$findFriends_result = mysqli_query($link, $findFriends_query);
 ?>
 
 <!DOCTYPE html>
@@ -200,8 +203,35 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
       <header>
         <h1 class="text-center">Find Friends</h1>
       </header>
+      <br>
       <main>
+        <div class="list-group">
+          <?php
+          while($user = mysqli_fetch_array($findFriends_result)){
+            $username = $user['username'];
+            $user_email = $user['email'];
+            $user_email_hash = md5(strtolower(trim($user_email)));
 
+            if($darkTheme == 0){
+          ?>
+          <li class="list-group-item">
+          <?php
+          }
+          else if($darkTheme == 1){
+          ?>
+          <li class="list-group-item bg-dark">
+          <?php
+          }
+          ?>
+            <div class="row">
+              <img class="align-middle" src="https://www.gravatar.com/avatar/<?php echo $user_email_hash ?>?s=150" width="50" height="50">
+              &ensp;<p><?php echo $username ?></p>
+            </div>
+          </li>
+          <?php
+          }
+          ?>
+        </div>
       </main>
     </div>
   </body>
