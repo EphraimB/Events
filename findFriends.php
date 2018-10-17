@@ -224,8 +224,9 @@ $findFriends_result = mysqli_query($link, $findFriends_query);
           }
           ?>
             <div class="row">
-              <img class="align-middle" src="https://www.gravatar.com/avatar/<?php echo $user_email_hash ?>?s=150" width="50" height="50">
-              &ensp;<p><?php echo $username ?></p>
+              <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $user_email_hash ?>?s=150" width="50" height="50">
+              &ensp;<p class="col"><?php echo $username ?></p>
+              <a href="#" class="btn btn-primary col">Add friend <i class="material-icons align-text-top">person_add</i></a>
             </div>
           </li>
           <?php
