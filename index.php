@@ -140,6 +140,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 								?>
 							</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<a class="dropdown-item" href="profile.php?user_id=<?php echo $session_user_id ?>"><i class="material-icons align-text-top">account_circle</i>&ensp;Profile</a>
 								<a class="dropdown-item" href="settings.php"><i class="material-icons align-text-top">settings</i>&ensp;Settings</a>
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
@@ -311,14 +312,6 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           $passedEndDate = $row['endDate'];
           $passedEndDateFormatted = date("m/d/Y", strtotime($passedEndDate));
           $passedEndTimeFormatted = date("h:i A", strtotime($passedEndDate));
-
-          /*ini_set("allow_url_fopen", 1);
-
-          $json = file_get_contents('http://www.mapquestapi.com/geocoding/v1/address?key=yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT&location='.urlencode($location));
-          $obj = json_decode($json, true);
-
-          $mapUrl = $obj["results"][0]["locations"][0]["mapUrl"];*/
-
           ?>
 
         <div class="row mb-4">

@@ -8,16 +8,7 @@ global $link;
 
 
 $session_username = $_SESSION['username'];
-
-if(isset($_GET['logout'])) {
-	session_destroy();
-	unset($session_username);
-	header("location: login.php");
-}
-
-if(!isset($session_username) || empty($session_username)){
-  header("location: login.php");
-}
+$profileUserId = $_GET['user_id'];
 
 $emailQuery = "SELECT email FROM users WHERE username='$session_username'";
 $emailResult = mysqli_query($link, $emailQuery);
@@ -26,20 +17,18 @@ $email = mysqli_fetch_array($emailResult)[0];
 
 $email_hash = md5(strtolower(trim($email)));
 
+$profileEmailQuery = "SELECT email FROM users WHERE user_id='$profileUserId'";
+$profileEmailResult = mysqli_query($link, $profileEmailQuery);
+
+$profileEmail = mysqli_fetch_array($profileEmailResult)[0];
+
+$profileEmail_hash = md5(strtolower(trim($profileEmail)));
+
 $user_id_query = "SELECT * FROM users WHERE username='$session_username'";
 $user_id_result = mysqli_query($link, $user_id_query);
 
 $_SESSION['user_id'] = mysqli_fetch_array($user_id_result)[0];
 $session_user_id = $_SESSION['user_id'];
-
-$invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id' AND status_id=0";
-$invited_result = mysqli_query($link, $invited_query);
-
-$invitedEventsUpcoming_query = "SELECT * FROM invite LEFT OUTER JOIN events ON invite.event_id=events.event_id WHERE user_id='$session_user_id' AND status_id=2 AND events.endDate >= NOW()";
-$invitedEventsUpcoming_results = mysqli_query($link, $invitedEventsUpcoming_query);
-
-$invitedEventsPassed_query = "SELECT * FROM invite LEFT OUTER JOIN events ON invite.event_id=events.event_id WHERE user_id='$session_user_id' AND status_id=2 AND events.startDate <= NOW()";
-$invitedEventsPassed_results = mysqli_query($link, $invitedEventsPassed_query);
 
 $notifications_query = "SELECT * FROM notifications LEFT OUTER JOIN events ON notifications.event_id=events.event_id LEFT OUTER JOIN userevents ON notifications.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE notifications.user_id='$session_user_id' AND cleared=0";
 $notifications_result = mysqli_query($link, $notifications_query);
@@ -53,6 +42,9 @@ $darkTheme_query = "SELECT darkTheme FROM users WHERE user_id='$session_user_id'
 $darkTheme_result = mysqli_query($link, $darkTheme_query);
 
 $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
+
+$userProfile_query = "SELECT * FROM users WHERE user_id='$profileUserId'";
+$userProfile_result = mysqli_query($link, $userProfile_query);
 ?>
 
 <!DOCTYPE html>
@@ -101,18 +93,18 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="index.php">My Events <span class="sr-only">(current)</span></a>
             </li>
-						<li class="nav-item active">
-							<a class="nav-link" href="attending.php">Attending <span class="sr-only">(current)</span></a>
+						<li class="nav-item">
+							<a class="nav-link" href="attending.php">Attending</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="pending.php">Pending</a>
 						</li>
           </ul>
 					<hr class="d-block d-lg-none">
-					<ul class="navbar-nav mr-right">
+          <ul class="navbar-nav mr-right">
             <div class="dropdown">
 							<?php
 							if($darkTheme == 0){
@@ -140,7 +132,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 								?>
 							</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="profile.php?user_id=<?php echo $session_user_id ?>"><i class="material-icons align-text-top">account_circle</i>&ensp;Profile</a>
+								<a class="dropdown-item" href="profile.php"><i class="material-icons align-text-top">account_circle</i>&ensp;Profile</a>
 								<a class="dropdown-item" href="settings.php"><i class="material-icons align-text-top">settings</i>&ensp;Settings</a>
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
@@ -211,110 +203,49 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
       ?>
       <br>
       <header>
-        <h1 class="text-center">Attending</h1>
+        <h1 class="text-center">User Profile</h1>
       </header>
+      <br>
       <main>
-				<br>
-				<br>
-				<h4 class="text-center">Upcoming</h4>
-
-				<?php
-				if(mysqli_num_rows($invitedEventsUpcoming_results) > 0){
-				?>
-					<br>
-		      <div class="row font-weight-bold mb-4">
-		      <div class="col-4 col-lg">Title</div>
-		      <div class="col-5 col-lg">Description</div>
-		      <div class="col-lg-2 d-none d-lg-block">Location</div>
-		      <div class="col-lg d-none d-lg-block">Start date</div>
-		      <div class="col-lg d-none d-lg-block">End date</div>
-		      </div>
-
-		      <?php
-		      while($invited_row = mysqli_fetch_array($invitedEventsUpcoming_results)){
-		      	$upcomingEvent_id = $invited_row['event_id'];
-		        $upcomingUserEvents_id = $invited_row['id'];
-		        $upcomingTitle = $invited_row['title'];
-		        $upcomingDescription = $invited_row['description'];
-		        $upcomingLocation = $invited_row['location'];
-		        $upcomingStartDate = $invited_row['startDate'];
-		        $upcomingStartDateFormatted = date("m/d/Y", strtotime($upcomingStartDate));
-		        $upcomingStartTimeFormatted = date("h:i A", strtotime($upcomingStartDate));
-		        $upcomingEndDate = $invited_row['endDate'];
-		        $upcomingEndDateFormatted = date("m/d/Y", strtotime($upcomingEndDate));
-		        $upcomingEndTimeFormatted = date("h:i A", strtotime($upcomingEndDate));
-
-						?>
-
-						<div class="row mb-4">
-							<div class="col-4 col-lg"><a href="moreInfo.php?event_id=<?php echo $upcomingEvent_id ?>&userEvents_id=<?php echo $upcomingUserEvents_id ?>&invitedEvent=true"><?php echo $upcomingTitle ?></a></div>
-							<div class="col-5 col-lg"><?php echo $upcomingDescription ?></div>
-							<div class="col-lg-2 d-none d-lg-block"><?php echo $upcomingLocation ?></div>
-							<div class="col-lg d-none d-lg-block"><?php echo $upcomingStartDateFormatted."<br>".$upcomingStartTimeFormatted ?></div>
-							<div class="col-lg d-none d-lg-block"><?php echo $upcomingEndDateFormatted."<br>".$upcomingEndTimeFormatted ?></div>
-						</div>
-						<?php
-							}
-							}
-							else{
-								echo "
-								<br>
-								<br>
-								<p class='text-lead text-center'>No upcoming invited events</p>";
-							}
-
-							echo '
-							<br>
-							<br>
-							<h4 class="text-center">Past</h4>
-							';
-							if(mysqli_num_rows($invitedEventsPassed_results) > 0){
-								?>
-								<br>
-								<div class="row font-weight-bold mb-4">
-									<div class="col-4 col-lg">Title</div>
-									<div class="col-5 col-lg">Description</div>
-									<div class="col-lg-2 d-none d-lg-block">Location</div>
-									<div class="col-lg d-none d-lg-block">Start date</div>
-									<div class="col-lg d-none d-lg-block">End date</div>
-								</div>
-
-								<?php
-								while($invited_row = mysqli_fetch_array($invitedEventsPassed_results)){
-									$passedEvent_id = $invited_row['event_id'];
-									$passedUserEvents_id = $invited_row['id'];
-									$passedTitle = $invited_row['title'];
-									$passedDescription = $invited_row['description'];
-									$passedLocation = $invited_row['location'];
-									$passedStartDate = $invited_row['startDate'];
-									$passedStartDateFormatted = date("m/d/Y", strtotime($passedStartDate));
-									$passedStartTimeFormatted = date("h:i A", strtotime($passedStartDate));
-									$passedEndDate = $invited_row['endDate'];
-									$passedEndDateFormatted = date("m/d/Y", strtotime($passedEndDate));
-									$passedEndTimeFormatted = date("h:i A", strtotime($passedEndDate));
-
-									?>
-
-								<div class="row mb-4">
-									<div class="col-4 col-lg"><a href="moreInfo.php?event_id=<?php echo $passedEvent_id ?>&userEvents_id=<?php echo $passedUserEvents_id ?>&invitedEvent=true"><?php echo $passedTitle ?></a></div>
-									<div class="col-5 col-lg"><?php echo $passedDescription ?></div>
-									<div class="col-lg-2 d-none d-lg-block"><?php echo $passedLocation ?></div>
-									<div class="col-lg d-none d-lg-block"><?php echo $passedStartDateFormatted."<br>".$passedStartTimeFormatted ?></div>
-									<div class="col-lg d-none d-lg-block"><?php echo $passedEndDateFormatted."<br>".$passedEndTimeFormatted ?></div>
-								</div>
-								<?php
-									}
-									}
-									else{
-										echo "
-										<br>
-										<br>
-										<p class='text-lead text-center'>No past invited events</p>";
-									}
+        <?php
+        if($darkTheme == 0){
         ?>
+        <div class="card">
+        <?php
+        }
+        else if($darkTheme == 1){
+        ?>
+        <div class="card bg-dark">
+        <?php
+        }
+
+        while($info = mysqli_fetch_array($userProfile_result)){
+          $username = $info['username'];
+          $address = $info['address'];
+          $memberSince = $info['createdAt'];
+          $memberSinceFormatted = date('F d, Y', strtotime($memberSince));
+        ?>
+          <div class="card-header">
+            <h3 class="card-title"><?php echo $username ?></h3>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-3">
+                <p class="card-text font-weight-bold">Address:</p>
+                <a class="card-link" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($address) ?>"><p class="card-text"><?php echo $address ?></p></a>
+              </div>
+              <div class="col">
+                <p class="card-text font-weight-bold">Events member since:</p>
+                <p class="card-text"><?php echo $memberSinceFormatted ?></p>
+              </div>
+            <?php
+            }
+            ?>
+              <img class="align-middle" width="200" height="200" src="https://www.gravatar.com/avatar/<?php echo $profileEmail_hash ?>?s=500">
+            </div>
+          </div>
+        </div>
       </main>
     </div>
-
-    <script src="js/script.js"></script>
   </body>
 </html>
