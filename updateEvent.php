@@ -121,6 +121,9 @@ while($row = mysqli_fetch_array($result)){
 						<li class="nav-item">
 							<a class="nav-link" href="pending.php">Pending</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="findFriends.php">Find Friends</a>
+						</li>
           </ul>
 					<hr class="d-block d-lg-none">
           <ul class="navbar-nav mr-right">

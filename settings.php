@@ -95,6 +95,9 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
 						<li class="nav-item">
 							<a class="nav-link" href="pending.php">Pending</a>
 						</li>
+            <li class="nav-item">
+							<a class="nav-link" href="findFriends.php">Find Friends</a>
+						</li>
           </ul>
 					<hr class="d-block d-lg-none">
           <ul class="navbar-nav mr-right">
@@ -125,6 +128,7 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
 								?>
 							</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="profile.php?user_id=<?php echo $session_user_id ?>"><i class="material-icons align-text-top">account_circle</i>&ensp;Profile</a>
 								<a class="dropdown-item" href="settings.php"><i class="material-icons align-text-top">settings</i>&ensp;Settings</a>
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
