@@ -306,18 +306,21 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 					<br>
 					<?php
  				 	while($pendingUser = mysqli_fetch_array($pendingUsers_result)){
+						$pendingUserId = $pendingUser['user_id'];
  					 	$pendingUsername = $pendingUser['username'];
  					 	$pendingUserEmail = $pendingUser['email'];
  					 	$pendingUserEmailHash = md5(strtolower(trim($pendingUserEmail)));
 
 						if($darkTheme == 0){
 						?>
+						<a href="profile.php?user_id=<?php echo $pendingUserId ?>" style="color: black;">
 						<div class="card bg-light m-2 attendee-card" style="display: inline-block;">
 
 						<?php
 						}
 						else if($darkTheme == 1){
 						?>
+						<a href="profile.php?user_id=<?php echo $pendingUserId ?>" style="color: white;">
 						<div class="card bg-dark m-2 attendee-card" style="display: inline-block;">
 						<?php
 						}
@@ -336,18 +339,21 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 					<br>
 					<?php
  				 	while($declinedUser = mysqli_fetch_array($declinedUsers_result)){
+						$declinedUserId = $declinedUser['user_id'];
  					 	$declinedUsername = $declinedUser['username'];
  					 	$declinedUserEmail = $declinedUser['email'];
  					 	$declinedUserEmailHash = md5(strtolower(trim($declinedUserEmail)));
 
 						if($darkTheme == 0){
 						?>
+						<a href="profile.php?user_id=<?php echo $declinedUserId ?>" style="color: black;">
 						<div class="card bg-light m-2 attendee-card" style="display: inline-block;">
 
 						<?php
 						}
 						else if($darkTheme == 1){
 						?>
+						<a href="profile.php?user_id=<?php echo $declinedUserId ?>" style="color: white;">
 						<div class="card bg-dark m-2 attendee-card" style="display: inline-block;">
 						<?php
 						}
@@ -376,12 +382,14 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
 					 if($darkTheme == 0){
 				 	 ?>
+					 <a href="profile.php?user_id=<?php echo $session_user_id ?>" style="color: black;">
 				 		<div class="card bg-light m-2 attendee-card" style="display: inline-block;">
 
 					<?php
 					}
 					else if($darkTheme == 1){
 					?>
+					<a href="profile.php?user_id=<?php echo $session_user_id ?>" style="color: white;">
 					<div class="card bg-dark m-2 attendee-card" style="display: inline-block;">
 					<?php
 					}
@@ -392,19 +400,23 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 						</div>
 						<?php } ?>
 					</div>
+				</a>
 				 <?php
 				 while($attendingUser = mysqli_fetch_array($attendingUsers_result)){
+					 $attendingUserId = $attendingUser['user_id'];
 					 $attendingUsername = $attendingUser['username'];
 					 $attendingUserEmail = $attendingUser['email'];
 					 $attendingUserEmailHash = md5(strtolower(trim($attendingUserEmail)));
 
 					 if($darkTheme == 0){
 				 ?>
+				 <a href="profile.php?user_id=<?php echo $attendingUserId ?>" style="color: black;">
 				 	<div class="card bg-light m-2 attendee-card" style="display: inline-block;">
 					<?php
 					}
 					else if($darkTheme == 1){
 					?>
+					<a href="profile.php?user_id=<?php echo $attendingUserId ?>" style="color: white;">
 					<div class="card bg-dark m-2 attendee-card" style="display: inline-block;">
 					<?php
 					}
@@ -414,6 +426,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 							 <p class="card-text text-center"><?php echo $attendingUsername ?></p>
 						 </div>
 					</div>
+				</a>
 					 <?php
 				 		}
 						?>
