@@ -43,6 +43,9 @@ $findFriends_result = mysqli_query($link, $findFriends_query);
 
 $friendRequests_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.user_id=users.user_id WHERE friend_id='$session_user_id' AND status_id=0";
 $friendRequests_result = mysqli_query($link, $friendRequests_query);
+
+$friendRequested_query = "SELECT * FROM friends WHERE friend_id='$session_user_id' OR user_id='$session_user_id'";
+$friendRequested_result = mysqli_query($link, $friendRequested_query);
 ?>
 
 <!DOCTYPE html>
@@ -249,12 +252,17 @@ $friendRequests_result = mysqli_query($link, $friendRequests_query);
           <h4 class="text-center">People you may know</h4>
           <div class="list-group">
           <?php
+          while($friendRequested = mysqli_fetch_array($friendRequested_result)){
+            $friendRequested_user_id = $friendRequested['user_id'];
+            $friendRequested_friend_id = $friendRequested['friend_id'];
+
           while($friend = mysqli_fetch_array($findFriends_result)){
             $friend_user_id = $friend['user_id'];
             $friend_username = $friend['username'];
             $friend_email = $friend['email'];
             $friend_email_hash = md5(strtolower(trim($friend_email)));
 
+            if(($friend_user_id != $friendRequested_user_id) || ($friend_user_id != $friendRequested_friend_id)){ //The or statement is breaking this if statement
             if($darkTheme == 0){
           ?>
           <li class="list-group-item">
@@ -273,6 +281,8 @@ $friendRequests_result = mysqli_query($link, $friendRequests_query);
             </div>
           </li>
           <?php
+          }
+          }
           }
           ?>
         </div>
