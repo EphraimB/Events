@@ -270,7 +270,7 @@ $requestedFriends_friend_id_array = [];
             $friend_email_hash = md5(strtolower(trim($friend_email)));
 
 
-            if(in_array($friend_user_id, $requestedFriends_friend_id_array) == 0 && in_array($friend_user_id, $requestedFriends_user_id_array) == 0){ //The or statement is breaking this if statement
+            if(in_array($friend_user_id, $requestedFriends_friend_id_array) == 0 && in_array($friend_user_id, $requestedFriends_user_id_array) == 0){
             if($darkTheme == 0){
           ?>
           <li class="list-group-item">
