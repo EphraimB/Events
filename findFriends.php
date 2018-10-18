@@ -40,6 +40,9 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
 $findFriends_query = "SELECT * FROM users WHERE user_id <> '$session_user_id'";
 $findFriends_result = mysqli_query($link, $findFriends_query);
+
+$friendRequests_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.user_id=users.user_id WHERE friend_id='$session_user_id' AND status_id=0";
+$friendRequests_result = mysqli_query($link, $friendRequests_query);
 ?>
 
 <!DOCTYPE html>
@@ -205,7 +208,46 @@ $findFriends_result = mysqli_query($link, $findFriends_query);
       </header>
       <br>
       <main>
+        <?php
+        if(mysqli_num_rows($friendRequests_result) > 0){
+        ?>
+        <h4 class="text-center">Respond to your friend requests</h4>
         <div class="list-group">
+          <?php
+          while($friendRequest = mysqli_fetch_array($friendRequests_result)){
+            $friendRequest_id = $friendRequest['id'];
+            $friendRequest_user_id = $friendRequest['user_id'];
+            $friendRequest_username = $friendRequest['username'];
+            $friendRequest_email = $friendRequest['email'];
+            $friendRequest_email_hash = md5(strtolower(trim($friendRequest_email)));
+
+            if($darkTheme == 0){
+            ?>
+            <li class="list-group-item">
+            <?php
+            }
+            else if($darkTheme == 1){
+            ?>
+            <li class="list-group-item bg-dark">
+            <?php
+            }
+            ?>
+            <div class="row">
+              <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friendRequest_email_hash ?>?s=150" width="50" height="50">
+              &ensp;<p class="col"><?php echo $friendRequest_username ?></p>
+              <a href="updateFriendRequest.php?requested_user_id=<?php echo $friendRequest_user_id ?>&action=confirm" class="btn btn-primary col-1">Confirm</a>
+              <a href="updateFriendRequest.php?requested_user_id=<?php echo $friendRequest_user_id ?>&action=delete" class="btn btn-secondary col-2 ml-2">Delete Request</a>
+            </div>
+          <?php
+          }
+          ?>
+        </div>
+        <?php
+        }
+        ?>
+          <br>
+          <h4 class="text-center">People you may know</h4>
+          <div class="list-group">
           <?php
           while($friend = mysqli_fetch_array($findFriends_result)){
             $friend_user_id = $friend['user_id'];
@@ -234,6 +276,7 @@ $findFriends_result = mysqli_query($link, $findFriends_query);
           }
           ?>
         </div>
+        <br>
       </main>
     </div>
   </body>
