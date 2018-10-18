@@ -46,6 +46,9 @@ $friendRequests_result = mysqli_query($link, $friendRequests_query);
 
 $friendRequested_query = "SELECT * FROM friends WHERE friend_id='$session_user_id' OR user_id='$session_user_id'";
 $friendRequested_result = mysqli_query($link, $friendRequested_query);
+
+$requestedFriends_user_id_array = [];
+$requestedFriends_friend_id_array = [];
 ?>
 
 <!DOCTYPE html>
@@ -256,13 +259,18 @@ $friendRequested_result = mysqli_query($link, $friendRequested_query);
             $friendRequested_user_id = $friendRequested['user_id'];
             $friendRequested_friend_id = $friendRequested['friend_id'];
 
+            array_push($requestedFriends_user_id_array, $friendRequested_user_id);
+            array_push($requestedFriends_friend_id_array, $friendRequested_friend_id);
+          }
+
           while($friend = mysqli_fetch_array($findFriends_result)){
             $friend_user_id = $friend['user_id'];
             $friend_username = $friend['username'];
             $friend_email = $friend['email'];
             $friend_email_hash = md5(strtolower(trim($friend_email)));
 
-            if(($friend_user_id != $friendRequested_user_id) || ($friend_user_id != $friendRequested_friend_id)){ //The or statement is breaking this if statement
+
+            if(in_array($friend_user_id, $requestedFriends_friend_id_array) == 0 && in_array($friend_user_id, $requestedFriends_user_id_array) == 0){ //The or statement is breaking this if statement
             if($darkTheme == 0){
           ?>
           <li class="list-group-item">
@@ -281,7 +289,6 @@ $friendRequested_result = mysqli_query($link, $friendRequested_query);
             </div>
           </li>
           <?php
-          }
           }
           }
           ?>
