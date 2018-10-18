@@ -17,7 +17,7 @@ $_SESSION['user_id'] = mysqli_fetch_array($user_id_result)[0];
 $session_user_id = $_SESSION['user_id'];
 
 $addFriend_query = "INSERT INTO friends(friend_id, user_id, status_id)
-              VALUES ('$friend_user_id', '$session_user_id')";
+              VALUES ('$friend_user_id', '$session_user_id', 0)";
 $addFriend_result = mysqli_query($link, $addFriend_query);
 
 if($addFriend_result){
