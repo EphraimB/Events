@@ -54,7 +54,7 @@ $findFriends_result = mysqli_query($link, $findFriends_query);
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="img/baseline_event_black_18dp.png">
+    <link rel="icon" href="img/baseline-event-black-18/1x/baseline_event_black_18dp.png">
   </head>
 	<?php
 	if($darkTheme == 0){
