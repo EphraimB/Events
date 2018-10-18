@@ -45,6 +45,9 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
 $userProfile_query = "SELECT * FROM users WHERE user_id='$profileUserId'";
 $userProfile_result = mysqli_query($link, $userProfile_query);
+
+$friends_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.friend_id=users.user_id WHERE friends.user_id='$session_user_id'";
+$friends_result = mysqli_query($link, $friends_query);
 ?>
 
 <!DOCTYPE html>
@@ -248,6 +251,53 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
             </div>
           </div>
         </div>
+      <br>
+      <?php
+      if($darkTheme == 0){
+      ?>
+      <div class="card">
+      <?php
+      }
+      else if($darkTheme == 1){
+      ?>
+      <div class="card bg-dark">
+      <?php
+      }
+      ?>
+        <div class="card-header">
+          <h3 class="card-title">Friends</h3>
+        </div>
+        <div class="card-body">
+          <div class="list-group">
+            <?php
+            while($friend = mysqli_fetch_array($friends_result)){
+              $friend_user_id = $friend['user_id'];
+              $friend_username = $friend['username'];
+              $friend_email = $friend['email'];
+              $friend_email_hash = md5(strtolower(trim($friend_email)));
+
+              if($darkTheme == 0){
+              ?>
+                <li class="list-group-item">
+              <?php
+              }
+            else if($darkTheme == 1){
+            ?>
+            <li class="list-group-item bg-dark">
+            <?php
+            }
+            ?>
+            <div class="row">
+              <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friend_email_hash ?>?s=150" width="50" height="50">
+              &ensp;<p class="col"><?php echo $friend_username ?></p>
+            </div>
+            </li>
+            <?php
+            }
+            ?>
+          </div>
+        </div>
+      </div>
       </main>
     </div>
   </body>
