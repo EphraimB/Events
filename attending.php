@@ -67,7 +67,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="img/baseline_event_black_18dp.png">
+    <link rel="icon" href="img/baseline-event-black-18/1x/baseline_event_black_18dp.png">
   </head>
 	<?php
 	if($darkTheme == 0){
@@ -109,6 +109,9 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="pending.php">Pending</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="findFriends.php">Find Friends</a>
 						</li>
           </ul>
 					<hr class="d-block d-lg-none">

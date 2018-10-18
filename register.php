@@ -15,7 +15,7 @@ session_start();
     <script src="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.js"></script>
     <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="icon" href="img/baseline_event_black_18dp.png">
+    <link rel="icon" href="img/baseline-event-black-18/1x/baseline_event_black_18dp.png">
   </head>
   <body>
     <div class="container">
@@ -59,7 +59,7 @@ session_start();
           </div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Address:</label>
-            <input type="search" id="place-search-input" placeholder="Start Searching..." class="form-control" name="address">
+            <input type="text" id="location" class="form-control" name="address">
           </div>
           <br>
           <p>If you already have an account: <a href="login.php">Login</a></p>
@@ -68,14 +68,20 @@ session_start();
             <button type="register" class="btn btn-primary" name="register_btn">Submit</button>
           </div>
         </form>
+        <br>
       </main>
     </div>
-
     <script>
-    placeSearch({
-      key: 'yv7CrKLXnF6OAfUF7VCzo8qPq7TfjSLT',
-      container: document.querySelector('#place-search-input')
+    //Google Maps API
+    $(document).ready(function() {
+      google.maps.event.addDomListener(window, 'load', initialize);
     });
+
+    function initialize() {
+      var input = document.getElementById('location');
+      var autocomplete = new google.maps.places.Autocomplete(input);
+    }
     </script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK-fy6hmPp1VEu8bSeKJoXkqWWgUO0dEo&libraries=places"></script>
   </body>
 </html>

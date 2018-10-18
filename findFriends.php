@@ -7,19 +7,7 @@ require_once 'config.php';
 global $link;
 
 
-$event_id = $_GET['event_id'];
-
 $session_username = $_SESSION['username'];
-
-if (isset($_GET['logout'])) {
-	session_destroy();
-	unset($session_username);
-	header("location: login.php");
-}
-
-if(!isset($session_username) || empty($session_username)){
-  header("location: login.php");
-}
 
 $emailQuery = "SELECT email FROM users WHERE username='$session_username'";
 $emailResult = mysqli_query($link, $emailQuery);
@@ -28,29 +16,14 @@ $email = mysqli_fetch_array($emailResult)[0];
 
 $email_hash = md5(strtolower(trim($email)));
 
-$allUsersEmailQuery = "SELECT email FROM users";
-$allUsersEmailResult = mysqli_query($link, $allUsersEmailQuery);
-
 $user_id_query = "SELECT * FROM users WHERE username='$session_username'";
 $user_id_result = mysqli_query($link, $user_id_query);
-
-$invitedUsers = [];
-
-$user_id_invited_query = "SELECT * FROM invite LEFT OUTER JOIN users ON invite.user_id=users.user_id WHERE invite.event_id='$event_id' AND invite.status_id=2";
-$user_id_invited_result = mysqli_query($link, $user_id_invited_query);
 
 $_SESSION['user_id'] = mysqli_fetch_array($user_id_result)[0];
 $session_user_id = $_SESSION['user_id'];
 
-$query = "SELECT * FROM events WHERE event_id='$event_id'";
-$result = mysqli_query($link, $query);
-
-$allUsers_query = "SELECT username FROM users";
-$allUsers_result = mysqli_query($link, $allUsers_query);
-
-if(!isset($_SESSION['selectedUsers'])){
-  $_SESSION['selectedUsers'] = [];
-}
+$invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id' AND status_id=0";
+$invited_result = mysqli_query($link, $invited_query);
 
 $notifications_query = "SELECT * FROM notifications LEFT OUTER JOIN events ON notifications.event_id=events.event_id LEFT OUTER JOIN userevents ON notifications.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE notifications.user_id='$session_user_id' AND cleared=0";
 $notifications_result = mysqli_query($link, $notifications_query);
@@ -64,6 +37,18 @@ $darkTheme_query = "SELECT darkTheme FROM users WHERE user_id='$session_user_id'
 $darkTheme_result = mysqli_query($link, $darkTheme_query);
 
 $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
+
+$findFriends_query = "SELECT * FROM users WHERE user_id <> '$session_user_id'";
+$findFriends_result = mysqli_query($link, $findFriends_query);
+
+$friendRequests_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.user_id=users.user_id WHERE friend_id='$session_user_id' AND status_id=0";
+$friendRequests_result = mysqli_query($link, $friendRequests_query);
+
+$friendRequested_query = "SELECT * FROM friends WHERE friend_id='$session_user_id' OR user_id='$session_user_id'";
+$friendRequested_result = mysqli_query($link, $friendRequested_query);
+
+$requestedFriends_user_id_array = [];
+$requestedFriends_friend_id_array = [];
 ?>
 
 <!DOCTYPE html>
@@ -112,9 +97,9 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-						<li class="nav-item">
-							<a class="nav-link" href="index.php">My Events</a>
-						</li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">My Events</a>
+            </li>
 						<li class="nav-item">
 							<a class="nav-link" href="attending.php">Attending</a>
 						</li>
@@ -122,7 +107,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 							<a class="nav-link" href="pending.php">Pending</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="findFriends.php">Find Friends</a>
+							<a class="nav-link active" href="findFriends.php">Find Friends <span class="sr-only">(current)</span></a>
 						</li>
           </ul>
 					<hr class="d-block d-lg-none">
@@ -165,7 +150,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 							if($notifications == 0){
 								if($darkTheme == 0){
 							?>
-								<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
+									<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
 								<?php
 								}
 								else if($darkTheme == 1){
@@ -182,15 +167,15 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 							else{
 								if($darkTheme == 0){
 							?>
-								<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
-								<?php
-								}
-								else if($darkTheme == 1){
-								?>
-									<a class="nav-item dropdown text-white material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
-								<?php
-								}
-								?>
+									<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+							<?php
+							}
+							else if($darkTheme == 1){
+							?>
+								<a class="nav-item dropdown text-white material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+							<?php
+							}
+							?>
 							<div class="dropdown-menu dropdown-menu-right p-3" style="width: 300px" aria-labelledby="notificationsMenuLink">
 								<?php
 								while($notification = mysqli_fetch_array($notifications_result)){
@@ -212,96 +197,104 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
         </div>
       </nav>
       <?php
-      if(isset($_SESSION['exists'])){
+      if(isset($_SESSION['inviteSuccessful'])){
         echo '
-        <div class="alert alert-danger" role="alert">
-          '.$_SESSION["exists"].' already exists.
-          <a href="clearSessionExists.php?redirectedFrom=invite&fromEvent_id='.$event_id.'" class="close" aria-label="Close">
+        <div class="alert alert-success" role="alert">
+          Successfully sent an invitation.
+          <a href="clearSessionExists.php?redirectedFrom=index" class="close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </a>
         </div>';
-        }
-        ?>
+      }
+
+      ?>
       <br>
       <header>
-        <h1 class="text-center">Invite</h1>
+        <h1 class="text-center">Find Friends</h1>
       </header>
+      <br>
       <main>
-        <br>
-        <br>
-        <div class="row justify-content-center">
-          <input type="search" class="col-10 col-lg-6" id="search" placeholder="Search..." onkeyup="filterFunction()">
-        </div>
-        <div class="list-group" id="listGroup">
-        <br>
-        <br>
+        <?php
+        if(mysqli_num_rows($friendRequests_result) > 0){
+        ?>
+        <h4 class="text-center">Respond to your friend requests</h4>
+        <div class="list-group">
           <?php
-					while($invited = mysqli_fetch_array($user_id_invited_result)['username']){
-						array_push($invitedUsers, $invited);
-					}
+          while($friendRequest = mysqli_fetch_array($friendRequests_result)){
+            $friendRequest_id = $friendRequest['id'];
+            $friendRequest_user_id = $friendRequest['user_id'];
+            $friendRequest_username = $friendRequest['username'];
+            $friendRequest_email = $friendRequest['email'];
+            $friendRequest_email_hash = md5(strtolower(trim($friendRequest_email)));
 
-					while($user = mysqli_fetch_array($allUsers_result)[0]){
-            $allUsersEmail = mysqli_fetch_array($allUsersEmailResult)[0];
-
-            if($user != $session_username && $allUsersEmail != $email && in_array($user, $invitedUsers) == 0){
-              $allUsersEmail_hash = md5(strtolower(trim($allUsersEmail)));
-
-							if($darkTheme == 0){
-          	?>
-              <a class="list-group-item bg-light list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $user ?>&selectedUserEmail_hash=<?php echo $allUsersEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>">
-							<?php
-							}
-							else if($darkTheme == 1){
-							?>
-							<a class="list-group-item bg-dark list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $user ?>&selectedUserEmail_hash=<?php echo $allUsersEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>" style="color: white">
-							<?php
-							}
-							?>
-								<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $allUsersEmail_hash ?>?s=30">&emsp;<span><?php echo $user ?></span>
-							</a>
+            if($darkTheme == 0){
+            ?>
+            <li class="list-group-item">
+            <?php
+            }
+            else if($darkTheme == 1){
+            ?>
+            <li class="list-group-item bg-dark">
+            <?php
+            }
+            ?>
+            <div class="row">
+              <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friendRequest_email_hash ?>?s=150" width="50" height="50">
+              &ensp;<p class="col"><?php echo $friendRequest_username ?></p>
+              <a href="updateFriendRequest.php?requested_user_id=<?php echo $friendRequest_user_id ?>&action=confirm" class="btn btn-primary col-1">Confirm</a>
+              <a href="updateFriendRequest.php?requested_user_id=<?php echo $friendRequest_user_id ?>&action=delete" class="btn btn-secondary col-2 ml-2">Delete Request</a>
+            </div>
           <?php
           }
+          ?>
+        </div>
+        <?php
         }
         ?>
-        </div>
-        <br>
-        <br>
+          <br>
+          <h4 class="text-center">People you may know</h4>
+          <div class="list-group">
+          <?php
+          while($friendRequested = mysqli_fetch_array($friendRequested_result)){
+            $friendRequested_user_id = $friendRequested['user_id'];
+            $friendRequested_friend_id = $friendRequested['friend_id'];
 
-        <?php
-        if(isset($_SESSION['selectedUsers'])){
-          if(count($_SESSION['selectedUsers']) > 0){
-            foreach($_SESSION['selectedUsers'] as $selectedUser){
-							if($darkTheme == 0){
-              	echo '<div class="card bg-light" style="width: 10rem; display: inline-block;">';
-							}
-
-							else if($darkTheme == 1){
-								echo '<div class="card bg-dark" style="width: 10rem; display: inline-block;">';
-							}
-                echo '
-								<a href="deselectUsers.php?deselectedUser='.$selectedUser[0].'&fromEvent_id='.$event_id.'" class="close bg-light" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                  </a>
-                  <img class="card-img-top" src="https://www.gravatar.com/avatar/'.$selectedUser[1].'?s=300">
-                  <div class="card-body">
-                    <p class="card-text text-center">'.$selectedUser[0].'</p>
-                  </div>
-                </div>';
-              }
-              echo '
-              <br>
-              <br>
-              <div class="text-center">
-                <a href="inviteSelected.php?event_id='.$event_id.'" class="btn btn-primary">Invite</a>
-              </div>
-              ';
-            }
+            array_push($requestedFriends_user_id_array, $friendRequested_user_id);
+            array_push($requestedFriends_friend_id_array, $friendRequested_friend_id);
           }
 
-          ?>
-        </main>
-      </div>
+          while($friend = mysqli_fetch_array($findFriends_result)){
+            $friend_user_id = $friend['user_id'];
+            $friend_username = $friend['username'];
+            $friend_email = $friend['email'];
+            $friend_email_hash = md5(strtolower(trim($friend_email)));
 
-    <script src="js/script.js"></script>
+
+            if(in_array($friend_user_id, $requestedFriends_friend_id_array) == 0 && in_array($friend_user_id, $requestedFriends_user_id_array) == 0){
+            if($darkTheme == 0){
+          ?>
+          <li class="list-group-item">
+          <?php
+          }
+          else if($darkTheme == 1){
+          ?>
+          <li class="list-group-item bg-dark">
+          <?php
+          }
+          ?>
+            <div class="row">
+              <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friend_email_hash ?>?s=150" width="50" height="50">
+              &ensp;<p class="col"><?php echo $friend_username ?></p>
+              <a href="addFriend.php?friend_user_id=<?php echo $friend_user_id ?>" class="btn btn-primary col-2 mr-5">Add friend <i class="material-icons align-text-top">person_add</i></a>
+            </div>
+          </li>
+          <?php
+          }
+          }
+          ?>
+        </div>
+        <br>
+      </main>
+    </div>
   </body>
-  </html>
+</html>

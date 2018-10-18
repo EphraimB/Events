@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 10, 2018 at 08:50 PM
+-- Generation Time: Oct 18, 2018 at 08:55 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.7
 
@@ -63,11 +63,33 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`event_id`, `title`, `description`, `location`, `startDate`, `endDate`) VALUES
-(2, 'Work', 'Work time', '115 Broadway, New York, New York, 10006-1600, US', '2018-08-07 10:30:00', '2018-08-07 13:30:00'),
+(2, 'Work', 'Work time', '115 Broadway, New York, NY, USA', '2018-08-07 10:30:00', '2018-08-07 13:30:00'),
 (3, 'Dinner', 'Royal dinner in my human house', '570 Cedar Hill Rd, Far Rockaway, New York, 11691-5403, US', '2018-08-07 18:00:00', '2018-08-07 20:00:00'),
-(4, 'Home', 'Go home', '570 Cedar Hill Rd, Far Rockaway, New York, 11691-5403, US', '2018-08-13 13:30:00', '2018-08-13 15:30:00'),
+(4, 'Home', 'Go home', '570 Cedar Hill Road, Far Rockaway, NY, USA', '2018-08-13 13:30:00', '2018-08-13 15:30:00'),
 (5, 'Cutieland', 'Meet at my human house to go to Cutieland', '570 Cedar Hill Rd, Far Rockaway, New York, 11691-5403, US', '2018-08-20 16:00:00', '2018-08-20 16:15:00'),
-(6, 'Work', 'Work time', '115 Broadway, New York, New York, 10006-1600, US', '2018-08-22 10:30:00', '2018-08-22 13:30:00');
+(6, 'Work', 'Work time', '115 Broadway, New York, NY, USA', '2018-08-22 10:30:00', '2018-08-22 13:30:00'),
+(7, 'Home', 'Go to my house in Rokonkma', '981 Baeck Street, Ronkonkoma, NY, USA', '2018-10-16 16:00:00', '2018-10-16 21:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `friends`
+--
+
+CREATE TABLE `friends` (
+  `id` int(11) NOT NULL,
+  `friend_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `friends`
+--
+
+INSERT INTO `friends` (`id`, `friend_id`, `user_id`, `status_id`) VALUES
+(1, 4, 1, 1),
+(4, 3, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -141,7 +163,8 @@ INSERT INTO `userevents` (`id`, `event_id`, `user_id`) VALUES
 (3, 3, 2),
 (4, 4, 1),
 (5, 5, 3),
-(6, 6, 1);
+(6, 6, 1),
+(7, 7, 4);
 
 -- --------------------------------------------------------
 
@@ -166,10 +189,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `birthday`, `address`, `createdAt`, `lastLogin`, `darkTheme`) VALUES
-(1, 'EphraimB', '$2y$10$h8Np8hviWrGvBfO9/bSnnexCP6ZM.L7OZbxBVh89v2Yq9Ek2.wmnO', 'emb16@outlook.com', '1996-07-19 00:00:00', '570 Cedar Hill Rd, Far Rockaway, New York, 11691-5403, US', '2018-08-07 11:23:34', '2018-10-10 13:48:52', 1),
+(1, 'EphraimB', '$2y$10$h8Np8hviWrGvBfO9/bSnnexCP6ZM.L7OZbxBVh89v2Yq9Ek2.wmnO', 'emb16@outlook.com', '1996-07-19 00:00:00', '570 Cedar Hill Rd, Far Rockaway, New York, 11691-5403, US', '2018-08-07 11:23:34', '2018-10-18 14:53:38', 1),
 (2, 'Cutie', '$2y$10$v1HC6zxQXmwndVNNfErgB.dStJqHDQf6Wgc3Of7b5w85mxQGuFWey', 'cutie@cutieland.gov', '2008-06-01 00:00:00', '570 Cedar Hill Rd, Far Rockaway, New York, 11691-5403, US', '2018-08-07 11:55:08', '2018-10-04 10:34:46', 0),
-(3, 'PinnyThePooh', '$2y$10$W1KNwSTKPGQ1aOYjFe8kluO/aDhgLUsdZWqcI2YPNoE7Epj8ADBE.', 'pinnythepooh@cutiemail.com', '2010-11-14 00:00:00', '570 Cedar Hill Rd, Far Rockaway, New York, 11691-5403, US', '2018-08-13 11:06:52', '2018-10-04 11:53:47', 0),
-(4, 'DaveM', '$2y$10$kCMIgzTWjF2CXvYvyioZBeHgZcbTkAb4ZYwRaqx0KbIRJShJszPx2', 'dmurray@kulanukids.org', '1982-08-14 00:00:00', '981 Baeck St, Ronkonkoma, New York, 11779-6632, US', '2018-08-14 12:06:34', '2018-08-21 12:09:23', 0);
+(3, 'PinnyThePooh', '$2y$10$W1KNwSTKPGQ1aOYjFe8kluO/aDhgLUsdZWqcI2YPNoE7Epj8ADBE.', 'pinnythepooh@cutiemail.com', '2010-11-14 00:00:00', '570 Cedar Hill Rd, Far Rockaway, New York, 11691-5403, US', '2018-08-13 11:06:52', '2018-10-18 14:53:03', 0),
+(4, 'DaveM', '$2y$10$kCMIgzTWjF2CXvYvyioZBeHgZcbTkAb4ZYwRaqx0KbIRJShJszPx2', 'dmurray@kulanukids.org', '1982-08-14 00:00:00', '981 Baeck St, Ronkonkoma, New York, 11779-6632, US', '2018-08-14 12:06:34', '2018-10-18 14:53:24', 0);
 
 --
 -- Indexes for dumped tables
@@ -186,6 +209,12 @@ ALTER TABLE `comments`
 --
 ALTER TABLE `events`
   ADD PRIMARY KEY (`event_id`);
+
+--
+-- Indexes for table `friends`
+--
+ALTER TABLE `friends`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `invite`
@@ -225,7 +254,13 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `friends`
+--
+ALTER TABLE `friends`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `invite`
@@ -243,7 +278,7 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `userevents`
 --
 ALTER TABLE `userevents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
