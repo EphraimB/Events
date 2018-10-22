@@ -46,10 +46,10 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 $userProfile_query = "SELECT * FROM users WHERE user_id='$profileUserId'";
 $userProfile_result = mysqli_query($link, $userProfile_query);
 
-$friends_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.friend_id=users.user_id WHERE friends.user_id='$session_user_id' OR friends.friend_id='$session_user_id'";
+$friends_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.friend_id=users.user_id WHERE friends.user_id='$profileUserId' OR friends.friend_id='$profileUserId'";
 $friends_result = mysqli_query($link, $friends_query);
 
-$friendsOtherWay_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.user_id=users.user_id WHERE friends.friend_id='$session_user_id'";
+$friendsOtherWay_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.user_id=users.user_id WHERE friends.friend_id='$profileUserId'";
 $friendsOtherWay_result = mysqli_query($link, $friendsOtherWay_query);
 ?>
 
@@ -141,7 +141,7 @@ $friendsOtherWay_result = mysqli_query($link, $friendsOtherWay_query);
 								?>
 							</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="profile.php"><i class="material-icons align-text-top">account_circle</i>&ensp;Profile</a>
+								<a class="dropdown-item" href="profile.php?user_id=<?php echo $session_user_id ?>"><i class="material-icons align-text-top">account_circle</i>&ensp;Profile</a>
 								<a class="dropdown-item" href="settings.php"><i class="material-icons align-text-top">settings</i>&ensp;Settings</a>
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
@@ -280,7 +280,7 @@ $friendsOtherWay_result = mysqli_query($link, $friendsOtherWay_query);
               $friend_email_hash = md5(strtolower(trim($friend_email)));
 
 
-              if($friend_user_id == $session_user_id){
+              if($friend_user_id == $profileUserId){
                 while($friendOtherWay = mysqli_fetch_array($friendsOtherWay_result)){
                   $friendOtherWay_user_id = $friendOtherWay['friend_id'];
                   $friendOtherWay_username = $friendOtherWay['username'];

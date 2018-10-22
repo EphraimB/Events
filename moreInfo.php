@@ -379,20 +379,21 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 				 <br>
 				 <?php
 				 while($hostUser = mysqli_fetch_array($hostUser_result)){
+					 $hostUser_id = $hostUser['user_id'];
 					 $hostUsername = $hostUser['username'];
 					 $hostEmail = $hostUser['email'];
 					 $hostEmailHash = md5(strtolower(trim($hostEmail)));
 
 					 if($darkTheme == 0){
 				 	 ?>
-					 <a href="profile.php?user_id=<?php echo $session_user_id ?>" style="color: black;">
+					 <a href="profile.php?user_id=<?php echo $hostUser_id ?>" style="color: black;">
 				 		<div class="card bg-light m-2 attendee-card" style="display: inline-block;">
 
 					<?php
 					}
 					else if($darkTheme == 1){
 					?>
-					<a href="profile.php?user_id=<?php echo $session_user_id ?>" style="color: white;">
+					<a href="profile.php?user_id=<?php echo $hostUser_id ?>" style="color: white;">
 					<div class="card bg-dark m-2 attendee-card" style="display: inline-block;">
 					<?php
 					}
