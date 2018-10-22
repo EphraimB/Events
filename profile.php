@@ -51,6 +51,9 @@ $friends_result = mysqli_query($link, $friends_query);
 
 $friendsOtherWay_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.user_id=users.user_id WHERE friends.friend_id='$profileUserId'";
 $friendsOtherWay_result = mysqli_query($link, $friendsOtherWay_query);
+
+$isFriend_query = "SELECT * FROM friends WHERE user_id='$session_user_id' AND friend_id='$profileUserId' OR friend_id='$session_user_id' AND user_id='$profileUserId'";
+$isFriend_result = mysqli_query($link, $isFriend_query);
 ?>
 
 <!DOCTYPE html>
@@ -246,6 +249,9 @@ $friendsOtherWay_result = mysqli_query($link, $friendsOtherWay_query);
           <div class="card-body">
             <img class="align-middle float-right d-none d-lg-block" width="200" height="200" src="https://www.gravatar.com/avatar/<?php echo $profileEmail_hash ?>?s=500">
             <div class="row">
+              <?php
+              if(mysqli_num_rows($isFriend_result) || $profileUserId == $session_user_id){
+              ?>
               <div class="col-12 col-lg-4">
                 <p class="card-text font-weight-bold m-0">Address:</p>
                 <a class="card-link" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($address) ?>"><p class="card-text"><?php echo $address ?></p></a>
@@ -268,6 +274,9 @@ $friendsOtherWay_result = mysqli_query($link, $friendsOtherWay_query);
               <br>
               <br>
               <br>
+              <?php
+              }
+              ?>
               <div class="col-12 col-lg-4">
                 <p class="card-text font-weight-bold m-0">Events member since:</p>
                 <p class="card-text"><?php echo $memberSinceFormatted ?></p>
