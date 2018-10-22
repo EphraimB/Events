@@ -231,6 +231,8 @@ $friendsOtherWay_result = mysqli_query($link, $friendsOtherWay_query);
         while($info = mysqli_fetch_array($userProfile_result)){
           $username = $info['username'];
           $address = $info['address'];
+          $birthday = $info['birthday'];
+          $birthdayFormatted = date('F d, Y', strtotime($birthday));
           $memberSince = $info['createdAt'];
           $memberSinceFormatted = date('F d, Y', strtotime($memberSince));
         ?>
@@ -247,6 +249,13 @@ $friendsOtherWay_result = mysqli_query($link, $friendsOtherWay_query);
                 <a class="card-link" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($address) ?>"><p class="card-text"><?php echo $address ?></p></a>
               </div>
               <br>
+              <br>
+              <br>
+              <br>
+              <div class="col-12 col-lg">
+                <p class="card-text font-weight-bold m-0">Birthday:</p>
+                <p class="card-text"><?php echo $birthdayFormatted ?></p>
+              </div>
               <br>
               <br>
               <br>
