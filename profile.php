@@ -315,7 +315,7 @@ $isFriend_result = mysqli_query($link, $isFriend_query);
 
               if($friend_user_id == $profileUserId){
                 while($friendOtherWay = mysqli_fetch_array($friendsOtherWay_result)){
-                  $friendOtherWay_user_id = $friendOtherWay['friend_id'];
+                  $friendOtherWay_user_id = $friendOtherWay['user_id'];
                   $friendOtherWay_username = $friendOtherWay['username'];
                   $friendOtherWay_email = $friendOtherWay['email'];
                   $friendOtherWay_email_hash = md5(strtolower(trim($friendOtherWay_email)));
@@ -323,12 +323,14 @@ $isFriend_result = mysqli_query($link, $isFriend_query);
 
                   if($darkTheme == 0){
                   ?>
+                    <a href="profile.php?user_id=<?php echo $friendOtherWay_user_id ?>" style="color: black; text-decoration: none;">
                     <li class="list-group-item">
                   <?php
                   }
                 else if($darkTheme == 1){
                 ?>
-                <li class="list-group-item bg-dark">
+                  <a href="profile.php?user_id=<?php echo $friendOtherWay_user_id ?>" style="color: black;">
+                  <li class="list-group-item bg-dark">
                 <?php
                 }
                 ?>
@@ -337,18 +339,21 @@ $isFriend_result = mysqli_query($link, $isFriend_query);
                   &ensp;<p class="col"><?php echo $friendOtherWay_username ?></p>
                 </div>
                 </li>
+                </a>
                 <?php
                 }
               }
               else{
               if($darkTheme == 0){
               ?>
+                <a href="profile.php?user_id=<?php echo $friend_user_id ?>" style="color: black;">
                 <li class="list-group-item">
               <?php
               }
             else if($darkTheme == 1){
             ?>
-            <li class="list-group-item bg-dark">
+              <a href="profile.php?user_id=<?php echo $friend_user_id ?>" style="color: black;">
+              <li class="list-group-item bg-dark">
             <?php
             }
             ?>
