@@ -194,13 +194,13 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
         <?php
         if($darkTheme == 0){
         ?>
-        <div class="card bg-light float-left mr-3" style="width: 20rem;">
+        <div class="card mx-lg-3 mx-auto bg-light float-lg-left mr-3" style="width: 20rem;">
         <?php
         }
 
         else if($darkTheme == 1){
         ?>
-        <div class="card bg-dark float-left mr-3" style="width: 20rem;">
+        <div class="card mx-lg-3 mx-auto bg-dark float-lg-left mr-3" style="width: 20rem;">
           <?php
           }
           ?>
@@ -249,13 +249,13 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
         <?php
         if($darkTheme == 0){
         ?>
-        <div class="card bg-light" style="width: 20rem;">
+        <div class="card bg-light mx-lg-0 mx-auto" style="width: 20rem;">
         <?php
         }
 
         else if($darkTheme == 1){
         ?>
-        <div class="card bg-dark" style="width: 20rem;">
+        <div class="card bg-dark mx-lg-0 mx-auto" style="width: 20rem;">
           <?php
           }
           ?>
