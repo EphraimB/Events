@@ -329,7 +329,7 @@ $isFriend_result = mysqli_query($link, $isFriend_query);
                   }
                 else if($darkTheme == 1){
                 ?>
-                  <a href="profile.php?user_id=<?php echo $friendOtherWay_user_id ?>" style="color: black;">
+                  <a href="profile.php?user_id=<?php echo $friendOtherWay_user_id ?>" style="color: white; text-decoration: none;">
                   <li class="list-group-item bg-dark">
                 <?php
                 }
@@ -346,13 +346,13 @@ $isFriend_result = mysqli_query($link, $isFriend_query);
               else{
               if($darkTheme == 0){
               ?>
-                <a href="profile.php?user_id=<?php echo $friend_user_id ?>" style="color: black;">
+                <a href="profile.php?user_id=<?php echo $friend_user_id ?>" style="color: black; text-decoration: none;">
                 <li class="list-group-item">
               <?php
               }
             else if($darkTheme == 1){
             ?>
-              <a href="profile.php?user_id=<?php echo $friend_user_id ?>" style="color: black;">
+              <a href="profile.php?user_id=<?php echo $friend_user_id ?>" style="color: white; text-decoration: none;">
               <li class="list-group-item bg-dark">
             <?php
             }

@@ -316,14 +316,14 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
 						if($darkTheme == 0){
 						?>
-						<a href="profile.php?user_id=<?php echo $pendingUserId ?>" style="color: black;">
+						<a href="profile.php?user_id=<?php echo $pendingUserId ?>" style="color: black; text-decoration: none;">
 						<div class="card bg-light m-2 attendee-card" style="display: inline-block;">
 
 						<?php
 						}
 						else if($darkTheme == 1){
 						?>
-						<a href="profile.php?user_id=<?php echo $pendingUserId ?>" style="color: white;">
+						<a href="profile.php?user_id=<?php echo $pendingUserId ?>" style="color: white; text-decoration: none;">
 						<div class="card bg-dark m-2 attendee-card" style="display: inline-block;">
 						<?php
 						}
@@ -349,14 +349,14 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
 						if($darkTheme == 0){
 						?>
-						<a href="profile.php?user_id=<?php echo $declinedUserId ?>" style="color: black;">
+						<a href="profile.php?user_id=<?php echo $declinedUserId ?>" style="color: black; text-decoration: none;">
 						<div class="card bg-light m-2 attendee-card" style="display: inline-block;">
 
 						<?php
 						}
 						else if($darkTheme == 1){
 						?>
-						<a href="profile.php?user_id=<?php echo $declinedUserId ?>" style="color: white;">
+						<a href="profile.php?user_id=<?php echo $declinedUserId ?>" style="color: white; text-decoration: none;">
 						<div class="card bg-dark m-2 attendee-card" style="display: inline-block;">
 						<?php
 						}
@@ -386,14 +386,14 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
 					 if($darkTheme == 0){
 				 	 ?>
-					 <a href="profile.php?user_id=<?php echo $hostUser_id ?>" style="color: black;">
+					 <a href="profile.php?user_id=<?php echo $hostUser_id ?>" style="color: black; text-decoration: none;">
 				 		<div class="card bg-light m-2 attendee-card" style="display: inline-block;">
 
 					<?php
 					}
 					else if($darkTheme == 1){
 					?>
-					<a href="profile.php?user_id=<?php echo $hostUser_id ?>" style="color: white;">
+					<a href="profile.php?user_id=<?php echo $hostUser_id ?>" style="color: white; text-decoration: none;">
 					<div class="card bg-dark m-2 attendee-card" style="display: inline-block;">
 					<?php
 					}
@@ -414,13 +414,13 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
 					 if($darkTheme == 0){
 				 ?>
-				 <a href="profile.php?user_id=<?php echo $attendingUserId ?>" style="color: black;">
+				 <a href="profile.php?user_id=<?php echo $attendingUserId ?>" style="color: black; text-decoration: none;">
 				 	<div class="card bg-light m-2 attendee-card" style="display: inline-block;">
 					<?php
 					}
 					else if($darkTheme == 1){
 					?>
-					<a href="profile.php?user_id=<?php echo $attendingUserId ?>" style="color: white;">
+					<a href="profile.php?user_id=<?php echo $attendingUserId ?>" style="color: white; text-decoration: none;">
 					<div class="card bg-dark m-2 attendee-card" style="display: inline-block;">
 					<?php
 					}
