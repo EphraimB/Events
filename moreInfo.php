@@ -260,7 +260,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
 	          $mapLatitude = $obj["results"][0]["geometry"]["location"]["lat"];
 						$mapLongitude = $obj["results"][0]["geometry"]["location"]["lng"];
-						echo '<img class="card-img-top" src="https://maps.googleapis.com/maps/api/staticmap?markers=color:red|'.$mapLatitude.','.$mapLongitude.'&zoom=18&size=300x300&key=AIzaSyDK-fy6hmPp1VEu8bSeKJoXkqWWgUO0dEo">';
+						echo '<img class="card-img-top" src="https://maps.googleapis.com/maps/api/staticmap?markers=color:red|'.$mapLatitude.','.$mapLongitude.'&zoom=15&size=300x300&key=AIzaSyDK-fy6hmPp1VEu8bSeKJoXkqWWgUO0dEo">';
 						?>
 						<div class="card-body">
           		<p class="text-center card-text"><i class="material-icons align-text-top">location_on</i> <?php echo '<a class="card-link" href="https://www.google.com/maps/search/?api=1&query='.urlencode($location).'">'.$location ?></a></p>
@@ -379,20 +379,21 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 				 <br>
 				 <?php
 				 while($hostUser = mysqli_fetch_array($hostUser_result)){
+					 $hostUser_id = $hostUser['user_id'];
 					 $hostUsername = $hostUser['username'];
 					 $hostEmail = $hostUser['email'];
 					 $hostEmailHash = md5(strtolower(trim($hostEmail)));
 
 					 if($darkTheme == 0){
 				 	 ?>
-					 <a href="profile.php?user_id=<?php echo $session_user_id ?>" style="color: black;">
+					 <a href="profile.php?user_id=<?php echo $hostUser_id ?>" style="color: black;">
 				 		<div class="card bg-light m-2 attendee-card" style="display: inline-block;">
 
 					<?php
 					}
 					else if($darkTheme == 1){
 					?>
-					<a href="profile.php?user_id=<?php echo $session_user_id ?>" style="color: white;">
+					<a href="profile.php?user_id=<?php echo $hostUser_id ?>" style="color: white;">
 					<div class="card bg-dark m-2 attendee-card" style="display: inline-block;">
 					<?php
 					}

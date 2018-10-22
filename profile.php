@@ -45,6 +45,12 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
 $userProfile_query = "SELECT * FROM users WHERE user_id='$profileUserId'";
 $userProfile_result = mysqli_query($link, $userProfile_query);
+
+$friends_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.friend_id=users.user_id WHERE friends.user_id='$profileUserId' OR friends.friend_id='$profileUserId'";
+$friends_result = mysqli_query($link, $friends_query);
+
+$friendsOtherWay_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.user_id=users.user_id WHERE friends.friend_id='$profileUserId'";
+$friendsOtherWay_result = mysqli_query($link, $friendsOtherWay_query);
 ?>
 
 <!DOCTYPE html>
@@ -135,7 +141,7 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
 								?>
 							</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="profile.php"><i class="material-icons align-text-top">account_circle</i>&ensp;Profile</a>
+								<a class="dropdown-item" href="profile.php?user_id=<?php echo $session_user_id ?>"><i class="material-icons align-text-top">account_circle</i>&ensp;Profile</a>
 								<a class="dropdown-item" href="settings.php"><i class="material-icons align-text-top">settings</i>&ensp;Settings</a>
                 <a class="dropdown-item" href="index.php?logout=1">Logout</a>
               </div>
@@ -248,6 +254,83 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
             </div>
           </div>
         </div>
+      <br>
+      <?php
+      if($darkTheme == 0){
+      ?>
+      <div class="card">
+      <?php
+      }
+      else if($darkTheme == 1){
+      ?>
+      <div class="card bg-dark">
+      <?php
+      }
+      ?>
+        <div class="card-header">
+          <h3 class="card-title">Friends</h3>
+        </div>
+        <div class="card-body">
+          <div class="list-group">
+            <?php
+            while($friend = mysqli_fetch_array($friends_result)){
+              $friend_user_id = $friend['friend_id'];
+              $friend_username = $friend['username'];
+              $friend_email = $friend['email'];
+              $friend_email_hash = md5(strtolower(trim($friend_email)));
+
+
+              if($friend_user_id == $profileUserId){
+                while($friendOtherWay = mysqli_fetch_array($friendsOtherWay_result)){
+                  $friendOtherWay_user_id = $friendOtherWay['friend_id'];
+                  $friendOtherWay_username = $friendOtherWay['username'];
+                  $friendOtherWay_email = $friendOtherWay['email'];
+                  $friendOtherWay_email_hash = md5(strtolower(trim($friendOtherWay_email)));
+
+
+                  if($darkTheme == 0){
+                  ?>
+                    <li class="list-group-item">
+                  <?php
+                  }
+                else if($darkTheme == 1){
+                ?>
+                <li class="list-group-item bg-dark">
+                <?php
+                }
+                ?>
+                <div class="row">
+                  <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friendOtherWay_email_hash ?>?s=150" width="50" height="50">
+                  &ensp;<p class="col"><?php echo $friendOtherWay_username ?></p>
+                </div>
+                </li>
+                <?php
+                }
+              }
+              else{
+              if($darkTheme == 0){
+              ?>
+                <li class="list-group-item">
+              <?php
+              }
+            else if($darkTheme == 1){
+            ?>
+            <li class="list-group-item bg-dark">
+            <?php
+            }
+            ?>
+            <div class="row">
+              <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friend_email_hash ?>?s=150" width="50" height="50">
+              &ensp;<p class="col"><?php echo $friend_username ?></p>
+            </div>
+            </li>
+            <?php
+            }
+            }
+            ?>
+          </div>
+        </div>
+      </div>
       </main>
     </div>
   </body>
