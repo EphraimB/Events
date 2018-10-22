@@ -235,22 +235,29 @@ $friendsOtherWay_result = mysqli_query($link, $friendsOtherWay_query);
           $memberSinceFormatted = date('F d, Y', strtotime($memberSince));
         ?>
           <div class="card-header">
-            <h3 class="card-title"><?php echo $username ?></h3>
+            <div class="row">
+              <img class="circle-img col-3 d-lg-none" width="50" height="50" src="https://www.gravatar.com/avatar/<?php echo $profileEmail_hash ?>?s=500">
+              <h3 class="card-title col-9"><?php echo $username ?></h3>
+            </div>
           </div>
           <div class="card-body">
             <div class="row">
-              <div class="col-3">
-                <p class="card-text font-weight-bold">Address:</p>
+              <div class="col-12 col-lg-3">
+                <p class="card-text font-weight-bold m-0">Address:</p>
                 <a class="card-link" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($address) ?>"><p class="card-text"><?php echo $address ?></p></a>
               </div>
-              <div class="col">
-                <p class="card-text font-weight-bold">Events member since:</p>
+              <br>
+              <br>
+              <br>
+              <br>
+              <div class="col-12 col-lg">
+                <p class="card-text font-weight-bold m-0">Events member since:</p>
                 <p class="card-text"><?php echo $memberSinceFormatted ?></p>
               </div>
             <?php
             }
             ?>
-              <img class="align-middle" width="200" height="200" src="https://www.gravatar.com/avatar/<?php echo $profileEmail_hash ?>?s=500">
+              <img class="align-middle d-none d-lg-block" width="200" height="200" src="https://www.gravatar.com/avatar/<?php echo $profileEmail_hash ?>?s=500">
             </div>
           </div>
         </div>
