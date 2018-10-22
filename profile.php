@@ -46,8 +46,11 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 $userProfile_query = "SELECT * FROM users WHERE user_id='$profileUserId'";
 $userProfile_result = mysqli_query($link, $userProfile_query);
 
-$friends_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.friend_id=users.user_id WHERE friends.user_id='$session_user_id'";
+$friends_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.friend_id=users.user_id WHERE friends.user_id='$session_user_id' OR friends.friend_id='$session_user_id'";
 $friends_result = mysqli_query($link, $friends_query);
+
+$friendsOtherWay_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.user_id=users.user_id WHERE friends.friend_id='$session_user_id'";
+$friendsOtherWay_result = mysqli_query($link, $friendsOtherWay_query);
 ?>
 
 <!DOCTYPE html>
@@ -271,11 +274,40 @@ $friends_result = mysqli_query($link, $friends_query);
           <div class="list-group">
             <?php
             while($friend = mysqli_fetch_array($friends_result)){
-              $friend_user_id = $friend['user_id'];
+              $friend_user_id = $friend['friend_id'];
               $friend_username = $friend['username'];
               $friend_email = $friend['email'];
               $friend_email_hash = md5(strtolower(trim($friend_email)));
 
+
+              if($friend_user_id == $session_user_id){
+                while($friendOtherWay = mysqli_fetch_array($friendsOtherWay_result)){
+                  $friendOtherWay_user_id = $friendOtherWay['friend_id'];
+                  $friendOtherWay_username = $friendOtherWay['username'];
+                  $friendOtherWay_email = $friendOtherWay['email'];
+                  $friendOtherWay_email_hash = md5(strtolower(trim($friendOtherWay_email)));
+
+
+                  if($darkTheme == 0){
+                  ?>
+                    <li class="list-group-item">
+                  <?php
+                  }
+                else if($darkTheme == 1){
+                ?>
+                <li class="list-group-item bg-dark">
+                <?php
+                }
+                ?>
+                <div class="row">
+                  <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friendOtherWay_email_hash ?>?s=150" width="50" height="50">
+                  &ensp;<p class="col"><?php echo $friendOtherWay_username ?></p>
+                </div>
+                </li>
+                <?php
+                }
+              }
+              else{
               if($darkTheme == 0){
               ?>
                 <li class="list-group-item">
@@ -293,6 +325,7 @@ $friends_result = mysqli_query($link, $friends_query);
             </div>
             </li>
             <?php
+            }
             }
             ?>
           </div>
