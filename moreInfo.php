@@ -245,12 +245,12 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 					<?php
 					if($darkTheme == 0){
 					?>
-					<div class="card" style="width: 18rem;">
+					<div class="card mx-lg-0 mx-auto" style="width: 18rem;">
 						<?php
 					}
 					else if($darkTheme == 1){
 					?>
-					<div class="card bg-dark" style="width: 18rem;">
+					<div class="card mx-lg-0 mx-auto bg-dark" style="width: 18rem;">
 					<?php
 					}
 						ini_set("allow_url_fopen", 1);
