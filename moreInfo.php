@@ -447,7 +447,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 							<input type="hidden" name="event_id" value="<?php echo $event_id ?>">
 							<input type="hidden" name="userEvents_id" value="<?php echo $userEvents_id ?>">
 							<input type="hidden" name="invitedEvent" value="<?php echo $invitedEvent ?>">
-							<textarea cols="100" name="commentField"></textarea>
+							<textarea class="col-12" name="commentField"></textarea>
 							<br>
 							<input class="btn btn-primary" type="submit">
 						</form>
