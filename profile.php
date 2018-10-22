@@ -51,6 +51,9 @@ $friends_result = mysqli_query($link, $friends_query);
 
 $friendsOtherWay_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.user_id=users.user_id WHERE friends.friend_id='$profileUserId'";
 $friendsOtherWay_result = mysqli_query($link, $friendsOtherWay_query);
+
+$isFriend_query = "SELECT * FROM friends WHERE user_id='$session_user_id' AND friend_id='$profileUserId' OR friend_id='$session_user_id' AND user_id='$profileUserId'";
+$isFriend_result = mysqli_query($link, $isFriend_query);
 ?>
 
 <!DOCTYPE html>
@@ -231,6 +234,9 @@ $friendsOtherWay_result = mysqli_query($link, $friendsOtherWay_query);
         while($info = mysqli_fetch_array($userProfile_result)){
           $username = $info['username'];
           $address = $info['address'];
+          $birthday = $info['birthday'];
+          $birthdayFormatted = date('F d, Y', strtotime($birthday));
+          $info_email = $info['email'];
           $memberSince = $info['createdAt'];
           $memberSinceFormatted = date('F d, Y', strtotime($memberSince));
         ?>
@@ -241,8 +247,12 @@ $friendsOtherWay_result = mysqli_query($link, $friendsOtherWay_query);
             </div>
           </div>
           <div class="card-body">
+            <img class="align-middle float-right d-none d-lg-block" width="200" height="200" src="https://www.gravatar.com/avatar/<?php echo $profileEmail_hash ?>?s=500">
             <div class="row">
-              <div class="col-12 col-lg-3">
+              <?php
+              if(mysqli_num_rows($isFriend_result) || $profileUserId == $session_user_id){
+              ?>
+              <div class="col-12 col-lg-4">
                 <p class="card-text font-weight-bold m-0">Address:</p>
                 <a class="card-link" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($address) ?>"><p class="card-text"><?php echo $address ?></p></a>
               </div>
@@ -250,15 +260,31 @@ $friendsOtherWay_result = mysqli_query($link, $friendsOtherWay_query);
               <br>
               <br>
               <br>
-              <div class="col-12 col-lg">
+              <div class="col-12 col-lg-4">
+                <p class="card-text font-weight-bold m-0">Birthday:</p>
+                <p class="card-text"><?php echo $birthdayFormatted ?></p>
+              </div>
+              <br>
+              <br>
+              <br>
+              <div class="col-12 col-lg-4">
+                <p class="card-text font-weight-bold m-0">Email:</p>
+                <p class="card-text"><?php echo $info_email ?></p>
+              </div>
+              <br>
+              <br>
+              <br>
+              <?php
+              }
+              ?>
+              <div class="col-12 col-lg-4">
                 <p class="card-text font-weight-bold m-0">Events member since:</p>
                 <p class="card-text"><?php echo $memberSinceFormatted ?></p>
               </div>
+            </div>
             <?php
             }
             ?>
-              <img class="align-middle d-none d-lg-block" width="200" height="200" src="https://www.gravatar.com/avatar/<?php echo $profileEmail_hash ?>?s=500">
-            </div>
           </div>
         </div>
       <br>
@@ -289,7 +315,7 @@ $friendsOtherWay_result = mysqli_query($link, $friendsOtherWay_query);
 
               if($friend_user_id == $profileUserId){
                 while($friendOtherWay = mysqli_fetch_array($friendsOtherWay_result)){
-                  $friendOtherWay_user_id = $friendOtherWay['friend_id'];
+                  $friendOtherWay_user_id = $friendOtherWay['user_id'];
                   $friendOtherWay_username = $friendOtherWay['username'];
                   $friendOtherWay_email = $friendOtherWay['email'];
                   $friendOtherWay_email_hash = md5(strtolower(trim($friendOtherWay_email)));
@@ -297,12 +323,14 @@ $friendsOtherWay_result = mysqli_query($link, $friendsOtherWay_query);
 
                   if($darkTheme == 0){
                   ?>
+                    <a href="profile.php?user_id=<?php echo $friendOtherWay_user_id ?>" style="color: black; text-decoration: none;">
                     <li class="list-group-item">
                   <?php
                   }
                 else if($darkTheme == 1){
                 ?>
-                <li class="list-group-item bg-dark">
+                  <a href="profile.php?user_id=<?php echo $friendOtherWay_user_id ?>" style="color: white; text-decoration: none;">
+                  <li class="list-group-item bg-dark">
                 <?php
                 }
                 ?>
@@ -311,18 +339,21 @@ $friendsOtherWay_result = mysqli_query($link, $friendsOtherWay_query);
                   &ensp;<p class="col"><?php echo $friendOtherWay_username ?></p>
                 </div>
                 </li>
+                </a>
                 <?php
                 }
               }
               else{
               if($darkTheme == 0){
               ?>
+                <a href="profile.php?user_id=<?php echo $friend_user_id ?>" style="color: black; text-decoration: none;">
                 <li class="list-group-item">
               <?php
               }
             else if($darkTheme == 1){
             ?>
-            <li class="list-group-item bg-dark">
+              <a href="profile.php?user_id=<?php echo $friend_user_id ?>" style="color: white; text-decoration: none;">
+              <li class="list-group-item bg-dark">
             <?php
             }
             ?>
