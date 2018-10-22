@@ -245,12 +245,12 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 					<?php
 					if($darkTheme == 0){
 					?>
-					<div class="card" style="width: 18rem;">
+					<div class="card mx-lg-0 mx-auto" style="width: 18rem;">
 						<?php
 					}
 					else if($darkTheme == 1){
 					?>
-					<div class="card bg-dark" style="width: 18rem;">
+					<div class="card mx-lg-0 mx-auto bg-dark" style="width: 18rem;">
 					<?php
 					}
 						ini_set("allow_url_fopen", 1);
@@ -447,7 +447,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 							<input type="hidden" name="event_id" value="<?php echo $event_id ?>">
 							<input type="hidden" name="userEvents_id" value="<?php echo $userEvents_id ?>">
 							<input type="hidden" name="invitedEvent" value="<?php echo $invitedEvent ?>">
-							<textarea cols="100" name="commentField"></textarea>
+							<textarea class="col-12" name="commentField"></textarea>
 							<br>
 							<input class="btn btn-primary" type="submit">
 						</form>
