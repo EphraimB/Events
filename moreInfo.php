@@ -260,7 +260,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
 	          $mapLatitude = $obj["results"][0]["geometry"]["location"]["lat"];
 						$mapLongitude = $obj["results"][0]["geometry"]["location"]["lng"];
-						echo '<img class="card-img-top" src="https://maps.googleapis.com/maps/api/staticmap?markers=color:red|'.$mapLatitude.','.$mapLongitude.'&zoom=18&size=300x300&key=AIzaSyDK-fy6hmPp1VEu8bSeKJoXkqWWgUO0dEo">';
+						echo '<img class="card-img-top" src="https://maps.googleapis.com/maps/api/staticmap?markers=color:red|'.$mapLatitude.','.$mapLongitude.'&zoom=15&size=300x300&key=AIzaSyDK-fy6hmPp1VEu8bSeKJoXkqWWgUO0dEo">';
 						?>
 						<div class="card-body">
           		<p class="text-center card-text"><i class="material-icons align-text-top">location_on</i> <?php echo '<a class="card-link" href="https://www.google.com/maps/search/?api=1&query='.urlencode($location).'">'.$location ?></a></p>
