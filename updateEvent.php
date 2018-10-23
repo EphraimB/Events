@@ -142,7 +142,7 @@ while($row = mysqli_fetch_array($result)){
 
 							if(!isset($_SESSION['facebookPicture'])){
 							?>
-								<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?>
+								<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?d=mp&s=30">&nbsp;<?php echo $_SESSION['username']; ?>
 								<?php
 								}
 

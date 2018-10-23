@@ -127,7 +127,7 @@ $requestedFriends_friend_id_array = [];
 
 							if(!isset($_SESSION['facebookPicture'])){
 							?>
-								<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?>
+								<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?d=mp&s=30">&nbsp;<?php echo $_SESSION['username']; ?>
 								<?php
 								}
 
@@ -239,7 +239,7 @@ $requestedFriends_friend_id_array = [];
             }
             ?>
             <div class="row">
-              <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friendRequest_email_hash ?>?s=150" width="50" height="50">
+              <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friendRequest_email_hash ?>?d=mp&s=150" width="50" height="50">
               &ensp;<p class="col"><?php echo $friendRequest_username ?></p>
               <a href="updateFriendRequest.php?requested_user_id=<?php echo $friendRequest_user_id ?>&action=confirm" class="btn btn-primary col-1">Confirm</a>
               <a href="updateFriendRequest.php?requested_user_id=<?php echo $friendRequest_user_id ?>&action=delete" class="btn btn-secondary col-2 ml-2">Delete Request</a>
@@ -283,7 +283,7 @@ $requestedFriends_friend_id_array = [];
           }
           ?>
             <div class="row">
-              <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friend_email_hash ?>?s=150" width="50" height="50">
+              <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friend_email_hash ?>?d=mp&s=150" width="50" height="50">
               &ensp;<p class="col"><?php echo $friend_username ?></p>
               <a href="addFriend.php?friend_user_id=<?php echo $friend_user_id ?>" class="btn btn-primary col-2 mr-2 mr-lg-5"><p class="d-none d-lg-inline">Add friend</p> <i class="material-icons align-text-top">person_add</i></a>
             </div>

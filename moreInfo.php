@@ -151,7 +151,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
 							if(!isset($_SESSION['facebookPicture'])){
 							?>
-								<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?>
+								<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?d=mp&s=30">&nbsp;<?php echo $_SESSION['username']; ?>
 								<?php
 								}
 
@@ -328,7 +328,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 						<?php
 						}
 						?>
-							 <img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $pendingUserEmailHash ?>?s=300">
+							 <img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $pendingUserEmailHash ?>?d=mp&s=300">
 							 <div class="card-body">
 								 <p class="card-text text-center"><?php echo $pendingUsername ?></p>
 							 </div>
@@ -361,7 +361,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 						<?php
 						}
 						?>
-							 <img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $declinedUserEmailHash ?>?s=300">
+							 <img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $declinedUserEmailHash ?>?d=mp&s=300">
 							 <div class="card-body">
 								 <p class="card-text text-center"><?php echo $declinedUsername ?></p>
 							 </div>
@@ -398,7 +398,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 					<?php
 					}
 					?>
-						<img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $hostEmailHash ?>?s=300">
+						<img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $hostEmailHash ?>?d=mp&s=300">
 						<div class="card-body">
 							<p class="card-text text-center"><?php echo $hostUsername ?></p>
 						</div>
@@ -425,7 +425,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 					<?php
 					}
 					?>
-						 <img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $attendingUserEmailHash ?>?s=300">
+						 <img class="card-img-top circle-img p-3" src="https://www.gravatar.com/avatar/<?php echo $attendingUserEmailHash ?>?d=mp&s=300">
 						 <div class="card-body">
 							 <p class="card-text text-center"><?php echo $attendingUsername ?></p>
 						 </div>

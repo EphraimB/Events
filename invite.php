@@ -142,7 +142,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
 							if(!isset($_SESSION['facebookPicture'])){
 							?>
-								<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?>
+								<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?d=mp&s=30">&nbsp;<?php echo $_SESSION['username']; ?>
 								<?php
 								}
 
@@ -257,7 +257,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 							<?php
 							}
 							?>
-								<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $allUsersEmail_hash ?>?s=30">&emsp;<span><?php echo $user ?></span>
+								<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $allUsersEmail_hash ?>?d=mp&s=30">&emsp;<span><?php echo $user ?></span>
 							</a>
           <?php
           }
@@ -282,7 +282,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 								<a href="deselectUsers.php?deselectedUser='.$selectedUser[0].'&fromEvent_id='.$event_id.'" class="close bg-light" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </a>
-                  <img class="card-img-top" src="https://www.gravatar.com/avatar/'.$selectedUser[1].'?s=300">
+                  <img class="card-img-top" src="https://www.gravatar.com/avatar/'.$selectedUser[1].'?d=mp&s=300">
                   <div class="card-body">
                     <p class="card-text text-center">'.$selectedUser[0].'</p>
                   </div>

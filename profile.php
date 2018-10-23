@@ -132,7 +132,7 @@ $isFriend_result = mysqli_query($link, $isFriend_query);
 
 							if(!isset($_SESSION['facebookPicture'])){
 							?>
-								<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?s=30">&nbsp;<?php echo $_SESSION['username']; ?>
+								<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $email_hash ?>?d=mp&s=30">&nbsp;<?php echo $_SESSION['username']; ?>
 								<?php
 								}
 
@@ -242,12 +242,12 @@ $isFriend_result = mysqli_query($link, $isFriend_query);
         ?>
           <div class="card-header">
             <div class="row">
-              <img class="circle-img col-3 d-lg-none" width="50" height="50" src="https://www.gravatar.com/avatar/<?php echo $profileEmail_hash ?>?s=500">
+              <img class="circle-img col-3 d-lg-none" width="50" height="50" src="https://www.gravatar.com/avatar/<?php echo $profileEmail_hash ?>?d=mp&s=500">
               <h3 class="card-title col-9"><?php echo $username ?></h3>
             </div>
           </div>
           <div class="card-body">
-            <img class="align-middle float-right d-none d-lg-block" width="200" height="200" src="https://www.gravatar.com/avatar/<?php echo $profileEmail_hash ?>?s=500">
+            <img class="align-middle float-right d-none d-lg-block" width="200" height="200" src="https://www.gravatar.com/avatar/<?php echo $profileEmail_hash ?>?d=mp&s=500">
             <div class="row">
               <?php
               if(mysqli_num_rows($isFriend_result) || $profileUserId == $session_user_id){
@@ -335,7 +335,7 @@ $isFriend_result = mysqli_query($link, $isFriend_query);
                 }
                 ?>
                 <div class="row">
-                  <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friendOtherWay_email_hash ?>?s=150" width="50" height="50">
+                  <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friendOtherWay_email_hash ?>?d=mp&s=150" width="50" height="50">
                   &ensp;<p class="col"><?php echo $friendOtherWay_username ?></p>
                 </div>
                 </li>
@@ -358,7 +358,7 @@ $isFriend_result = mysqli_query($link, $isFriend_query);
             }
             ?>
             <div class="row">
-              <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friend_email_hash ?>?s=150" width="50" height="50">
+              <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friend_email_hash ?>?d=mp&s=150" width="50" height="50">
               &ensp;<p class="col"><?php echo $friend_username ?></p>
             </div>
             </li>
