@@ -242,7 +242,8 @@ $isFriend_result = mysqli_query($link, $isFriend_query);
         ?>
           <div class="card-header">
             <div class="row">
-              <img class="circle-img col-3 d-lg-none" width="50" height="50" src="https://www.gravatar.com/avatar/<?php echo $profileEmail_hash ?>?d=mp&s=500">
+              <img class="circle-img col-3 d-md-none" class="responsive-img" width="50" height="50" src="https://www.gravatar.com/avatar/<?php echo $profileEmail_hash ?>?d=mp&s=500">
+              <img class="circle-img col-md-2 d-none d-md-inline-block d-lg-none" class="responsive-img" width="100" height="75" src="https://www.gravatar.com/avatar/<?php echo $profileEmail_hash ?>?d=mp&s=500">
               <h3 class="card-title col-9"><?php echo $username ?></h3>
             </div>
           </div>
