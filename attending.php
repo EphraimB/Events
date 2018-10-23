@@ -226,9 +226,9 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 				?>
 					<br>
 		      <div class="row justify-content-around font-weight-bold mb-4">
-		      <div class="col-4 col-lg">Title</div>
-		      <div class="col-4 col-lg">Description</div>
-		      <div class="col-lg-2 d-none d-lg-block">Location</div>
+		      <div class="col-4 col-md">Title</div>
+		      <div class="col-4 col-md">Description</div>
+		      <div class="col-md col-lg-2 d-none d-md-block">Location</div>
 		      <div class="col-lg d-none d-lg-block">Start date</div>
 		      <div class="col-lg d-none d-lg-block">End date</div>
 		      </div>
@@ -250,9 +250,9 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 						?>
 
 						<div class="row justify-content-around mb-4">
-							<div class="col-4 col-lg"><a href="moreInfo.php?event_id=<?php echo $upcomingEvent_id ?>&userEvents_id=<?php echo $upcomingUserEvents_id ?>&invitedEvent=true"><?php echo $upcomingTitle ?></a></div>
-							<div class="col-4 col-lg"><?php echo $upcomingDescription ?></div>
-							<div class="col-lg-2 d-none d-lg-block"><?php echo $upcomingLocation ?></div>
+							<div class="col-4 col-md"><a href="moreInfo.php?event_id=<?php echo $upcomingEvent_id ?>&userEvents_id=<?php echo $upcomingUserEvents_id ?>&invitedEvent=true"><?php echo $upcomingTitle ?></a></div>
+							<div class="col-4 col-md"><?php echo $upcomingDescription ?></div>
+							<div class="col-md col-lg-2 d-none d-md-block"><?php echo $upcomingLocation ?></div>
 							<div class="col-lg d-none d-lg-block"><?php echo $upcomingStartDateFormatted."<br>".$upcomingStartTimeFormatted ?></div>
 							<div class="col-lg d-none d-lg-block"><?php echo $upcomingEndDateFormatted."<br>".$upcomingEndTimeFormatted ?></div>
 						</div>
@@ -275,9 +275,9 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 								?>
 								<br>
 								<div class="row justify-content-around font-weight-bold mb-4">
-									<div class="col-4 col-lg">Title</div>
-									<div class="col-4 col-lg">Description</div>
-									<div class="col-lg-2 d-none d-lg-block">Location</div>
+									<div class="col-4 col-md">Title</div>
+									<div class="col-4 col-md">Description</div>
+									<div class="col-md col-lg-2 d-none d-md-block">Location</div>
 									<div class="col-lg d-none d-lg-block">Start date</div>
 									<div class="col-lg d-none d-lg-block">End date</div>
 								</div>
@@ -299,9 +299,9 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 									?>
 
 								<div class="row justify-content-around mb-4">
-									<div class="col-4 col-lg"><a href="moreInfo.php?event_id=<?php echo $passedEvent_id ?>&userEvents_id=<?php echo $passedUserEvents_id ?>&invitedEvent=true"><?php echo $passedTitle ?></a></div>
-									<div class="col-4 col-lg"><?php echo $passedDescription ?></div>
-									<div class="col-lg-2 d-none d-lg-block"><?php echo $passedLocation ?></div>
+									<div class="col-4 col-md"><a href="moreInfo.php?event_id=<?php echo $passedEvent_id ?>&userEvents_id=<?php echo $passedUserEvents_id ?>&invitedEvent=true"><?php echo $passedTitle ?></a></div>
+									<div class="col-4 col-md"><?php echo $passedDescription ?></div>
+									<div class="col-md col-lg-2 d-none d-md-block"><?php echo $passedLocation ?></div>
 									<div class="col-lg d-none d-lg-block"><?php echo $passedStartDateFormatted."<br>".$passedStartTimeFormatted ?></div>
 									<div class="col-lg d-none d-lg-block"><?php echo $passedEndDateFormatted."<br>".$passedEndTimeFormatted ?></div>
 								</div>

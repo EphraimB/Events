@@ -230,7 +230,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
         <div class="row justify-content-around font-weight-bold mb-4">
           <div class="col-4 col-md">Title</div>
           <div class="col-4 col-md">Description</div>
-          <div class="col-md-2 d-none d-md-block">Location</div>
+          <div class="col-md col-lg-2 d-none d-md-block">Location</div>
           <div class="col-md d-none d-md-block">Start date</div>
           <div class="col-md d-none d-md-block">End date</div>
           <div class="col-lg d-none d-lg-block">Edit</div>
@@ -264,7 +264,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
         <div class="row justify-content-around mb-4">
           <div class="col-4 col-md"><a href="moreInfo.php?event_id=<?php echo $upcomingEvent_id ?>&userEvents_id=<?php echo $upcomingUserEvents_id ?>&invitedEvent=false"><?php echo $upcomingTitle ?></a></div>
           <div class="col-4 col-md"><?php echo $upcomingDescription ?></div>
-          <div class="col-md-2 d-none d-md-block"><?php echo $upcomingLocation ?></div>
+          <div class="col-md col-lg-2 d-none d-md-block"><?php echo $upcomingLocation ?></div>
           <div class="col-md d-none d-md-block"><?php echo $upcomingStartDateFormatted."<br>".$upcomingStartTimeFormatted ?></div>
           <div class="col-md d-none d-md-block"><?php echo $upcomingEndDateFormatted."<br>".$upcomingEndTimeFormatted ?></div>
           <div class="col-lg d-none d-lg-block"><a href="updateEvent.php?event_id=<?php echo $upcomingEvent_id ?>" class="btn btn-warning material-icons">edit</a></div>
