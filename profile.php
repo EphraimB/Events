@@ -102,8 +102,8 @@ $isFriend_result = mysqli_query($link, $isFriend_query);
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.php">My Events <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">My Events</a>
             </li>
 						<li class="nav-item">
 							<a class="nav-link" href="attending.php">Attending</a>
