@@ -90,7 +90,7 @@ $requestedFriends_friend_id_array = [];
 			<?php
 			}
 			?>
-        <span class="navbar-brand mb-0 h1 material-icons">event</span>
+        <span class="navbar-brand mb-0 h1 material-icons" style="font-size: 1.5rem;">event</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -139,9 +139,9 @@ $requestedFriends_friend_id_array = [];
 								?>
 							</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="profile.php?user_id=<?php echo $session_user_id ?>"><i class="material-icons align-text-top">account_circle</i>&ensp;Profile</a>
-								<a class="dropdown-item" href="settings.php"><i class="material-icons align-text-top">settings</i>&ensp;Settings</a>
-                <a class="dropdown-item" href="index.php?logout=1">Logout</a>
+								<a class="dropdown-item responsive-t" href="profile.php?user_id=<?php echo $session_user_id ?>"><i class="material-icons align-text-top responsive-t">account_circle</i>&ensp;Profile</a>
+								<a class="dropdown-item responsive-t" href="settings.php"><i class="material-icons align-text-top responsive-t">settings</i>&ensp;Settings</a>
+                <a class="dropdown-item responsive-t" href="index.php?logout=1">Logout</a>
               </div>
             </div>
 						&emsp;
@@ -150,12 +150,12 @@ $requestedFriends_friend_id_array = [];
 							if($notifications == 0){
 								if($darkTheme == 0){
 							?>
-									<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
+									<a class="nav-item dropdown text-dark material-icons" style="font-size: 1.5rem;" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
 								<?php
 								}
 								else if($darkTheme == 1){
 								?>
-									<a class="nav-item dropdown text-white material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
+									<a class="nav-item dropdown text-white material-icons" style="font-size: 1.5rem;" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
 								<?php
 								}
 								?>
@@ -167,12 +167,12 @@ $requestedFriends_friend_id_array = [];
 							else{
 								if($darkTheme == 0){
 							?>
-									<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+									<a class="nav-item dropdown text-dark material-icons" style="font-size: 1.5rem;" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
 							<?php
 							}
 							else if($darkTheme == 1){
 							?>
-								<a class="nav-item dropdown text-white material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+								<a class="nav-item dropdown text-white material-icons" style="font-size: 1.5rem;" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
 							<?php
 							}
 							?>
@@ -186,7 +186,7 @@ $requestedFriends_friend_id_array = [];
 								}
 								?>
 								<div class="text-right">
-									<a href="clearNotifications.php" class="material-icons">clear_all</a>
+									<a href="clearNotifications.php" class="material-icons" style="font-size: 1.5rem;">clear_all</a>
 								</div>
 							</div>
 							<?php
@@ -285,7 +285,7 @@ $requestedFriends_friend_id_array = [];
             <div class="row">
               <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friend_email_hash ?>?d=mp&s=150" width="50" height="50">
               &ensp;<p class="col"><?php echo $friend_username ?></p>
-              <a href="addFriend.php?friend_user_id=<?php echo $friend_user_id ?>" class="btn btn-primary col-2 mr-2 mr-lg-5"><p class="d-none d-lg-inline">Add friend</p> <i class="material-icons align-text-top">person_add</i></a>
+              <a href="addFriend.php?friend_user_id=<?php echo $friend_user_id ?>" class="btn btn-primary col-2 mr-2 mr-lg-5"><p class="d-none d-lg-inline align-middle" style="font-size: 1.2rem">Add friend</p> <i class="material-icons align-text-top" style="font-size: 1.8rem;">person_add</i></a>
             </div>
           </li>
           <?php

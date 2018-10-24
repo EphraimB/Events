@@ -105,7 +105,7 @@ while($row = mysqli_fetch_array($result)){
 			<?php
 			}
 			?>
-        <span class="navbar-brand mb-0 h1 material-icons">event</span>
+        <span class="navbar-brand mb-0 h1 material-icons" style="font-size: 1.5rem;">event</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -154,9 +154,9 @@ while($row = mysqli_fetch_array($result)){
 								?>
 							</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="profile.php?user_id=<?php echo $session_user_id ?>"><i class="material-icons align-text-top">account_circle</i>&ensp;Profile</a>
-								<a class="dropdown-item" href="settings.php"><i class="material-icons align-text-top">settings</i>&ensp;Settings</a>
-                <a class="dropdown-item" href="index.php?logout=1">Logout</a>
+								<a class="dropdown-item responsive-t" href="profile.php?user_id=<?php echo $session_user_id ?>"><i class="material-icons align-text-top responsive-t">account_circle</i>&ensp;Profile</a>
+								<a class="dropdown-item responsive-t" href="settings.php"><i class="material-icons align-text-top responsive-t">settings</i>&ensp;Settings</a>
+                <a class="dropdown-item responsive-t" href="index.php?logout=1">Logout</a>
               </div>
             </div>
 						&emsp;
@@ -165,12 +165,12 @@ while($row = mysqli_fetch_array($result)){
 							if($notifications == 0){
 								if($darkTheme == 0){
 							?>
-								<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
+								<a class="nav-item dropdown text-dark material-icons" style="font-size: 1.5rem;" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
 								<?php
 								}
 								else if($darkTheme == 1){
 								?>
-									<a class="nav-item dropdown text-white material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
+									<a class="nav-item dropdown text-white material-icons" style="font-size: 1.5rem;" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
 								<?php
 								}
 								?>
@@ -182,12 +182,12 @@ while($row = mysqli_fetch_array($result)){
 							else{
 								if($darkTheme == 0){
 							?>
-								<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+								<a class="nav-item dropdown text-dark material-icons" style="font-size: 1.5rem;" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
 								<?php
 								}
 								else if($darkTheme == 1){
 								?>
-									<a class="nav-item dropdown text-white material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+									<a class="nav-item dropdown text-white material-icons" style="font-size: 1.5rem;" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
 								<?php
 								}
 								?>
@@ -201,7 +201,7 @@ while($row = mysqli_fetch_array($result)){
 								}
 								?>
 								<div class="text-right">
-									<a href="clearNotifications.php" class="material-icons">clear_all</a>
+									<a href="clearNotifications.php" class="material-icons" style="font-size: 1.5rem;">clear_all</a>
 								</div>
 							</div>
 							<?php

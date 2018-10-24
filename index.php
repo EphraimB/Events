@@ -94,7 +94,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 			<?php
 			}
 			?>
-        <span class="navbar-brand mb-0 h1 material-icons">event</span>
+        <span class="navbar-brand mb-0 h1 material-icons" style="font-size: 1.5rem;">event</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -143,9 +143,9 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 								?>
 							</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="profile.php?user_id=<?php echo $session_user_id ?>"><i class="material-icons align-text-top">account_circle</i>&ensp;Profile</a>
-								<a class="dropdown-item" href="settings.php"><i class="material-icons align-text-top">settings</i>&ensp;Settings</a>
-                <a class="dropdown-item" href="index.php?logout=1">Logout</a>
+								<a class="dropdown-item responsive-t" href="profile.php?user_id=<?php echo $session_user_id ?>"><i class="material-icons align-text-top responsive-t">account_circle</i>&ensp;Profile</a>
+								<a class="dropdown-item responsive-t" href="settings.php"><i class="material-icons align-text-top responsive-t">settings</i>&ensp;Settings</a>
+                <a class="dropdown-item responsive-t" href="index.php?logout=1">Logout</a>
               </div>
             </div>
 						&emsp;
@@ -154,12 +154,12 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 							if($notifications == 0){
 								if($darkTheme == 0){
 							?>
-									<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
+									<a class="nav-item dropdown text-dark material-icons" style="font-size: 1.5rem;" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
 								<?php
 								}
 								else if($darkTheme == 1){
 								?>
-									<a class="nav-item dropdown text-white material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
+									<a class="nav-item dropdown text-white material-icons" style="font-size: 1.5rem;" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
 								<?php
 								}
 								?>
@@ -171,12 +171,12 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 							else{
 								if($darkTheme == 0){
 							?>
-									<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+									<a class="nav-item dropdown text-dark material-icons" style="font-size: 1.5rem;" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
 							<?php
 							}
 							else if($darkTheme == 1){
 							?>
-								<a class="nav-item dropdown text-white material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+								<a class="nav-item dropdown text-white material-icons" style="font-size: 1.5rem;" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
 							<?php
 							}
 							?>
@@ -190,7 +190,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 								}
 								?>
 								<div class="text-right">
-									<a href="clearNotifications.php" class="material-icons">clear_all</a>
+									<a href="clearNotifications.php" class="material-icons" style="font-size: 1.5rem;">clear_all</a>
 								</div>
 							</div>
 							<?php
@@ -228,11 +228,11 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
         <br>
 				<br>
         <div class="row justify-content-around font-weight-bold mb-4">
-          <div class="col-4 col-lg">Title</div>
-          <div class="col-4 col-lg">Description</div>
-          <div class="col-lg-2 d-none d-lg-block">Location</div>
-          <div class="col-lg d-none d-lg-block">Start date</div>
-          <div class="col-lg d-none d-lg-block">End date</div>
+          <div class="col-4 col-md">Title</div>
+          <div class="col-4 col-md">Description</div>
+          <div class="col-md col-lg-2 d-none d-md-block">Location</div>
+          <div class="col-md d-none d-md-block">Start date</div>
+          <div class="col-md d-none d-md-block">End date</div>
           <div class="col-lg d-none d-lg-block">Edit</div>
           <div class="col-lg d-none d-lg-block">Delete</div>
           <div class="col-lg d-none d-lg-block">Invite</div>
@@ -262,11 +262,11 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           ?>
 
         <div class="row justify-content-around mb-4">
-          <div class="col-4 col-lg"><a href="moreInfo.php?event_id=<?php echo $upcomingEvent_id ?>&userEvents_id=<?php echo $upcomingUserEvents_id ?>&invitedEvent=false"><?php echo $upcomingTitle ?></a></div>
-          <div class="col-4 col-lg"><?php echo $upcomingDescription ?></div>
-          <div class="col-lg-2 d-none d-lg-block"><?php echo $upcomingLocation ?></div>
-          <div class="col-lg d-none d-lg-block"><?php echo $upcomingStartDateFormatted."<br>".$upcomingStartTimeFormatted ?></div>
-          <div class="col-lg d-none d-lg-block"><?php echo $upcomingEndDateFormatted."<br>".$upcomingEndTimeFormatted ?></div>
+          <div class="col-4 col-md"><a href="moreInfo.php?event_id=<?php echo $upcomingEvent_id ?>&userEvents_id=<?php echo $upcomingUserEvents_id ?>&invitedEvent=false"><?php echo $upcomingTitle ?></a></div>
+          <div class="col-4 col-md"><?php echo $upcomingDescription ?></div>
+          <div class="col-md col-lg-2 d-none d-md-block"><?php echo $upcomingLocation ?></div>
+          <div class="col-md d-none d-md-block"><?php echo $upcomingStartDateFormatted."<br>".$upcomingStartTimeFormatted ?></div>
+          <div class="col-md d-none d-md-block"><?php echo $upcomingEndDateFormatted."<br>".$upcomingEndTimeFormatted ?></div>
           <div class="col-lg d-none d-lg-block"><a href="updateEvent.php?event_id=<?php echo $upcomingEvent_id ?>" class="btn btn-warning material-icons">edit</a></div>
           <div class="col-lg d-none d-lg-block"><a href="deleteEvent.php?event_id=<?php echo $upcomingEvent_id ?>&userEvents_id=<?php echo $upcomingUserEvents_id ?>" class="btn btn-danger material-icons">delete</a></div>
           <div class="col-lg d-none d-lg-block"><a href="invite.php?event_id=<?php echo $upcomingEvent_id ?>" class="btn btn-primary material-icons">mail</a></div>
@@ -292,9 +292,9 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
         <br>
 				<br>
         <div class="row justify-content-around font-weight-bold mb-4">
-          <div class="col-4 col-lg">Title</div>
-          <div class="col-4 col-lg">Description</div>
-          <div class="col-lg-2 d-none d-lg-block">Location</div>
+          <div class="col-4 col-md">Title</div>
+          <div class="col-4 col-md">Description</div>
+          <div class="col-md col-lg-2 d-none d-md-block">Location</div>
           <div class="col-lg d-none d-lg-block">Start date</div>
           <div class="col-lg d-none d-lg-block">End date</div>
           <div class="col-lg d-none d-lg-block">Edit</div>
@@ -318,9 +318,9 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           ?>
 
         <div class="row justify-content-around mb-4">
-          <div class="col-4 col-lg"><a href="moreInfo.php?event_id=<?php echo $passedEvent_id ?>&userEvents_id=<?php echo $passedUserEvents_id ?>&invitedEvent=false"><?php echo $passedTitle ?></a></div>
-          <div class="col-4 col-lg"><?php echo $passedDescription ?></div>
-          <div class="col-lg-2 d-none d-lg-block"><?php echo $passedLocation ?></div>
+          <div class="col-4 col-md"><a href="moreInfo.php?event_id=<?php echo $passedEvent_id ?>&userEvents_id=<?php echo $passedUserEvents_id ?>&invitedEvent=false"><?php echo $passedTitle ?></a></div>
+          <div class="col-4 col-md"><?php echo $passedDescription ?></div>
+          <div class="col-md col-lg-2 d-none d-md-block"><?php echo $passedLocation ?></div>
           <div class="col-lg d-none d-lg-block"><?php echo $passedStartDateFormatted."<br>".$passedStartTimeFormatted ?></div>
           <div class="col-lg d-none d-lg-block"><?php echo $passedEndDateFormatted."<br>".$passedEndTimeFormatted ?></div>
           <div class="col-lg d-none d-lg-block"><a href="updateEvent.php?event_id=<?php echo $passedEvent_id ?>" class="btn btn-warning material-icons">edit</a></div>

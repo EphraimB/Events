@@ -16,6 +16,7 @@ session_start();
     <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" href="img/baseline-event-black-18/1x/baseline_event_black_18dp.png">
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <div class="container">

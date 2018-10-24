@@ -95,15 +95,15 @@ $isFriend_result = mysqli_query($link, $isFriend_query);
 			<?php
 			}
 			?>
-        <span class="navbar-brand mb-0 h1 material-icons">event</span>
+        <span class="navbar-brand mb-0 h1 material-icons" style="font-size: 1.5rem;">event</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.php">My Events <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">My Events</a>
             </li>
 						<li class="nav-item">
 							<a class="nav-link" href="attending.php">Attending</a>
@@ -144,9 +144,9 @@ $isFriend_result = mysqli_query($link, $isFriend_query);
 								?>
 							</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="profile.php?user_id=<?php echo $session_user_id ?>"><i class="material-icons align-text-top">account_circle</i>&ensp;Profile</a>
-								<a class="dropdown-item" href="settings.php"><i class="material-icons align-text-top">settings</i>&ensp;Settings</a>
-                <a class="dropdown-item" href="index.php?logout=1">Logout</a>
+								<a class="dropdown-item responsive-t" href="profile.php?user_id=<?php echo $session_user_id ?>"><i class="material-icons align-text-top responsive-t">account_circle</i>&ensp;Profile</a>
+								<a class="dropdown-item responsive-t" href="settings.php"><i class="material-icons align-text-top responsive-t">settings</i>&ensp;Settings</a>
+                <a class="dropdown-item responsive-t" href="index.php?logout=1">Logout</a>
               </div>
             </div>
 						&emsp;
@@ -155,12 +155,12 @@ $isFriend_result = mysqli_query($link, $isFriend_query);
 							if($notifications == 0){
 								if($darkTheme == 0){
 							?>
-									<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
+									<a class="nav-item dropdown text-dark material-icons" style="font-size: 1.5rem;" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
 								<?php
 								}
 								else if($darkTheme == 1){
 								?>
-									<a class="nav-item dropdown text-white material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
+									<a class="nav-item dropdown text-white material-icons" style="font-size: 1.5rem;" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications_none</a>
 								<?php
 								}
 								?>
@@ -172,12 +172,12 @@ $isFriend_result = mysqli_query($link, $isFriend_query);
 							else{
 								if($darkTheme == 0){
 							?>
-									<a class="nav-item dropdown text-dark material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+									<a class="nav-item dropdown text-dark material-icons" style="font-size: 1.5rem;" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
 							<?php
 							}
 							else if($darkTheme == 1){
 							?>
-								<a class="nav-item dropdown text-white material-icons" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
+								<a class="nav-item dropdown text-white material-icons" style="font-size: 1.5rem;" href="#" role="button" id="notificationsMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">notifications</a>
 							<?php
 							}
 							?>
@@ -191,7 +191,7 @@ $isFriend_result = mysqli_query($link, $isFriend_query);
 								}
 								?>
 								<div class="text-right">
-									<a href="clearNotifications.php" class="material-icons">clear_all</a>
+									<a href="clearNotifications.php" class="material-icons" style="font-size: 1.5rem;">clear_all</a>
 								</div>
 							</div>
 							<?php
@@ -242,7 +242,8 @@ $isFriend_result = mysqli_query($link, $isFriend_query);
         ?>
           <div class="card-header">
             <div class="row">
-              <img class="circle-img col-3 d-lg-none" width="50" height="50" src="https://www.gravatar.com/avatar/<?php echo $profileEmail_hash ?>?d=mp&s=500">
+              <img class="circle-img col-3 d-md-none" class="responsive-img" width="50" height="50" src="https://www.gravatar.com/avatar/<?php echo $profileEmail_hash ?>?d=mp&s=500">
+              <img class="circle-img col-md-2 d-none d-md-inline-block d-lg-none" class="responsive-img" width="100" height="75" src="https://www.gravatar.com/avatar/<?php echo $profileEmail_hash ?>?d=mp&s=500">
               <h3 class="card-title col-9"><?php echo $username ?></h3>
             </div>
           </div>
