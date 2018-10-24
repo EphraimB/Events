@@ -21,7 +21,7 @@ $result = mysqli_query($link, $query);
 while ($row = mysqli_fetch_array($result)) {
         $username = $row["username"];
         $text = $row["text"];
-        $time = date('G:i', strtotime($row["time"])); //outputs date as # #Hour#:#Minute#
+        $time = date('g:i', strtotime($row["time"])); //outputs date as # #Hour#:#Minute#
 
         echo "<p>$time | $username: $text</p>\n";
     }
