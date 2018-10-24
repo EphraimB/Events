@@ -186,7 +186,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
       </nav>
       <br>
       <header>
-        <h1 class="text-center">Chats</h1>
+        <h1 class="text-center">Chat</h1>
       </header>
       <main>
 
