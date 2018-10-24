@@ -98,6 +98,9 @@ $userProfile_result = mysqli_query($link, $userProfile_query);
             <li class="nav-item">
 							<a class="nav-link" href="findFriends.php">Find Friends</a>
 						</li>
+            <li class="nav-item">
+							<a class="nav-link" href="chat.php">Chat</a>
+						</li>
           </ul>
 					<hr class="d-block d-lg-none">
           <ul class="navbar-nav mr-right">
