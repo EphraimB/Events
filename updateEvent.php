@@ -201,7 +201,7 @@ while($row = mysqli_fetch_array($result)){
 								}
 								?>
 								<div class="text-right">
-									<a href="clearNotifications.php" class="material-icons">clear_all</a>
+									<a href="clearNotifications.php" class="material-icons" style="font-size: 1.5rem;">clear_all</a>
 								</div>
 							</div>
 							<?php
