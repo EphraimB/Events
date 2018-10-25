@@ -109,6 +109,9 @@ $requestedFriends_friend_id_array = [];
 						<li class="nav-item">
 							<a class="nav-link active" href="findFriends.php">Find Friends <span class="sr-only">(current)</span></a>
 						</li>
+            <li class="nav-item">
+							<a class="nav-link" href="chat.php">Chat</a>
+						</li>
           </ul>
 					<hr class="d-block d-lg-none">
           <ul class="navbar-nav mr-right">
