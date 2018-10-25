@@ -41,27 +41,27 @@ while ($row = mysqli_fetch_array($result)) {
           if($darkTheme == 0){
             echo '
             <div class="message darker">
-            <div>
-              <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=3500" alt="Avatar" class="right">
-              <p class="text-right font-weight-bold">'.$username.'</p>
+              <div>
+                <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=3500" alt="Avatar" class="right">
+                <p class="text-right font-weight-bold">'.$username.'</p>
               </div>
               <p>'.$text.'</p>
               <span class="time-left">'.$time.'</span>
-              </div>
-              ';
+            </div>
+            ';
           }
 
           else if($darkTheme == 1){
             echo '
             <div class="message darker bg-dark">
-            <div>
-              <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=3500" alt="Avatar" class="right">
-              <p class="text-right font-weight-bold">'.$username.'</p>
+              <div>
+                <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=3500" alt="Avatar" class="right">
+                <p class="text-right font-weight-bold">'.$username.'</p>
               </div>
               <p>'.$text.'</p>
               <span class="time-left">'.$time.'</span>
-              </div>
-              ';
+            </div>
+            ';
           }
         }
 
@@ -69,29 +69,27 @@ while ($row = mysqli_fetch_array($result)) {
           if($darkTheme == 0){
             echo '
             <div class="message">
-            <div>
-              <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=500" alt="Avatar">
-              <p class="font-weight-bold">'.$username.'</p>
-            </div>
-            <p>'.$text.'</p>
-            <span class="time-right">'.$time.'</span>
+              <div>
+                <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=500" alt="Avatar">
+                <p class="font-weight-bold">'.$username.'</p>
+              </div>
+              <p>'.$text.'</p>
+              <span class="time-right">'.$time.'</span>
             </div>
             ';
           }
           else if($darkTheme == 1){
             echo '
             <div class="message bg-secondary">
-            <div>
-              <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=500" alt="Avatar">
-              <p class="font-weight-bold">'.$username.'</p>
-            </div>
-            <p>'.$text.'</p>
-            <span class="time-right">'.$time.'</span>
+              <div>
+                <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=500" alt="Avatar">
+                <p class="font-weight-bold">'.$username.'</p>
+              </div>
+              <p>'.$text.'</p>
+              <span class="time-right">'.$time.'</span>
             </div>
             ';
           }
         }
-
-        //echo "<p>$time | $username: $text</p>\n";
     }
 ?>
