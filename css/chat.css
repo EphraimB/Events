@@ -1,5 +1,7 @@
 .chat #chatOutput {
-    overflow-y: scroll;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y: auto;
     max-height: 450px;
     width: 100%;
 }
