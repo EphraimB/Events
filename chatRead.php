@@ -15,6 +15,11 @@ $user_id_result = mysqli_query($link, $user_id_query);
 $_SESSION['user_id'] = mysqli_fetch_array($user_id_result)[0];
 $session_user_id = $_SESSION['user_id'];
 
+$darkTheme_query = "SELECT darkTheme FROM users WHERE user_id='$session_user_id'";
+$darkTheme_result = mysqli_query($link, $darkTheme_query);
+
+$darkTheme = mysqli_fetch_array($darkTheme_result)[0];
+
 $query="SELECT * FROM chat LEFT OUTER JOIN users ON chat.user_id=users.user_id WHERE DATE(time)=CURDATE() ORDER BY id ASC";
 $result = mysqli_query($link, $query);
 
@@ -33,29 +38,58 @@ while ($row = mysqli_fetch_array($result)) {
         $email_hash = md5(strtolower(trim($email)));
 
         if($chat_user_id == $session_user_id){
-          echo '
-          <div class="message darker">
-          <div>
-            <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=3500" alt="Avatar" class="right">
-            <p class="text-right font-weight-bold">'.$username.'</p>
-          </div>
-          <p>'.$text.'</p>
-          <span class="time-left">'.$time.'</span>
-          </div>
-          ';
+          if($darkTheme == 0){
+            echo '
+            <div class="message darker">
+            <div>
+              <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=3500" alt="Avatar" class="right">
+              <p class="text-right font-weight-bold">'.$username.'</p>
+              </div>
+              <p>'.$text.'</p>
+              <span class="time-left">'.$time.'</span>
+              </div>
+              ';
+          }
+
+          else if($darkTheme == 1){
+            echo '
+            <div class="message darker bg-dark">
+            <div>
+              <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=3500" alt="Avatar" class="right">
+              <p class="text-right font-weight-bold">'.$username.'</p>
+              </div>
+              <p>'.$text.'</p>
+              <span class="time-left">'.$time.'</span>
+              </div>
+              ';
+          }
         }
 
         else{
-          echo '
-          <div class="message">
-          <div>
-            <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=500" alt="Avatar">
-            <p class="font-weight-bold">'.$username.'</p>
-          </div>
-          <p>'.$text.'</p>
-          <span class="time-right">'.$time.'</span>
-          </div>
-          ';
+          if($darkTheme == 0){
+            echo '
+            <div class="message">
+            <div>
+              <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=500" alt="Avatar">
+              <p class="font-weight-bold">'.$username.'</p>
+            </div>
+            <p>'.$text.'</p>
+            <span class="time-right">'.$time.'</span>
+            </div>
+            ';
+          }
+          else if($darkTheme == 1){
+            echo '
+            <div class="message bg-secondary">
+            <div>
+              <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=500" alt="Avatar">
+              <p class="font-weight-bold">'.$username.'</p>
+            </div>
+            <p>'.$text.'</p>
+            <span class="time-right">'.$time.'</span>
+            </div>
+            ';
+          }
         }
 
         //echo "<p>$time | $username: $text</p>\n";
