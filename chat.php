@@ -195,8 +195,10 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
         <div class="chat">
           <input id="userName" type="hidden" value="<?php echo $session_username ?>">
           <div id="chatOutput"></div>
-          <input id="chatInput" type="text" placeholder="Input text here">
-          <button id="chatSend" class="btn btn-primary">Send</button>
+          <div class="row">
+            <input id="chatInput" class="col-9" type="text" placeholder="Input text here">
+            <button id="chatSend" class="col-3 btn btn-primary">Send</button>
+          </div>
         </div>
       </main>
     </div>

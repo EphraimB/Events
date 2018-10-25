@@ -20,10 +20,38 @@ $result = mysqli_query($link, $query);
 
 echo '<p class="font-weight-bold text-center">---Today---</p>';
 while ($row = mysqli_fetch_array($result)) {
+        $chat_user_id = $row['user_id'];
         $username = $row["username"];
         $text = $row["text"];
         $time = date('g:i A', strtotime($row["time"])); //outputs date as # #Hour#:#Minute#
 
-        echo "<p>$time | $username: $text</p>\n";
+        $emailQuery = "SELECT email FROM users WHERE username='$username'";
+        $emailResult = mysqli_query($link, $emailQuery);
+
+        $email = mysqli_fetch_array($emailResult)[0];
+
+        $email_hash = md5(strtolower(trim($email)));
+
+        if($chat_user_id == $session_user_id){
+          echo '
+          <div class="message darker">
+          <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=3500" alt="Avatar" class="right">
+          <p>'.$text.'</p>
+          <span class="time-left">'.$time.'</span>
+          </div>
+          ';
+        }
+
+        else{
+          echo '
+          <div class="message">
+          <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=500" alt="Avatar">
+          <p>'.$text.'</p>
+          <span class="time-right">'.$time.'</span>
+          </div>
+          ';
+        }
+
+        //echo "<p>$time | $username: $text</p>\n";
     }
 ?>

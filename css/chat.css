@@ -1,50 +1,55 @@
-/*Border-box reset*/
-html {
-    box-sizing: border-box;
-}
-
-*,
-*:before,
-*:after {
-    box-sizing: inherit;
-}
-
-/*Chat styling*/
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.userSettings {
-    margin-bottom: 20px;
-}
-
-.chat {
-    max-width: 400px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
 .chat #chatOutput {
     overflow-y: scroll;
-    height: 280px;
+    max-height: 450px;
     width: 100%;
-    border: 1px solid #777;
 }
 
-.chat #chatOutput p {
-    margin: 0;
-    padding: 5px;
-    border-bottom: 1px solid #bbb;
-    word-break: break-all;
+/* Chat containers */
+.message {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
 }
 
-.chat #chatInput {
-    width: 75%;
+/* Darker chat container */
+.darker {
+    border-color: #ccc;
+    background-color: #ddd;
 }
 
-.chat #chatSend {
-    width: 25%;
+/* Clear floats */
+.message::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Style images */
+.message img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+/* Style the right image */
+.message img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+}
+
+/* Style time text */
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+/* Style time text */
+.time-left {
+    float: left;
+    color: #999;
 }
