@@ -18,6 +18,6 @@ $session_user_id = $_SESSION['user_id'];
 $text = $_GET['text'];
 
 $query = "INSERT INTO chat (user_id, text, time)
-      VALUES ('$session_user_id', '$text', now())";
+      VALUES (\"$session_user_id\", \"$text\", now())";
 $result = mysqli_query($link, $query);
 ?>
