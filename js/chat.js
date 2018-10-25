@@ -34,8 +34,7 @@ $(document).ready(function() {
         $chatInput.val("");
 
         scrolled=false;
-        updateScroll();
-        
+
         retrieveMessages();
     }
 
