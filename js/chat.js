@@ -11,6 +11,12 @@ $(document).ready(function() {
         sendMessage();
     });
 
+    $chatInput.keypress(function(e) {
+      if(e.which == 13) {
+        sendMessage();
+      }
+    });
+
     setInterval(function() {
         retrieveMessages();
     }, chatInterval);
@@ -26,6 +32,10 @@ $(document).ready(function() {
 
         $userName.val("");
         $chatInput.val("");
+
+        scrolled=false;
+        updateScroll();
+        
         retrieveMessages();
     }
 
