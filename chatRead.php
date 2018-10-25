@@ -35,7 +35,10 @@ while ($row = mysqli_fetch_array($result)) {
         if($chat_user_id == $session_user_id){
           echo '
           <div class="message darker">
-          <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=3500" alt="Avatar" class="right">
+          <div>
+            <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=3500" alt="Avatar" class="right">
+            <p class="text-right font-weight-bold">'.$username.'</p>
+          </div>
           <p>'.$text.'</p>
           <span class="time-left">'.$time.'</span>
           </div>
@@ -45,7 +48,10 @@ while ($row = mysqli_fetch_array($result)) {
         else{
           echo '
           <div class="message">
-          <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=500" alt="Avatar">
+          <div>
+            <img src="https://www.gravatar.com/avatar/'.$email_hash.'?d=mp&s=500" alt="Avatar">
+            <p class="font-weight-bold">'.$username.'</p>
+          </div>
           <p>'.$text.'</p>
           <span class="time-right">'.$time.'</span>
           </div>
