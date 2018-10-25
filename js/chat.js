@@ -5,6 +5,8 @@ $(document).ready(function() {
     var $chatInput = $("#chatInput");
     var $chatSend = $("#chatSend");
 
+    var scrolled = false;
+
     $chatSend.click(function() {
         sendMessage();
     });
@@ -31,5 +33,18 @@ $(document).ready(function() {
         $.get("./chatRead.php", function(data) {
             $chatOutput.html(data); //Paste content into chat output
         });
+
+        updateScroll();
     }
-});
+
+    function updateScroll(){
+      if(!scrolled){
+        var element = document.getElementById("chatOutput");
+        element.scrollTop = element.scrollHeight;
+      }
+    }
+
+    $("#chatOutput").on('scroll', function(){
+      scrolled=true;
+    });
+  });
