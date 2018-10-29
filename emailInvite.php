@@ -39,8 +39,8 @@ $session_user_id = $_SESSION['user_id'];
 
 $to = $_GET['email'];
 $subject = "Event invite";
-$message = "You got invited from ".$session_username." to ".$title.".\nThe event will be located at ".$upcomingLocation.".\nThe event will be
-from ".$upcomingStartDateFormatted." at ".$upcomingStartTimeFormatted. " and end at ".$upcomingEndDateFormatted." at ".$upcomingEndTimeFormatted.".\n";
+$message = "You got an invitation from ".$session_username.".<br><br><b>What:</b><br>".$title."<br><br><b>When:</b><br>".$upcomingStartDateFormatted." at ".$upcomingStartTimeFormatted."<br><br>
+<b>Where:</b><br>".$upcomingLocation;
 
 ini_set('SMTP', 'smtp.gmail.com');
 //ini_set('SMTP', 'localhost');
@@ -66,6 +66,8 @@ try {
     //Recipients
     $mail->setFrom('events.paay@gmail.com');
     $mail->addAddress($to);               // Name is optional
+
+    $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = $subject;
     $mail->Body    = $message;
 
