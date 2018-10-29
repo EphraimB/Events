@@ -124,9 +124,6 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 						<li class="nav-item">
 							<a class="nav-link" href="findFriends.php">Find Friends</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="chat.php">Chat</a>
-						</li>
           </ul>
 					<hr class="d-block d-lg-none">
           <ul class="navbar-nav mr-right">
@@ -204,7 +201,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 								}
 								?>
 								<div class="text-right">
-									<a href="clearNotifications.php" class="material-icons" style="font-size: 1.5rem;">clear_all</a>
+									<a href="clearNotifications.php" class="material-icons">clear_all</a>
 								</div>
 							</div>
 							<?php
@@ -238,7 +235,17 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
         <div class="list-group" id="listGroup">
         <br>
         <br>
-          <?php
+				<?php
+				if($darkTheme == 0){
+				?>
+				<a class="list-group-item bg-light list-group-item-action text-center" href=""><i class="material-icons align-text-top">email</i>&emsp;Email User</a>
+				<?php
+				}
+				else if($darkTheme == 1){
+				?>
+				<a class="list-group-item bg-dark list-group-item-action text-center" href="" style="color: white"><i class="material-icons align-text-top">email</i>&emsp;Email User</a>
+        <?php
+					}
 					while($invited = mysqli_fetch_array($user_id_invited_result)['username']){
 						array_push($invitedUsers, $invited);
 					}
@@ -251,12 +258,12 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
 							if($darkTheme == 0){
           	?>
-              <a class="list-group-item bg-light list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $user ?>&selectedUserEmail_hash=<?php echo $allUsersEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>">
+              <a class="selectedUser list-group-item bg-light list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $user ?>&selectedUserEmail_hash=<?php echo $allUsersEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>">
 							<?php
 							}
 							else if($darkTheme == 1){
 							?>
-							<a class="list-group-item bg-dark list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $user ?>&selectedUserEmail_hash=<?php echo $allUsersEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>" style="color: white">
+							<a class="selectedUser list-group-item bg-dark list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $user ?>&selectedUserEmail_hash=<?php echo $allUsersEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>" style="color: white">
 							<?php
 							}
 							?>
