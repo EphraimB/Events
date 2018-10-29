@@ -238,12 +238,12 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 				<?php
 				if($darkTheme == 0){
 				?>
-				<a class="list-group-item bg-light list-group-item-action text-center" href=""><i class="material-icons align-text-top">email</i>&emsp;Email User</a>
+				<a class="list-group-item bg-light list-group-item-action text-center" href=""><i class="material-icons align-text-top">email</i>&emsp;Email Invite</a>
 				<?php
 				}
 				else if($darkTheme == 1){
 				?>
-				<a class="list-group-item bg-dark list-group-item-action text-center" href="" style="color: white"><i class="material-icons align-text-top">email</i>&emsp;Email User</a>
+				<a class="list-group-item bg-dark list-group-item-action text-center" href="" style="color: white"><i class="material-icons align-text-top">email</i>&emsp;Email Invite</a>
         <?php
 					}
 					while($invited = mysqli_fetch_array($user_id_invited_result)['username']){
