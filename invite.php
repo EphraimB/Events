@@ -48,6 +48,7 @@ $result = mysqli_query($link, $query);
 $allUsers_query = "SELECT username FROM users";
 $allUsers_result = mysqli_query($link, $allUsers_query);
 
+
 if(!isset($_SESSION['selectedUsers'])){
   $_SESSION['selectedUsers'] = [];
 }
@@ -235,72 +236,12 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
         <div class="list-group" id="listGroup">
         <br>
         <br>
-				<?php
-				if($darkTheme == 0){
-				?>
-				<a class="list-group-item bg-light list-group-item-action text-center" data-toggle="modal" data-target="#emailInviteModal" href="#"><i class="material-icons align-text-top">email</i>&emsp;Email Invite</a>
-				<?php
-				}
-				else if($darkTheme == 1){
-				?>
-				<a class="list-group-item bg-dark list-group-item-action text-center" data-toggle="modal" data-target="#emailInviteModal" href="#" style="color: white"><i class="material-icons align-text-top">email</i>&emsp;Email Invite</a>
-        <?php
-					}
+
+
+					<?php
 					while($invited = mysqli_fetch_array($user_id_invited_result)['username']){
 						array_push($invitedUsers, $invited);
 					}
-					?>
-					<!-- Modal -->
-					<div class="modal fade" id="emailInviteModal" tabindex="-1" role="dialog" aria-labelledby="emailInviteModalLabel" aria-hidden="true">
-  					<div class="modal-dialog" role="document">
-							<?php
-							if($darkTheme == 0){
-							?>
-    					<div class="modal-content">
-							<?php
-							}
-							else if($darkTheme == 1){
-							?>
-							<div class="modal-content bg-dark">
-							<?php
-							}
-							?>
-      					<div class="modal-header">
-        					<h5 class="modal-title" id="emailInviteModalLabel">Email Invite</h5>
-									<?php
-									if($darkTheme == 0){
-									?>
-        					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<?php
-									}
-									else if($darkTheme == 1){
-									?>
-									<button type="button" class="close bg-light" data-dismiss="modal" aria-label="Close">
-									<?php
-									}
-									?>
-          					<span aria-hidden="true">&times;</span>
-        					</button>
-      					</div>
-								<form action="emailInvite.php">
-      						<div class="modal-body">
-										<input type="hidden" name="fromEvent_id" value="<?php echo $event_id ?>">
-										<div class="form-group">
-											<label for="inputEmail">Email Address</label>
-											<input type="email" name="email" class="form-control" id="inputEmail">
-										</div>
-      						</div>
-      						<div class="modal-footer">
-        						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        						<button type="submit" class="btn btn-primary">Send Invite</button>
-      						</div>
-								</form>
-    					</div>
-  					</div>
-					</div>
-					<!-- Modal end -->
-
-					<?php
 					while($user = mysqli_fetch_array($allUsers_result)[0]){
             $allUsersEmail = mysqli_fetch_array($allUsersEmailResult)[0];
 
@@ -328,38 +269,100 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
         <br>
         <br>
 
-        <?php
-        if(isset($_SESSION['selectedUsers'])){
-          if(count($_SESSION['selectedUsers']) > 0){
-            foreach($_SESSION['selectedUsers'] as $selectedUser){
-							if($darkTheme == 0){
-              	echo '<div class="card bg-light" style="width: 10rem; display: inline-block;">';
-							}
+				<?php
+					if($darkTheme == 0){
+					?>
+					<a class="list-group-item bg-light list-group-item-action text-center" data-toggle="modal" data-target="#emailInviteModal" href="#"><i class="material-icons align-text-top">email</i>&emsp;Email Invite</a>
+					<?php
+					}
+					else if($darkTheme == 1){
+					?>
+					<a class="list-group-item bg-dark list-group-item-action text-center" data-toggle="modal" data-target="#emailInviteModal" href="#" style="color: white"><i class="material-icons align-text-top">email</i>&emsp;Email Invite</a>
+	        <?php
+					}
+					?>
+						<!-- Modal -->
+						<div class="modal fade" id="emailInviteModal" tabindex="-1" role="dialog" aria-labelledby="emailInviteModalLabel" aria-hidden="true">
+	  					<div class="modal-dialog" role="document">
+								<?php
+								if($darkTheme == 0){
+								?>
+	    					<div class="modal-content">
+								<?php
+								}
+								else if($darkTheme == 1){
+								?>
+								<div class="modal-content bg-dark">
+								<?php
+								}
+								?>
+	      					<div class="modal-header">
+	        					<h5 class="modal-title" id="emailInviteModalLabel">Email Invite</h5>
+										<?php
+										if($darkTheme == 0){
+										?>
+	        					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<?php
+										}
+										else if($darkTheme == 1){
+										?>
+										<button type="button" class="close bg-light" data-dismiss="modal" aria-label="Close">
+										<?php
+										}
+										?>
+	          					<span aria-hidden="true">&times;</span>
+	        					</button>
+	      					</div>
+									<form action="emailInvite.php">
+	      						<div class="modal-body">
+											<input type="hidden" name="fromEvent_id" value="<?php echo $event_id ?>">
+											<div class="form-group">
+												<label for="inputEmail">Email Address</label>
+												<input type="email" name="email" class="form-control" id="inputEmail">
+											</div>
+	      						</div>
+	      						<div class="modal-footer">
+	        						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        						<button type="submit" class="btn btn-primary">Send Invite</button>
+	      						</div>
+									</form>
+	    					</div>
+	  					</div>
+						</div>
+						<!-- Modal end -->
+						<br>
+						<br>
+						<?php
+		        if(isset($_SESSION['selectedUsers'])){
+		          if(count($_SESSION['selectedUsers']) > 0){
+		            foreach($_SESSION['selectedUsers'] as $selectedUser){
+									if($darkTheme == 0){
+		              	echo '<div class="card bg-light" style="width: 10rem; display: inline-block;">';
+									}
 
-							else if($darkTheme == 1){
-								echo '<div class="card bg-dark" style="width: 10rem; display: inline-block;">';
-							}
-                echo '
-								<a href="deselectUsers.php?deselectedUser='.$selectedUser[0].'&fromEvent_id='.$event_id.'" class="close bg-light" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                  </a>
-                  <img class="card-img-top" src="https://www.gravatar.com/avatar/'.$selectedUser[1].'?d=mp&s=300">
-                  <div class="card-body">
-                    <p class="card-text text-center">'.$selectedUser[0].'</p>
-                  </div>
-                </div>';
-              }
-              echo '
-              <br>
-              <br>
-              <div class="text-center">
-                <a href="inviteSelected.php?event_id='.$event_id.'" class="btn btn-primary">Invite</a>
-              </div>
-              ';
-            }
-          }
-
-          ?>
+									else if($darkTheme == 1){
+										echo '<div class="card bg-dark" style="width: 10rem; display: inline-block;">';
+									}
+		                echo '
+										<a href="deselectUsers.php?deselectedUser='.$selectedUser[0].'&fromEvent_id='.$event_id.'" class="close bg-light" aria-label="Close">
+		                  <span aria-hidden="true">&times;</span>
+		                  </a>
+		                  <img class="card-img-top" src="https://www.gravatar.com/avatar/'.$selectedUser[1].'?d=mp&s=300">
+		                  <div class="card-body">
+		                    <p class="card-text text-center">'.$selectedUser[0].'</p>
+		                  </div>
+		                </div>';
+		              }
+		              echo '
+		              <br>
+		              <br>
+		              <div class="text-center">
+		                <a href="inviteSelected.php?event_id='.$event_id.'" class="btn btn-primary">Invite</a>
+		              </div>
+		              ';
+		            }
+		          }
+							?>
         </main>
 				<br>
       </div>
