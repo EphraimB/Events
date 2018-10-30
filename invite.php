@@ -50,7 +50,7 @@ $allUsersEmailQuery = "SELECT email FROM users WHERE user_id<>'$session_user_id'
 $allUsersEmailResult = mysqli_query($link, $allUsersEmailQuery);
 
 $allFriends_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.friend_id=users.user_id WHERE friends.user_id='$session_user_id'";
-$allFriends_result = mysqli_query($link, $allUsers_query);
+$allFriends_result = mysqli_query($link, $allFriends_query);
 
 $allFriendsOtherWay_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.user_id=users.user_id WHERE friends.friend_id='$session_user_id'";
 $allFriendsOtherWay_result = mysqli_query($link, $allFriendsOtherWay_query);
@@ -248,10 +248,9 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 						array_push($usersFriends, $friends);
 					}
 
-					/*while($friendsOtherWay = mysqli_fetch_array($allFriendsOtherWay_result)['username']){
+					while($friendsOtherWay = mysqli_fetch_array($allFriendsOtherWay_result)['username']){
 						array_push($usersFriends, $friendsOtherWay);
-					}*/
-					var_dump($usersFriends);
+					}
 
 					while($invited = mysqli_fetch_array($user_id_invited_result)['username']){
 						array_push($invitedUsers, $invited);
