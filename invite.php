@@ -28,13 +28,11 @@ $email = mysqli_fetch_array($emailResult)[0];
 
 $email_hash = md5(strtolower(trim($email)));
 
-$allUsersEmailQuery = "SELECT email FROM users";
-$allUsersEmailResult = mysqli_query($link, $allUsersEmailQuery);
-
 $user_id_query = "SELECT * FROM users WHERE username='$session_username'";
 $user_id_result = mysqli_query($link, $user_id_query);
 
 $invitedUsers = [];
+$usersFriends = [];
 
 $user_id_invited_query = "SELECT * FROM invite LEFT OUTER JOIN users ON invite.user_id=users.user_id WHERE invite.event_id='$event_id' AND invite.status_id=2";
 $user_id_invited_result = mysqli_query($link, $user_id_invited_query);
@@ -45,8 +43,23 @@ $session_user_id = $_SESSION['user_id'];
 $query = "SELECT * FROM events WHERE event_id='$event_id'";
 $result = mysqli_query($link, $query);
 
-$allUsers_query = "SELECT username FROM users";
+$allUsers_query = "SELECT * FROM users WHERE user_id<>'$session_user_id'";
 $allUsers_result = mysqli_query($link, $allUsers_query);
+
+$allUsersFriends_query = "SELECT * FROM users WHERE user_id<>'$session_user_id'";
+$allUsersFriends_result = mysqli_query($link, $allUsersFriends_query);
+
+$allUsersEmailQuery = "SELECT email FROM users WHERE user_id<>'$session_user_id'";
+$allUsersEmailResult = mysqli_query($link, $allUsersEmailQuery);
+
+$allFriendsEmailQuery = "SELECT email FROM users WHERE user_id<>'$session_user_id'";
+$allFriendsEmailResult = mysqli_query($link, $allFriendsEmailQuery);
+
+$allFriends_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.friend_id=users.user_id WHERE friends.user_id='$session_user_id'";
+$allFriends_result = mysqli_query($link, $allFriends_query);
+
+$allFriendsOtherWay_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.user_id=users.user_id WHERE friends.friend_id='$session_user_id'";
+$allFriendsOtherWay_result = mysqli_query($link, $allFriendsOtherWay_query);
 
 if(!isset($_SESSION['selectedUsers'])){
   $_SESSION['selectedUsers'] = [];
@@ -123,9 +136,6 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="findFriends.php">Find Friends</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="chat.php">Chat</a>
 						</li>
           </ul>
 					<hr class="d-block d-lg-none">
@@ -204,7 +214,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 								}
 								?>
 								<div class="text-right">
-									<a href="clearNotifications.php" class="material-icons" style="font-size: 1.5rem;">clear_all</a>
+									<a href="clearNotifications.php" class="material-icons">clear_all</a>
 								</div>
 							</div>
 							<?php
@@ -238,71 +248,180 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
         <div class="list-group" id="listGroup">
         <br>
         <br>
-          <?php
-					while($invited = mysqli_fetch_array($user_id_invited_result)['username']){
-						array_push($invitedUsers, $invited);
+
+					<?php
+					while($friends = mysqli_fetch_array($allFriends_result)['username']){
+							array_push($usersFriends, $friends);
+						}
+
+						while($friendsOtherWay = mysqli_fetch_array($allFriendsOtherWay_result)['username']){
+							array_push($usersFriends, $friendsOtherWay);
+						}
+
+						while($invited = mysqli_fetch_array($user_id_invited_result)['username']){
+							array_push($invitedUsers, $invited);
+						}
+
+						//Friends
+						echo '<h4 class="text-center">Friends</h4>';
+						while($friend = mysqli_fetch_array($allUsersFriends_result)){
+							$allFriendsUsername = $friend['username'];
+	            $allFriendsEmail = mysqli_fetch_array($allFriendsEmailResult)[0];
+
+
+							if(in_array($allFriendsUsername, $invitedUsers) == 0){
+								$allFriendsEmail_hash = md5(strtolower(trim($allFriendsEmail)));
+
+								if(in_array($allFriendsUsername, $usersFriends) == 1){
+									if($darkTheme == 0){
+          				?>
+              			<a class="selectedUser list-group-item bg-light list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $allFriendsUsername ?>&selectedUserEmail_hash=<?php echo $allFriendsEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>">
+									<?php
+									}
+									else if($darkTheme == 1){
+									?>
+										<a class="selectedUser list-group-item bg-dark list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $allFriendsUsername ?>&selectedUserEmail_hash=<?php echo $allFriendsEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>" style="color: white">
+									<?php
+									}
+									?>
+									<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $allFriendsEmail_hash ?>?d=mp&s=30">&emsp;<span><?php echo $allFriendsUsername ?></span>
+									</a>
+          			<?php
+          			}
+							}
+						}
+						// --
+						echo '<br>';
+						//Strangers
+						echo '<h4 class="text-center">Strangers</h4>';
+						while($user = mysqli_fetch_array($allUsers_result)){
+							$allUsersUsername = $user['username'];
+	            $allUsersEmail = mysqli_fetch_array($allUsersEmailResult)[0];
+
+            	if(in_array($allUsersUsername, $invitedUsers) == 0){
+              	$allUsersEmail_hash = md5(strtolower(trim($allUsersEmail)));
+
+								if(in_array($allUsersUsername, $usersFriends) == 0){
+									if($darkTheme == 0){
+          				?>
+              			<a class="selectedUser list-group-item bg-light list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $allUsersUsername ?>&selectedUserEmail_hash=<?php echo $allUsersEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>">
+									<?php
+									}
+									else if($darkTheme == 1){
+									?>
+										<a class="selectedUser list-group-item bg-dark list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $allUsersUsername ?>&selectedUserEmail_hash=<?php echo $allUsersEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>" style="color: white">
+									<?php
+									}
+									?>
+									<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $allUsersEmail_hash ?>?d=mp&s=30">&emsp;<span><?php echo $allUsersUsername ?></span>
+									</a>
+          		<?php
+          		}
+						}
 					}
+					// --
 
-					while($user = mysqli_fetch_array($allUsers_result)[0]){
-            $allUsersEmail = mysqli_fetch_array($allUsersEmailResult)[0];
-
-            if($user != $session_username && $allUsersEmail != $email && in_array($user, $invitedUsers) == 0){
-              $allUsersEmail_hash = md5(strtolower(trim($allUsersEmail)));
-
-							if($darkTheme == 0){
-          	?>
-              <a class="list-group-item bg-light list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $user ?>&selectedUserEmail_hash=<?php echo $allUsersEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>">
-							<?php
-							}
-							else if($darkTheme == 1){
-							?>
-							<a class="list-group-item bg-dark list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $user ?>&selectedUserEmail_hash=<?php echo $allUsersEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>" style="color: white">
-							<?php
-							}
-							?>
-								<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $allUsersEmail_hash ?>?d=mp&s=30">&emsp;<span><?php echo $user ?></span>
-							</a>
-          <?php
-          }
-        }
         ?>
         </div>
         <br>
         <br>
 
-        <?php
-        if(isset($_SESSION['selectedUsers'])){
-          if(count($_SESSION['selectedUsers']) > 0){
-            foreach($_SESSION['selectedUsers'] as $selectedUser){
-							if($darkTheme == 0){
-              	echo '<div class="card bg-light" style="width: 10rem; display: inline-block;">';
-							}
+				<?php
+					if($darkTheme == 0){
+					?>
+					<a class="list-group-item bg-light list-group-item-action text-center" data-toggle="modal" data-target="#emailInviteModal" href="#"><i class="material-icons align-text-top">email</i>&emsp;Email Invite</a>
+					<?php
+					}
+					else if($darkTheme == 1){
+					?>
+					<a class="list-group-item bg-dark list-group-item-action text-center" data-toggle="modal" data-target="#emailInviteModal" href="#" style="color: white"><i class="material-icons align-text-top">email</i>&emsp;Email Invite</a>
+	        <?php
+					}
+					?>
+						<!-- Modal -->
+						<div class="modal fade" id="emailInviteModal" tabindex="-1" role="dialog" aria-labelledby="emailInviteModalLabel" aria-hidden="true">
+	  					<div class="modal-dialog" role="document">
+								<?php
+								if($darkTheme == 0){
+								?>
+	    					<div class="modal-content">
+								<?php
+								}
+								else if($darkTheme == 1){
+								?>
+								<div class="modal-content bg-dark">
+								<?php
+								}
+								?>
+	      					<div class="modal-header">
+	        					<h5 class="modal-title" id="emailInviteModalLabel">Email Invite</h5>
+										<?php
+										if($darkTheme == 0){
+										?>
+	        					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<?php
+										}
+										else if($darkTheme == 1){
+										?>
+										<button type="button" class="close bg-light" data-dismiss="modal" aria-label="Close">
+										<?php
+										}
+										?>
+	          					<span aria-hidden="true">&times;</span>
+	        					</button>
+	      					</div>
+									<form action="emailInvite.php">
+	      						<div class="modal-body">
+											<input type="hidden" name="fromEvent_id" value="<?php echo $event_id ?>">
+											<div class="form-group">
+												<label for="inputEmail">Email Address</label>
+												<input type="email" name="email" class="form-control" id="inputEmail">
+											</div>
+	      						</div>
+	      						<div class="modal-footer">
+	        						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        						<button type="submit" class="btn btn-primary">Send Invite</button>
+	      						</div>
+									</form>
+	    					</div>
+	  					</div>
+						</div>
+						<!-- Modal end -->
+						<br>
+						<br>
+						<?php
+		        if(isset($_SESSION['selectedUsers'])){
+		          if(count($_SESSION['selectedUsers']) > 0){
+		            foreach($_SESSION['selectedUsers'] as $selectedUser){
+									if($darkTheme == 0){
+		              	echo '<div class="card bg-light" style="width: 10rem; display: inline-block;">';
+									}
 
-							else if($darkTheme == 1){
-								echo '<div class="card bg-dark" style="width: 10rem; display: inline-block;">';
-							}
-                echo '
-								<a href="deselectUsers.php?deselectedUser='.$selectedUser[0].'&fromEvent_id='.$event_id.'" class="close bg-light" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                  </a>
-                  <img class="card-img-top" src="https://www.gravatar.com/avatar/'.$selectedUser[1].'?d=mp&s=300">
-                  <div class="card-body">
-                    <p class="card-text text-center">'.$selectedUser[0].'</p>
-                  </div>
-                </div>';
-              }
-              echo '
-              <br>
-              <br>
-              <div class="text-center">
-                <a href="inviteSelected.php?event_id='.$event_id.'" class="btn btn-primary">Invite</a>
-              </div>
-              ';
-            }
-          }
-
-          ?>
+									else if($darkTheme == 1){
+										echo '<div class="card bg-dark" style="width: 10rem; display: inline-block;">';
+									}
+		                echo '
+										<a href="deselectUsers.php?deselectedUser='.$selectedUser[0].'&fromEvent_id='.$event_id.'" class="close bg-light" aria-label="Close">
+		                  <span aria-hidden="true">&times;</span>
+		                  </a>
+		                  <img class="card-img-top" src="https://www.gravatar.com/avatar/'.$selectedUser[1].'?d=mp&s=300">
+		                  <div class="card-body">
+		                    <p class="card-text text-center">'.$selectedUser[0].'</p>
+		                  </div>
+		                </div>';
+		              }
+		              echo '
+		              <br>
+		              <br>
+		              <div class="text-center">
+		                <a href="inviteSelected.php?event_id='.$event_id.'" class="btn btn-primary">Invite</a>
+		              </div>
+		              ';
+		            }
+		          }
+							?>
         </main>
+				<br>
       </div>
 
     <script src="js/script.js"></script>
