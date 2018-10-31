@@ -20,6 +20,13 @@ $fromEvent_id = $_GET['fromEvent_id'];
 $user_id_query = "SELECT * FROM users WHERE username='$session_username'";
 $user_id_result = mysqli_query($link, $user_id_query);
 
+$emailQuery = "SELECT email FROM users WHERE username='$session_username'";
+$emailResult = mysqli_query($link, $emailQuery);
+
+$email = mysqli_fetch_array($emailResult)[0];
+
+$email_hash = md5(strtolower(trim($email)));
+
 $event_query = "SELECT * FROM events WHERE event_id='$fromEvent_id'";
 $event_result = mysqli_query($link, $event_query);
 
@@ -39,8 +46,29 @@ $session_user_id = $_SESSION['user_id'];
 
 $to = $_GET['email'];
 $subject = "Event invite";
-$message = "You got an invitation from ".$session_username.".<br><br><b>What:</b><br>".$title."<br><br><b>When:</b><br>".$upcomingStartDateFormatted." at ".$upcomingStartTimeFormatted."<br><br>
-<b>Where:</b><br>".$upcomingLocation;
+$message = "
+<div style='display: flex;'>
+  <img src='https://www.gravatar.com/avatar/".$email_hash."?d=mp&s=500' width='100' height='100'>
+  &emsp;
+  <div>
+    <h1>".$session_username." invited you to join</h1>
+    <p>".$title."
+  </div>
+</div>
+<br>
+<br>
+<b>When:</b>
+<br>
+".$upcomingStartDateFormatted." at ".$upcomingStartTimeFormatted."
+<br>
+<br>
+<b>Where:</b>
+<br>
+".$upcomingLocation."
+<div style='text-align: center;'>
+  <a href='localhost/Events/register.php'>Sign up</a>
+</div>
+";
 
 ini_set('SMTP', 'smtp.gmail.com');
 //ini_set('SMTP', 'localhost');
