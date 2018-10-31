@@ -135,6 +135,9 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 							<a class="nav-link" href="pending.php">Pending</a>
 						</li>
 						<li class="nav-item">
+							<a class="nav-link" href="calendar.php">Calendar</a>
+						</li>
+						<li class="nav-item">
 							<a class="nav-link" href="findFriends.php">Find Friends</a>
 						</li>
           </ul>

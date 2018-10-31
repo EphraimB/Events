@@ -95,6 +95,9 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 						<li class="nav-item">
 							<a class="nav-link" href="findFriends.php">Find Friends</a>
 						</li>
+            <li class="nav-item">
+							<a class="nav-link" href="calendar.php">Calendar</a>
+						</li>
 						<li class="nav-item active">
 							<a class="nav-link" href="chat.php">Chat <span class="sr-only">(current)</span></a>
 						</li>
