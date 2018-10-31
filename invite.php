@@ -46,8 +46,14 @@ $result = mysqli_query($link, $query);
 $allUsers_query = "SELECT * FROM users WHERE user_id<>'$session_user_id'";
 $allUsers_result = mysqli_query($link, $allUsers_query);
 
+$allUsersFriends_query = "SELECT * FROM users WHERE user_id<>'$session_user_id'";
+$allUsersFriends_result = mysqli_query($link, $allUsersFriends_query);
+
 $allUsersEmailQuery = "SELECT email FROM users WHERE user_id<>'$session_user_id'";
 $allUsersEmailResult = mysqli_query($link, $allUsersEmailQuery);
+
+$allFriendsEmailQuery = "SELECT email FROM users WHERE user_id<>'$session_user_id'";
+$allFriendsEmailResult = mysqli_query($link, $allFriendsEmailQuery);
 
 $allFriends_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.friend_id=users.user_id WHERE friends.user_id='$session_user_id'";
 $allFriends_result = mysqli_query($link, $allFriends_query);
@@ -245,43 +251,77 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
 					<?php
 					while($friends = mysqli_fetch_array($allFriends_result)['username']){
-						array_push($usersFriends, $friends);
-					}
+							array_push($usersFriends, $friends);
+						}
 
-					while($friendsOtherWay = mysqli_fetch_array($allFriendsOtherWay_result)['username']){
-						array_push($usersFriends, $friendsOtherWay);
-					}
+						while($friendsOtherWay = mysqli_fetch_array($allFriendsOtherWay_result)['username']){
+							array_push($usersFriends, $friendsOtherWay);
+						}
 
-					while($invited = mysqli_fetch_array($user_id_invited_result)['username']){
-						array_push($invitedUsers, $invited);
-					}
+						while($invited = mysqli_fetch_array($user_id_invited_result)['username']){
+							array_push($invitedUsers, $invited);
+						}
 
-					while($user = mysqli_fetch_array($allUsers_result)){
-						$allUsersUsername = $user['username'];
-            $allUsersEmail = mysqli_fetch_array($allUsersEmailResult)[0];
+						//Friends
+						echo '<h4 class="text-center">Friends</h4>';
+						while($friend = mysqli_fetch_array($allUsersFriends_result)){
+							$allFriendsUsername = $friend['username'];
+	            $allFriendsEmail = mysqli_fetch_array($allFriendsEmailResult)[0];
 
-            if(in_array($allUsersUsername, $invitedUsers) == 0){
-              $allUsersEmail_hash = md5(strtolower(trim($allUsersEmail)));
 
-							if(in_array($allUsersUsername, $usersFriends) == 1){
-								if($darkTheme == 0){
-          			?>
-              		<a class="selectedUser list-group-item bg-light list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $allUsersUsername ?>&selectedUserEmail_hash=<?php echo $allUsersEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>">
-								<?php
-								}
-								else if($darkTheme == 1){
-								?>
-									<a class="selectedUser list-group-item bg-dark list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $allUsersUsername ?>&selectedUserEmail_hash=<?php echo $allUsersEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>" style="color: white">
-								<?php
-								}
-								?>
-								<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $allUsersEmail_hash ?>?d=mp&s=30">&emsp;<span><?php echo $allUsersUsername ?></span>
-								</a>
+							if(in_array($allFriendsUsername, $invitedUsers) == 0){
+								$allFriendsEmail_hash = md5(strtolower(trim($allFriendsEmail)));
+
+								if(in_array($allFriendsUsername, $usersFriends) == 1){
+									if($darkTheme == 0){
+          				?>
+              			<a class="selectedUser list-group-item bg-light list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $allFriendsUsername ?>&selectedUserEmail_hash=<?php echo $allFriendsEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>">
+									<?php
+									}
+									else if($darkTheme == 1){
+									?>
+										<a class="selectedUser list-group-item bg-dark list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $allFriendsUsername ?>&selectedUserEmail_hash=<?php echo $allFriendsEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>" style="color: white">
+									<?php
+									}
+									?>
+									<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $allFriendsEmail_hash ?>?d=mp&s=30">&emsp;<span><?php echo $allFriendsUsername ?></span>
+									</a>
+          			<?php
+          			}
+							}
+						}
+						// --
+						echo '<br>';
+						//Strangers
+						echo '<h4 class="text-center">Strangers</h4>';
+						while($user = mysqli_fetch_array($allUsers_result)){
+							$allUsersUsername = $user['username'];
+	            $allUsersEmail = mysqli_fetch_array($allUsersEmailResult)[0];
+
+            	if(in_array($allUsersUsername, $invitedUsers) == 0){
+              	$allUsersEmail_hash = md5(strtolower(trim($allUsersEmail)));
+
+								if(in_array($allUsersUsername, $usersFriends) == 0){
+									if($darkTheme == 0){
+          				?>
+              			<a class="selectedUser list-group-item bg-light list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $allUsersUsername ?>&selectedUserEmail_hash=<?php echo $allUsersEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>">
+									<?php
+									}
+									else if($darkTheme == 1){
+									?>
+										<a class="selectedUser list-group-item bg-dark list-group-item-action text-center" href="selectUsers.php?selectedUser=<?php echo $allUsersUsername ?>&selectedUserEmail_hash=<?php echo $allUsersEmail_hash ?>&fromEvent_id=<?php echo $event_id ?>" style="color: white">
+									<?php
+									}
+									?>
+									<img class="align-middle circle-img" src="https://www.gravatar.com/avatar/<?php echo $allUsersEmail_hash ?>?d=mp&s=30">&emsp;<span><?php echo $allUsersUsername ?></span>
+									</a>
           		<?php
-          	}
-        	}
-				}
-        	?>
+          		}
+						}
+					}
+					// --
+
+        ?>
         </div>
         <br>
         <br>
