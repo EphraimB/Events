@@ -132,17 +132,21 @@ if( ($this->currentDay!=0)&&($this->currentDay<=$this->daysInMonth) ){
 
 global $events_result;
 
+//echo 'li-'.$this->currentDate.'<br>';
 
-$htmlDay = '<li id="li-'.$this->currentDate.'" class="'.($cellNumber%7==1?' start ':($cellNumber%7==0?' end ':' ')).
-        ($cellContent==null?'mask':'').'">'.$cellContent;
+  $htmlDay = '<li id="li-'.$this->currentDate.'" class="'.($cellNumber%7==1?' start ':($cellNumber%7==0?' end ':' ')).
+        ($cellContent==null?'mask':'').'">'.$cellContent.'</li>';
 
-        /*while($event = mysqli_fetch_array($events_result)){
-          $event_title = $event['title'];*/
+  while($event = mysqli_fetch_array($events_result)){
+    $event_title = $event['title'];
 
-          $htmlDay .= '<p class="event">'.mysqli_fetch_array($events_result)['title'].'</p>';
-        //}
-        $htmlDay .= '</li>';
-        return $htmlDay;
+    echo '<script>
+          document.getElementById("li-2018-11-02").innerHTML = "<?php echo $this->currentYear ?>";
+          </script>
+          ';
+        }
+
+return $htmlDay;
 }
 
 /**
