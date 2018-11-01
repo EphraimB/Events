@@ -1,9 +1,9 @@
 /*******************************Calendar Top Navigation*********************************/
 div#calendar{
-  margin:0px auto;
-  padding:0px;
+  margin: 0px auto;
+  padding: 0px;
   width: 602px;
-  font-family:Helvetica, "Times New Roman", Times, serif;
+  font-family: Helvetica, "Times New Roman", Times, serif;
 }
 
 div#calendar div.box{
@@ -12,7 +12,7 @@ div#calendar div.box{
     left:0px;
     width:100%;
     height:40px;
-    background-color:   #787878 ;
+    background-color: #787878;
 }
 
 div#calendar div.header{
@@ -94,14 +94,20 @@ div#calendar ul.dates{
     margin-bottom: 5px;
 }
 
+.event{
+  font-size: 11px;
+  text-align: center;
+  cursor: pointer;
+  background-color: blue;
+  color: white;
+}
+
 /** overall width = width+padding-right**/
 div#calendar ul.dates li{
     margin:0px;
     padding:0px;
     margin-right:5px;
     margin-top: 5px;
-    line-height:80px;
-    vertical-align:middle;
     float:left;
     list-style-type:none;
     width:80px;
@@ -109,7 +115,7 @@ div#calendar ul.dates li{
     font-size:25px;
     background-color: #DDD;
     color:#000;
-    text-align:center;
+    text-align:left;
 }
 
 :focus{
@@ -118,4 +124,4 @@ div#calendar ul.dates li{
 
 div.clear{
     clear:both;
-}     
+}

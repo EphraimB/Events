@@ -213,6 +213,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
       <header>
         <h1 class="text-center">Calendar</h1>
       </header>
+      <br>
       <main>
       <?php
       include 'calendarWidget.php';

@@ -1,4 +1,8 @@
 <?php
+
+$events_query = "SELECT * FROM events LEFT OUTER JOIN userevents ON events.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE userevents.user_id='$session_user_id'";
+$events_result = mysqli_query($link, $events_query);
+
 /**
 *@author  Xu Ding
 *@email   thedilab@gmail.com
@@ -10,10 +14,11 @@ class Calendar {
 * Constructor
 */
 public function __construct(){
-$this->naviHref = htmlentities($_SERVER['PHP_SELF']);
+  $this->naviHref = htmlentities($_SERVER['PHP_SELF']);
 }
 
 /********************* PROPERTY ********************/
+
 private $dayLabels = array("Mon","Tue","Wed","Thu","Fri","Sat","Sun");
 
 private $currentYear=0;
@@ -125,9 +130,19 @@ if( ($this->currentDay!=0)&&($this->currentDay<=$this->daysInMonth) ){
     $cellContent=null;
 }
 
+global $events_result;
 
-return '<li id="li-'.$this->currentDate.'" class="'.($cellNumber%7==1?' start ':($cellNumber%7==0?' end ':' ')).
-        ($cellContent==null?'mask':'').'">'.$cellContent.'</li>';
+
+$htmlDay = '<li id="li-'.$this->currentDate.'" class="'.($cellNumber%7==1?' start ':($cellNumber%7==0?' end ':' ')).
+        ($cellContent==null?'mask':'').'">'.$cellContent;
+
+        /*while($event = mysqli_fetch_array($events_result)){
+          $event_title = $event['title'];*/
+
+          $htmlDay .= '<p class="event">'.mysqli_fetch_array($events_result)['title'].'</p>';
+        //}
+        $htmlDay .= '</li>';
+        return $htmlDay;
 }
 
 /**
@@ -146,7 +161,7 @@ $preYear = $this->currentMonth==1?intval($this->currentYear)-1:$this->currentYea
 return
     '<div class="header">'.
         '<a class="prev" href="'.$this->naviHref.'?month='.sprintf('%02d',$preMonth).'&year='.$preYear.'">Prev</a>'.
-            '<span class="title">'.date('Y M',strtotime($this->currentYear.'-'.$this->currentMonth.'-1')).'</span>'.
+            '<span class="title">'.date('F Y',strtotime($this->currentYear.'-'.$this->currentMonth.'-1')).'</span>'.
         '<a class="next" href="'.$this->naviHref.'?month='.sprintf("%02d", $nextMonth).'&year='.$nextYear.'">Next</a>'.
     '</div>';
 }
