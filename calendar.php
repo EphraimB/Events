@@ -105,7 +105,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 							<a class="nav-link" href="findFriends.php">Find Friends</a>
 						</li>
 						<li class="nav-item active">
-							<a class="nav-link" href="calendar.php">Calendar <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="calendar.php?month=<?php echo date('m', strtotime("now")); ?>&day=<?php echo date('d', strtotime("now")); ?>&year=<?php echo date('Y', strtotime("now")); ?>">Calendar <span class="sr-only">(current)</span></a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="chat.php">Chat</a>
