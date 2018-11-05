@@ -215,6 +215,10 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
               echo '</div>';
             }
           ?>
+					<div class="form-group text-center">
+						<label class="font-weight-bold">Banner image</label>
+						<input type="file" class="form-control">
+					</div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Title</label>
             <input type="text" class="form-control" name="title">
