@@ -251,12 +251,12 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 					<?php
 					if($darkTheme == 0){
 					?>
-					<div class="card mx-lg-0 mx-auto" style="width: 18rem;">
+					<div class="card mx-lg-0 mx-auto float-left" style="width: 18rem;">
 						<?php
 					}
 					else if($darkTheme == 1){
 					?>
-					<div class="card mx-lg-0 mx-auto bg-dark" style="width: 18rem;">
+					<div class="card mx-lg-0 mx-auto bg-dark float-left" style="width: 18rem;">
 					<?php
 					}
 						ini_set("allow_url_fopen", 1);
@@ -274,9 +274,10 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           		<p class="text-center card-text">to <?php echo $endDateFormatted ?> at <?php echo $endTimeFormatted ?></p>
 						</div>
 					</div>
-          <br>
-          <br>
-          <br>
+					<img class="jumbotron float-right" src="img/facebookButton.png">
+          <br style="clear: left;">
+					<br>
+					<br>
           <br>
 					<style>
 					 @media only screen and (max-width: 991px){
