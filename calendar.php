@@ -230,7 +230,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 
       $todaysDate = date("Y-m-d", strtotime("now"));
       echo '<script>
-            document.getElementById("li-'.$todaysDate.'").style.backgroundColor = "blue";
+            document.getElementById("li-'.$todaysDate.'").style.backgroundColor = "#B1B1B1";
             </script>
             ';
 
