@@ -102,10 +102,6 @@ div#calendar ul.dates{
   color: white;
 }
 
-div#calendar ul.dates li#li-2018-11-01{
-  background-color: blue;
-}
-
 /** overall width = width+padding-right**/
 div#calendar ul.dates li{
     margin:0px;

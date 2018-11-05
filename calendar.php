@@ -31,6 +31,9 @@ $passedResult = mysqli_query($link, $passedQuery);
 $invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id' AND status_id=0";
 $invited_result = mysqli_query($link, $invited_query);
 
+$events_query = "SELECT * FROM events LEFT OUTER JOIN userevents ON events.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE userevents.user_id='$session_user_id'";
+$events_result = mysqli_query($link, $events_query);
+
 $notifications_query = "SELECT * FROM notifications LEFT OUTER JOIN events ON notifications.event_id=events.event_id LEFT OUTER JOIN userevents ON notifications.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE notifications.user_id='$session_user_id' AND cleared=0";
 $notifications_result = mysqli_query($link, $notifications_query);
 
@@ -221,6 +224,28 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
       $calendar = new Calendar();
 
       echo $calendar->show();
+
+      $todaysDate = date("Y-m-d", strtotime("now"));
+      echo '<script>
+            document.getElementById("li-'.$todaysDate.'").style.backgroundColor = "blue";
+            </script>
+            ';
+
+      while($event = mysqli_fetch_array($events_result)){
+        $event_title = $event['title'];
+        $startDate = $event['startDate'];
+        $startDateFormatted = date("Y-m-d", strtotime($startDate));
+
+        echo '<script>
+              var parent = document.createElement("p");
+              parent.setAttribute("class", "event");
+              var node = document.createTextNode("'.$event_title.'");
+              parent.appendChild(node);
+
+              document.getElementById("li-'.$startDateFormatted.'").appendChild(parent);
+              </script>
+              ';
+            };
       ?>
       </main>
     </div>

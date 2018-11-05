@@ -95,6 +95,7 @@ $content='<div id="calendar">'.
                 $content.='</div>';
 
 $content.='</div>';
+
 return $content;
 }
 
@@ -130,21 +131,12 @@ if( ($this->currentDay!=0)&&($this->currentDay<=$this->daysInMonth) ){
     $cellContent=null;
 }
 
-global $events_result;
+//global $events_result;
 
 //echo 'li-'.$this->currentDate.'<br>';
 
   $htmlDay = '<li id="li-'.$this->currentDate.'" class="'.($cellNumber%7==1?' start ':($cellNumber%7==0?' end ':' ')).
         ($cellContent==null?'mask':'').'">'.$cellContent.'</li>';
-
-  while($event = mysqli_fetch_array($events_result)){
-    $event_title = $event['title'];
-
-    echo '<script>
-          document.getElementById("li-2018-11-02").innerHTML = "<?php echo $this->currentYear ?>";
-          </script>
-          ';
-        }
 
 return $htmlDay;
 }
