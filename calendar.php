@@ -232,17 +232,22 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
             ';
 
       while($event = mysqli_fetch_array($events_result)){
+        $event_id = $event['event_id'];
+        $userEvents_id = $event['id'];
         $event_title = $event['title'];
         $startDate = $event['startDate'];
         $startDateFormatted = date("Y-m-d", strtotime($startDate));
 
         echo '<script>
+              var attribute = document.createElement("a");
+              attribute.setAttribute("href", "moreInfo.php?event_id='.$event_id.'&userEvents_id='.$userEvents_id.'&invitedEvent=false")
               var parent = document.createElement("p");
               parent.setAttribute("class", "event");
               var node = document.createTextNode("'.$event_title.'");
               parent.appendChild(node);
 
-              document.getElementById("li-'.$startDateFormatted.'").appendChild(parent);
+              document.getElementById("li-'.$startDateFormatted.'").appendChild(attribute);
+              attribute.appendChild(parent);
               </script>
               ';
             };

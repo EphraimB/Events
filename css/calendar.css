@@ -97,7 +97,6 @@ div#calendar ul.dates{
 .event{
   font-size: 11px;
   text-align: center;
-  cursor: pointer;
   background-color: blue;
   color: white;
 }
