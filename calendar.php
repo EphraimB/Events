@@ -34,6 +34,9 @@ $invited_result = mysqli_query($link, $invited_query);
 $events_query = "SELECT * FROM events LEFT OUTER JOIN userevents ON events.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE userevents.user_id='$session_user_id'";
 $events_result = mysqli_query($link, $events_query);
 
+$invitedEvents_query = "SELECT * FROM invite LEFT OUTER JOIN events ON invite.event_id=events.event_id WHERE user_id='$session_user_id' AND status_id=2";
+$invitedEvents_result = mysqli_query($link, $invitedEvents_query);
+
 $notifications_query = "SELECT * FROM notifications LEFT OUTER JOIN events ON notifications.event_id=events.event_id LEFT OUTER JOIN userevents ON notifications.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE notifications.user_id='$session_user_id' AND cleared=0";
 $notifications_result = mysqli_query($link, $notifications_query);
 
@@ -242,7 +245,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
               var attribute = document.createElement("a");
               attribute.setAttribute("href", "moreInfo.php?event_id='.$event_id.'&userEvents_id='.$userEvents_id.'&invitedEvent=false")
               var parent = document.createElement("p");
-              parent.setAttribute("class", "event");
+              parent.setAttribute("class", "event myEvent");
               var node = document.createTextNode("'.$event_title.'");
               parent.appendChild(node);
 
@@ -251,6 +254,27 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
               </script>
               ';
             };
+
+        while($invitedEvent = mysqli_fetch_array($invitedEvents_result)){
+          $invitedEvent_id = $invitedEvent['event_id'];
+          $invitedUserEvents_id = $invitedEvent['id'];
+          $invitedEvent_title = $invitedEvent['title'];
+          $invitedStartDate = $invitedEvent['startDate'];
+          $invitedStartDateFormatted = date("Y-m-d", strtotime($invitedStartDate));
+
+          echo '<script>
+                var invitedAttribute = document.createElement("a");
+                invitedAttribute.setAttribute("href", "moreInfo.php?event_id='.$invitedEvent_id.'&userEvents_id='.$invitedUserEvents_id.'&invitedEvent=true")
+                var invitedParent = document.createElement("p");
+                invitedParent.setAttribute("class", "event invitedEvent");
+                var invitedNode = document.createTextNode("'.$invitedEvent_title.'");
+                invitedParent.appendChild(invitedNode);
+
+                document.getElementById("li-'.$invitedStartDateFormatted.'").appendChild(invitedAttribute);
+                invitedAttribute.appendChild(invitedParent);
+                </script>
+                ';
+        }
       ?>
       </main>
     </div>

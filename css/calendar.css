@@ -97,8 +97,15 @@ div#calendar ul.dates{
 .event{
   font-size: 11px;
   text-align: center;
-  background-color: blue;
   color: white;
+}
+
+.myEvent{
+  background-color: blue;
+}
+
+.invitedEvent{
+  background-color: purple;
 }
 
 /** overall width = width+padding-right**/
