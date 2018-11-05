@@ -22,8 +22,20 @@ $user_id_result = mysqli_query($link, $user_id_query);
 $_SESSION['user_id'] = mysqli_fetch_array($user_id_result)[0];
 $session_user_id = $_SESSION['user_id'];
 
+$upcomingQuery = "SELECT * FROM events LEFT OUTER JOIN userevents ON events.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE userevents.user_id='$session_user_id' AND events.endDate >= NOW()";
+$upcomingResult = mysqli_query($link, $upcomingQuery);
+
+$passedQuery = "SELECT * FROM events LEFT OUTER JOIN userevents ON events.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE userevents.user_id='$session_user_id' AND events.startDate <= NOW()";
+$passedResult = mysqli_query($link, $passedQuery);
+
 $invited_query = "SELECT * FROM invite WHERE user_id='$session_user_id' AND status_id=0";
 $invited_result = mysqli_query($link, $invited_query);
+
+$events_query = "SELECT * FROM events LEFT OUTER JOIN userevents ON events.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE userevents.user_id='$session_user_id'";
+$events_result = mysqli_query($link, $events_query);
+
+$invitedEvents_query = "SELECT * FROM invite LEFT OUTER JOIN events ON invite.event_id=events.event_id WHERE user_id='$session_user_id' AND status_id=2";
+$invitedEvents_result = mysqli_query($link, $invitedEvents_query);
 
 $notifications_query = "SELECT * FROM notifications LEFT OUTER JOIN events ON notifications.event_id=events.event_id LEFT OUTER JOIN userevents ON notifications.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE notifications.user_id='$session_user_id' AND cleared=0";
 $notifications_result = mysqli_query($link, $notifications_query);
@@ -37,18 +49,6 @@ $darkTheme_query = "SELECT darkTheme FROM users WHERE user_id='$session_user_id'
 $darkTheme_result = mysqli_query($link, $darkTheme_query);
 
 $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
-
-$findFriends_query = "SELECT * FROM users WHERE user_id <> '$session_user_id'";
-$findFriends_result = mysqli_query($link, $findFriends_query);
-
-$friendRequests_query = "SELECT * FROM friends LEFT OUTER JOIN users ON friends.user_id=users.user_id WHERE friend_id='$session_user_id' AND status_id=0";
-$friendRequests_result = mysqli_query($link, $friendRequests_query);
-
-$friendRequested_query = "SELECT * FROM friends WHERE friend_id='$session_user_id' OR user_id='$session_user_id'";
-$friendRequested_result = mysqli_query($link, $friendRequested_query);
-
-$requestedFriends_user_id_array = [];
-$requestedFriends_friend_id_array = [];
 ?>
 
 <!DOCTYPE html>
@@ -63,6 +63,7 @@ $requestedFriends_friend_id_array = [];
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link href="css/calendar.css" type="text/css" rel="stylesheet" />
     <link rel="icon" href="img/baseline-event-black-18/1x/baseline_event_black_18dp.png">
   </head>
 	<?php
@@ -107,12 +108,12 @@ $requestedFriends_friend_id_array = [];
 							<a class="nav-link" href="pending.php">Pending</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href="findFriends.php">Find Friends <span class="sr-only">(current)</span></a>
+							<a class="nav-link" href="findFriends.php">Find Friends</a>
 						</li>
-            <li class="nav-item">
-							<a class="nav-link" href="calendar.php?month=<?php echo date('m', strtotime("now")); ?>&day=<?php echo date('d', strtotime("now")); ?>&year=<?php echo date('Y', strtotime("now")); ?>">Calendar</a>
+						<li class="nav-item active">
+              <a class="nav-link" href="calendar.php?month=<?php echo date('m', strtotime("now")); ?>&day=<?php echo date('d', strtotime("now")); ?>&year=<?php echo date('Y', strtotime("now")); ?>">Calendar <span class="sr-only">(current)</span></a>
 						</li>
-            <li class="nav-item">
+						<li class="nav-item">
 							<a class="nav-link" href="chat.php">Chat</a>
 						</li>
           </ul>
@@ -216,90 +217,65 @@ $requestedFriends_friend_id_array = [];
       ?>
       <br>
       <header>
-        <h1 class="text-center">Find Friends</h1>
+        <h1 class="text-center">Calendar</h1>
       </header>
       <br>
       <main>
-        <?php
-        if(mysqli_num_rows($friendRequests_result) > 0){
-        ?>
-        <h4 class="text-center">Respond to your friend requests</h4>
-        <div class="list-group">
-          <?php
-          while($friendRequest = mysqli_fetch_array($friendRequests_result)){
-            $friendRequest_id = $friendRequest['id'];
-            $friendRequest_user_id = $friendRequest['user_id'];
-            $friendRequest_username = $friendRequest['username'];
-            $friendRequest_email = $friendRequest['email'];
-            $friendRequest_email_hash = md5(strtolower(trim($friendRequest_email)));
+      <?php
+      include 'calendarWidget.php';
 
-            if($darkTheme == 0){
-            ?>
-            <li class="list-group-item">
-            <?php
-            }
-            else if($darkTheme == 1){
-            ?>
-            <li class="list-group-item bg-dark">
-            <?php
-            }
-            ?>
-            <div class="row">
-              <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friendRequest_email_hash ?>?d=mp&s=150" width="50" height="50">
-              &ensp;<p class="col"><?php echo $friendRequest_username ?></p>
-              <a href="updateFriendRequest.php?requested_user_id=<?php echo $friendRequest_user_id ?>&action=confirm" class="btn btn-primary col-1">Confirm</a>
-              <a href="updateFriendRequest.php?requested_user_id=<?php echo $friendRequest_user_id ?>&action=delete" class="btn btn-secondary col-2 ml-2">Delete Request</a>
-            </div>
-          <?php
-          }
-          ?>
-        </div>
-        <?php
+      $calendar = new Calendar();
+
+      echo $calendar->show();
+
+      $todaysDate = date("Y-m-d", strtotime("now"));
+      echo '<script>
+            document.getElementById("li-'.$todaysDate.'").style.backgroundColor = "#B1B1B1";
+            </script>
+            ';
+
+      while($event = mysqli_fetch_array($events_result)){
+        $event_id = $event['event_id'];
+        $userEvents_id = $event['id'];
+        $event_title = $event['title'];
+        $startDate = $event['startDate'];
+        $startDateFormatted = date("Y-m-d", strtotime($startDate));
+
+        echo '<script>
+              var attribute = document.createElement("a");
+              attribute.setAttribute("href", "moreInfo.php?event_id='.$event_id.'&userEvents_id='.$userEvents_id.'&invitedEvent=false")
+              var parent = document.createElement("p");
+              parent.setAttribute("class", "event myEvent");
+              var node = document.createTextNode("'.$event_title.'");
+              parent.appendChild(node);
+
+              document.getElementById("li-'.$startDateFormatted.'").appendChild(attribute);
+              attribute.appendChild(parent);
+              </script>
+              ';
+            };
+
+        while($invitedEvent = mysqli_fetch_array($invitedEvents_result)){
+          $invitedEvent_id = $invitedEvent['event_id'];
+          $invitedUserEvents_id = $invitedEvent['id'];
+          $invitedEvent_title = $invitedEvent['title'];
+          $invitedStartDate = $invitedEvent['startDate'];
+          $invitedStartDateFormatted = date("Y-m-d", strtotime($invitedStartDate));
+
+          echo '<script>
+                var invitedAttribute = document.createElement("a");
+                invitedAttribute.setAttribute("href", "moreInfo.php?event_id='.$invitedEvent_id.'&userEvents_id='.$invitedUserEvents_id.'&invitedEvent=true")
+                var invitedParent = document.createElement("p");
+                invitedParent.setAttribute("class", "event invitedEvent");
+                var invitedNode = document.createTextNode("'.$invitedEvent_title.'");
+                invitedParent.appendChild(invitedNode);
+
+                document.getElementById("li-'.$invitedStartDateFormatted.'").appendChild(invitedAttribute);
+                invitedAttribute.appendChild(invitedParent);
+                </script>
+                ';
         }
-        ?>
-          <br>
-          <h4 class="text-center">People you may know</h4>
-          <div class="list-group">
-          <?php
-          while($friendRequested = mysqli_fetch_array($friendRequested_result)){
-            $friendRequested_user_id = $friendRequested['user_id'];
-            $friendRequested_friend_id = $friendRequested['friend_id'];
-
-            array_push($requestedFriends_user_id_array, $friendRequested_user_id);
-            array_push($requestedFriends_friend_id_array, $friendRequested_friend_id);
-          }
-
-          while($friend = mysqli_fetch_array($findFriends_result)){
-            $friend_user_id = $friend['user_id'];
-            $friend_username = $friend['username'];
-            $friend_email = $friend['email'];
-            $friend_email_hash = md5(strtolower(trim($friend_email)));
-
-
-            if(in_array($friend_user_id, $requestedFriends_friend_id_array) == 0 && in_array($friend_user_id, $requestedFriends_user_id_array) == 0){
-            if($darkTheme == 0){
-          ?>
-          <li class="list-group-item">
-          <?php
-          }
-          else if($darkTheme == 1){
-          ?>
-          <li class="list-group-item bg-dark">
-          <?php
-          }
-          ?>
-            <div class="row">
-              <img class="align-middle col-auto" src="https://www.gravatar.com/avatar/<?php echo $friend_email_hash ?>?d=mp&s=150" width="50" height="50">
-              &ensp;<p class="col"><?php echo $friend_username ?></p>
-              <a href="addFriend.php?friend_user_id=<?php echo $friend_user_id ?>" class="btn btn-primary col-2 mr-2 mr-lg-5"><p class="d-none d-lg-inline align-middle" style="font-size: 1.2rem">Add friend</p> <i class="material-icons align-text-top" style="font-size: 1.8rem;">person_add</i></a>
-            </div>
-          </li>
-          <?php
-          }
-          }
-          ?>
-        </div>
-        <br>
+      ?>
       </main>
     </div>
   </body>
