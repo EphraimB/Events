@@ -251,15 +251,16 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           <br>
 					<h3 class="text-center"><?php echo $title ?></h3>
 					<p class="text-center"><?php echo $description ?></p>
+					<div class="row">
 					<?php
 					if($darkTheme == 0){
 					?>
-					<div class="card mx-lg-0 mx-auto float-left" style="width: 18rem;">
+					<div class="card mx-lg-0 mx-auto" style="width: 18rem;">
 						<?php
 					}
 					else if($darkTheme == 1){
 					?>
-					<div class="card mx-lg-0 mx-auto bg-dark float-left" style="width: 18rem;">
+					<div class="card mx-lg-0 mx-auto bg-dark order-2 order-lg-1" style="width: 18rem;">
 					<?php
 					}
 						ini_set("allow_url_fopen", 1);
@@ -277,8 +278,16 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           		<p class="text-center card-text">to <?php echo $endDateFormatted ?> at <?php echo $endTimeFormatted ?></p>
 						</div>
 					</div>
-					<img class="jumbotron float-right" src="<?php echo mysqli_fetch_array($bannerImage_result)['file_path'] ?>">
-          <br style="clear: left;">
+					<?php
+					while($bannerImage = mysqli_fetch_array($bannerImage_result)){
+						$bannerImage_file_path = $bannerImage['file_path'];
+					?>
+					<img class="jumbotron col-10 col-lg-auto mx-lg-0 mx-auto ml-lg-5 order-1 order-lg-2" src="<?php echo $bannerImage_file_path ?>">
+					<?php
+					}
+					?>
+					</div>
+          <br>
 					<br>
 					<br>
           <br>
