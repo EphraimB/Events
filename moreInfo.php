@@ -229,9 +229,15 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           </ul>
         </div>
       </nav>
-      <br>
       <header>
-        <h1 class="text-center">More info</h1>
+				<?php
+				while($bannerImage = mysqli_fetch_array($bannerImage_result)){
+					$bannerImage_file_path = $bannerImage['file_path'];
+				?>
+				<img class="w-100" src="<?php echo $bannerImage_file_path ?>">
+				<?php
+				}
+				?>
       </header>
       <main>
         <?php
@@ -278,14 +284,6 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           		<p class="text-center card-text">to <?php echo $endDateFormatted ?> at <?php echo $endTimeFormatted ?></p>
 						</div>
 					</div>
-					<?php
-					while($bannerImage = mysqli_fetch_array($bannerImage_result)){
-						$bannerImage_file_path = $bannerImage['file_path'];
-					?>
-					<img class="jumbotron col-10 col-lg-auto mx-lg-0 mx-auto ml-lg-5 order-1 order-lg-2" src="<?php echo $bannerImage_file_path ?>">
-					<?php
-					}
-					?>
 					</div>
           <br>
 					<br>
