@@ -207,7 +207,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
       <br>
       <br>
       <main>
-        <form action="server.php" method="post">
+        <form action="server.php" method="post" enctype="multipart/form-data">
           <?php
             if(isset($_SESSION['addEvent_error'])){
               echo '<div class="alert alert-danger" role="alert">';
@@ -215,6 +215,10 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
               echo '</div>';
             }
           ?>
+					<div class="form-group text-center">
+						<label class="font-weight-bold">Banner image</label>
+						<input type="file" class="form-control" id="bannerImage" name="bannerImage">
+					</div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Title</label>
             <input type="text" class="form-control" name="title">

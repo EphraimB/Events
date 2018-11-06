@@ -61,6 +61,9 @@ $pendingUsers_result = mysqli_query($link, $pendingUsers_query);
 $pendingUsersCount_query = "SELECT COUNT(*) FROM invite WHERE event_id='$event_id' AND status_id=0";
 $pendingUsersCount_result = mysqli_query($link, $pendingUsersCount_query);
 
+$bannerImage_query = "SELECT * FROM files WHERE event_id='$event_id'";
+$bannerImage_result = mysqli_query($link, $bannerImage_query);
+
 $notifications_query = "SELECT * FROM notifications LEFT OUTER JOIN events ON notifications.event_id=events.event_id LEFT OUTER JOIN userevents ON notifications.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE notifications.user_id='$session_user_id' AND cleared=0";
 $notifications_result = mysqli_query($link, $notifications_query);
 
@@ -248,15 +251,16 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           <br>
 					<h3 class="text-center"><?php echo $title ?></h3>
 					<p class="text-center"><?php echo $description ?></p>
+					<div class="row">
 					<?php
 					if($darkTheme == 0){
 					?>
-					<div class="card mx-lg-0 mx-auto" style="width: 18rem;">
+					<div class="card mx-lg-0 mx-auto order-2 order-lg-1" style="width: 18rem;">
 						<?php
 					}
 					else if($darkTheme == 1){
 					?>
-					<div class="card mx-lg-0 mx-auto bg-dark" style="width: 18rem;">
+					<div class="card mx-lg-0 mx-auto bg-dark order-2 order-lg-1" style="width: 18rem;">
 					<?php
 					}
 						ini_set("allow_url_fopen", 1);
@@ -274,9 +278,18 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           		<p class="text-center card-text">to <?php echo $endDateFormatted ?> at <?php echo $endTimeFormatted ?></p>
 						</div>
 					</div>
+					<?php
+					while($bannerImage = mysqli_fetch_array($bannerImage_result)){
+						$bannerImage_file_path = $bannerImage['file_path'];
+					?>
+					<img class="jumbotron col-10 col-lg-auto mx-lg-0 mx-auto ml-lg-5 order-1 order-lg-2" src="<?php echo $bannerImage_file_path ?>">
+					<?php
+					}
+					?>
+					</div>
           <br>
-          <br>
-          <br>
+					<br>
+					<br>
           <br>
 					<style>
 					 @media only screen and (max-width: 991px){

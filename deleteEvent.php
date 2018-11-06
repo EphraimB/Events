@@ -16,9 +16,14 @@ if($result){
   $delete_userEvents_result = mysqli_query($link, $delete_userEvents_query);
 
   if($delete_userEvents_result){
-    header("location: index.php");
+    $delete_fileUpload_query = "DELETE FROM files WHERE event_id=$event_id";
+    $delete_fileUpload_result = mysqli_query($link, $delete_fileUpload_query);
 
-    mysqli_close($link);
+    if($delete_fileUpload_result){
+      header("location: index.php");
+
+      mysqli_close($link);
+    }
   }
 }
 
