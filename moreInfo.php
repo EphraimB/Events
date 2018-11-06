@@ -61,6 +61,9 @@ $pendingUsers_result = mysqli_query($link, $pendingUsers_query);
 $pendingUsersCount_query = "SELECT COUNT(*) FROM invite WHERE event_id='$event_id' AND status_id=0";
 $pendingUsersCount_result = mysqli_query($link, $pendingUsersCount_query);
 
+$bannerImage_query = "SELECT * FROM files WHERE event_id='$event_id'";
+$bannerImage_result = mysqli_query($link, $bannerImage_query);
+
 $notifications_query = "SELECT * FROM notifications LEFT OUTER JOIN events ON notifications.event_id=events.event_id LEFT OUTER JOIN userevents ON notifications.event_id=userevents.event_id LEFT OUTER JOIN users ON userevents.user_id=users.user_id WHERE notifications.user_id='$session_user_id' AND cleared=0";
 $notifications_result = mysqli_query($link, $notifications_query);
 
@@ -274,7 +277,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
           		<p class="text-center card-text">to <?php echo $endDateFormatted ?> at <?php echo $endTimeFormatted ?></p>
 						</div>
 					</div>
-					<img class="jumbotron float-right" src="img/facebookButton.png">
+					<img class="jumbotron float-right" src="<?php echo mysqli_fetch_array($bannerImage_result)['file_path'] ?>">
           <br style="clear: left;">
 					<br>
 					<br>

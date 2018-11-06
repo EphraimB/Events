@@ -640,16 +640,72 @@ function addEvent(){
     $addEvent_result = mysqli_query($link, $addEvent_query);
   }
 
+$target_dir = "uploads/";
+$target_file = $target_dir . basename($_FILES["bannerImage"]["name"]);
+$uploadOk = 1;
+$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+// Check if image file is a actual image or fake image
+if(isset($_POST["submit"])) {
+    $check = getimagesize($_FILES["bannerImage"]["tmp_name"]);
+    if($check !== false) {
+        echo "File is an image - " . $check["mime"] . ".";
+        $uploadOk = 1;
+    } else {
+        echo "File is not an image.";
+        $uploadOk = 0;
+    }
+}
+// Check if file already exists
+if (file_exists($target_file)) {
+    echo "Sorry, file already exists.";
+    $uploadOk = 0;
+}
+// Check file size
+if ($_FILES["bannerImage"]["size"] > 500000) {
+    echo "Sorry, your file is too large.";
+    $uploadOk = 0;
+}
+// Allow certain file formats
+if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+&& $imageFileType != "gif" ) {
+    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    $uploadOk = 0;
+}
+// Check if $uploadOk is set to 0 by an error
+if ($uploadOk == 0) {
+    echo "Sorry, your file was not uploaded.";
+// if everything is ok, try to upload file
+} else {
+    if (move_uploaded_file($_FILES["bannerImage"]["tmp_name"], $target_file)) {
+        echo "The file ". basename( $_FILES["bannerImage"]["name"]). " has been uploaded.";
+    } else {
+        echo "Sorry, there was an error uploading your file.";
+    }
+}
+
   if($addEvent_result){
     $userEvents_query = "INSERT INTO userEvents(user_id, event_id)
                     VALUES ('$session_user_id', LAST_INSERT_ID())";
     $userEvents_result = mysqli_query($link, $userEvents_query);
 
     if($userEvents_result){
-      unset($_SESSION['addEvent_error']);
-      header("location: index.php");
+      $inserted_event_id_query = "SELECT event_id FROM userEvents WHERE id=LAST_INSERT_ID()";
+      $inserted_event_id_result = mysqli_query($link, $inserted_event_id_query);
 
-      mysqli_close($link);
+      if($inserted_event_id_result){
+        $inserted_event_id = mysqli_fetch_array($inserted_event_id_result)[0];
+
+        $fileUpload_query = "INSERT INTO files(event_id, file_path)
+                        VALUES ('$inserted_event_id', '$target_file')";
+        $fileUpload_result = mysqli_query($link, $fileUpload_query);
+
+        if($fileUpload_result){
+          unset($_SESSION['addEvent_error']);
+          header("location: index.php");
+
+          mysqli_close($link);
+        }
+      }
     }
     else{
       echo "Problem";
