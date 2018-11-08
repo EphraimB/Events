@@ -701,7 +701,7 @@ if ($uploadOk == 0) {
 
         if($fileUpload_result){
           unset($_SESSION['addEvent_error']);
-          header("location: index.php");
+          header("location: cropImage.php?event_id=".$inserted_event_id);
 
           mysqli_close($link);
         }
@@ -1093,11 +1093,60 @@ function editEvent(){
     $editEvent_result = mysqli_query($link, $editEvent_query);
   }
 
-  if($editEvent_result){
-    unset($_SESSION['updateEvent_error']);
-    header("location: index.php");
+  $target_dir = "uploads/";
+  $target_file = $target_dir . basename($_FILES["bannerImage"]["name"]);
+  echo $target_file;
+  $uploadOk = 1;
+  $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+  // Check if image file is a actual image or fake image
+  if(isset($_POST["submit"])) {
+      $check = getimagesize($_FILES["bannerImage"]["tmp_name"]);
+      if($check !== false) {
+          echo "File is an image - " . $check["mime"] . ".";
+          $uploadOk = 1;
+      } else {
+          echo "File is not an image.";
+          $uploadOk = 0;
+      }
+  }
+  // Check if file already exists
+  if (file_exists($target_file)) {
+      echo "Sorry, file already exists.";
+      $uploadOk = 0;
+  }
+  // Check file size
+  if ($_FILES["bannerImage"]["size"] > 500000) {
+      echo "Sorry, your file is too large.";
+      $uploadOk = 0;
+  }
+  // Allow certain file formats
+  if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+  && $imageFileType != "gif" ) {
+      echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+      $uploadOk = 0;
+  }
+  // Check if $uploadOk is set to 0 by an error
+  if ($uploadOk == 0) {
+      echo "Sorry, your file was not uploaded.";
+  // if everything is ok, try to upload file
+  } else {
+      if (move_uploaded_file($_FILES["bannerImage"]["tmp_name"], $target_file)) {
+          echo "The file ". basename( $_FILES["bannerImage"]["name"]). " has been uploaded.";
+      } else {
+          echo "Sorry, there was an error uploading your file.";
+      }
+  }
 
-    mysqli_close($link);
+  if($editEvent_result){
+    $fileUpload_query = "UPDATE files SET file_path='$target_file' WHERE event_id='$event_id'";
+    $fileUpload_result = mysqli_query($link, $fileUpload_query);
+
+    if($fileUpload_result){
+      unset($_SESSION['updateEvent_error']);
+      header("location: cropImage.php?event_id=$event_id");
+
+      mysqli_close($link);
+    }
   }
   else{
     echo "Problem";

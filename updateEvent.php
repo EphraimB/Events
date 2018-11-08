@@ -225,13 +225,17 @@ while($row = mysqli_fetch_array($result)){
       <br>
       <main>
         <?php
-        echo '<form action="server.php?event_id='.$event_id.'" method="post">';
+        echo '<form action="server.php?event_id='.$event_id.'" method="post" enctype="multipart/form-data">';
           if(isset($_SESSION['updateEvent_error'])){
             echo '<div class="alert alert-danger" role="alert">';
               echo $_SESSION['updateEvent_error'];
             echo '</div>';
           }
         ?>
+				<div class="form-group text-center">
+					<label class="font-weight-bold">Banner image</label>
+					<input type="file" class="form-control" id="bannerImage" name="bannerImage">
+				</div>
           <div class="form-group text-center">
             <label class="font-weight-bold">Title</label>
             <?php echo '<input type="text" class="form-control text-center" name="title" value="'.$title.'">'; ?>

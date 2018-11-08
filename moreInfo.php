@@ -261,7 +261,7 @@ $darkTheme = mysqli_fetch_array($darkTheme_result)[0];
 					<?php
 					if($darkTheme == 0){
 					?>
-					<div class="card mx-lg-0 mx-auto" style="width: 18rem;">
+					<div class="card mx-lg-0 mx-auto">
 						<?php
 					}
 					else if($darkTheme == 1){
